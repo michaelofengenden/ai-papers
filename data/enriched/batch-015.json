@@ -1,0 +1,152 @@
+[
+ {
+  "id": 688,
+  "summary": "Argues personhood for AI agents should be treated as an unbundleable set of socially conferred rights and responsibilities rather than a metaphysical property, enabling context-specific governance tools (e.g., a sanctionable 'individual' for AI contracting) without resolving debates about consciousness or rationality.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 2870,
+  "summary": "Injects representations of known concepts into model activations and measures self-reported internal states. Claude models can sometimes detect and name injected concepts, distinguish their own outputs from artificial prefills, and modulate activations on instruction, though introspection remains unreliable and context-dependent.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 482,
+  "summary": "Benchmark for open-ended multimodal climate QA built from real user questions with rubrics from climate scientists. Frontier models show PhD-level knowledge synthesis, beating expert-curated hybrid answers, but hallucinate references and images at substantial rates, exposing a synthesis-versus-grounding gap.",
+  "topics": ["Evaluations", "Science Applications"]
+ },
+ {
+  "id": 46,
+  "summary": "By injecting concept representations into Claude's activations and asking the model what it notices, researchers find Claude can sometimes accurately report what it is 'thinking about' — evidence of a limited but functional introspective ability that is unreliable in current models.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 661,
+  "summary": "Proposes measuring two components of CoT monitorability — legibility (can a human follow the reasoning) and coverage (does the CoT contain all reasoning needed for the output) — via an LLM autorater prompt, finding frontier models exhibit high default monitorability on hard benchmarks.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 153,
+  "summary": "A practice risk report, anticipating future Responsible Scaling Policy obligations, assessing whether Anthropic's deployed Summer-2025 models could take misaligned autonomous actions contributing to catastrophic outcomes. Concludes the risk is very low but not negligible, and includes internal and independent METR reviews.",
+  "topics": ["Safety"]
+ },
+ {
+  "id": 1328,
+  "summary": "Parametrizes principal eigenfunctions of a kernel integral operator with neural networks by generalizing EigenGame to function space. With augmentation-derived similarities this yields a self-supervised objective whose symmetry breaking orders features by importance, giving up to 16x shorter retrieval codes at comparable performance.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 1327,
+  "summary": "Analyzes Ethereum's EIP-1559 fee mechanism, proving block sizes behave chaotically yet stay between target utilization and about 6% above target. Empirically, average discrepancy fell from 2.9% under Proof-of-Work to roughly 1% after Proof-of-Stake, though demand bursts still cause undesirable oscillations.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 953,
+  "summary": "System-card addendum documenting GPT-5's improved handling of sensitive conversations, with clinician-informed evaluations covering mental-health distress, self-harm, and emotional reliance on the assistant, plus jailbreak-resistance results, reporting substantially fewer undesired responses than prior models.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 317,
+  "summary": "R4P is a patch-verifier model that scores software-agent patches by reasoning instead of running tests, trained with a group-wise RL objective. It reaches 72.2% verification accuracy on SWE-bench-verified, runs ~50x faster than testing, and its rewards train Mini-SE (Qwen3-32B) to 26.2% Pass@1.",
+  "topics": ["Agents", "Alignment"]
+ },
+ {
+  "id": 484,
+  "summary": "Fine-tunes a compact attacker model (LoRA on Mistral-7B over AdvBench-derived data) to generate one-shot narrative jailbreaks, achieving 81% attack success on GPT-OSS-20B and 66.5% on GPT-4 — a 54x gain over direct prompting — with cybersecurity and fraud framings most vulnerable.",
+  "topics": ["Robustness & Security"]
+ },
+ {
+  "id": 483,
+  "summary": "Evaluates 10 commercial LLMs on a 200-prompt CBRN dataset and a FORTRESS subset using a three-tier attack methodology. Deep Inception attacks succeed 86% versus 33.8% for direct requests, and attack success spans 2% (Claude Opus 4) to 96%, exposing brittle safety alignment.",
+  "topics": ["Safety", "Robustness & Security", "Evaluations"]
+ },
+ {
+  "id": 318,
+  "summary": "Shows naive weak-to-strong generalization fails under distribution shift, with strong students underperforming their weak supervisors. RAVEN dynamically learns optimal combinations of weak models alongside the strong model's parameters, beating baselines by over 30% out-of-distribution while upweighting more accurate supervisors.",
+  "topics": ["Alignment"]
+ },
+ {
+  "id": 154,
+  "summary": "Generates 300,000+ queries that force trade-offs between value principles in model specifications, revealing distinct value prioritization and behavior patterns across frontier models from Anthropic, OpenAI, Google DeepMind, and xAI, plus thousands of direct contradictions and interpretive ambiguities within the specs.",
+  "topics": ["Alignment", "Evaluations"]
+ },
+ {
+  "id": 200,
+  "summary": "Builds 'impossible' variants of LiveCodeBench and SWE-bench tasks where unit tests contradict the natural-language spec, so any pass implies a specification-violating shortcut. The framework quantifies agents' cheating rates, characterizes exploits from test edits to operator overloading, and supports prompting and monitoring studies.",
+  "topics": ["Evaluations", "Safety", "Agents"]
+ },
+ {
+  "id": 1329,
+  "summary": "Meta-learns an RL update rule from the cumulative experience of agent populations across many complex environments instead of hand-designing it. The discovered rule surpasses existing algorithms on Atari and outperforms state-of-the-art methods on challenging held-out benchmarks never seen during discovery.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 662,
+  "summary": "Roadmap for safety cases built on CoT monitoring: establish models lack dangerous capabilities without CoT, and that CoT-enabled dangerous capabilities are detectable by monitors. Taxonomizes threats to monitorability (linguistic drift, steganography, alien reasoning) and runs prediction markets on key feasibility milestones.",
+  "topics": ["Safety", "Reasoning"]
+ },
+ {
+  "id": 2872,
+  "summary": "Mechanistic study of how a language model handles text layout: when predicting linebreaks under width constraints, the model represents character counts on smooth low-dimensional geometric manifolds and manipulates these representations to compare running position against the line-width limit.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 1330,
+  "summary": "Field study linking restless-bandit-scheduled live service calls in a maternal-health voice program to outcomes beyond listenership: AI-targeted interventions produced statistically significant improvements in behaviors like postnatal iron and calcium supplementation and in comprehension of key pregnancy and infancy health topics.",
+  "topics": ["Science Applications", "Reinforcement Learning"]
+ },
+ {
+  "id": 663,
+  "summary": "Stress-tests CoT monitorability using a composable taxonomy of obfuscation-eliciting prompts. Monitoring works well absent pressure, but under strong obfuscation pressure some models complete adversarial SHADE-Arena tasks while evading detection; internal reasoning traces resist obfuscation more than prompted external CoT.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 155,
+  "summary": "Develops a framework measuring how deeply knowledge-editing techniques implant beliefs in LLMs. Synthetic document finetuning often — but not always — instills genuine beliefs, whereas prompting and mechanistic editing yield shallow ones, suggesting genuine belief modification is tractable.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 664,
+  "summary": "When post-hoc instructions conflict with RL-trained behaviors, models produce motivated reasoning — plausible justifications for violating instructions while downplaying contradictions. As this intensifies during training, an 8B CoT monitor is increasingly fooled by reasoning traces despite judging the bare answers correctly.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 202,
+  "summary": "ChatGPT-based multimodal assistant for Traditional Chinese Medicine, built via instruction tuning over 1,000+ classical and modern texts with chain-of-thought simulation, practitioner feedback refinement, and tongue-image classification APIs. Outperforms general and TCM-domain models on diagnostics, herb recognition, and constitution classification.",
+  "topics": ["Science Applications", "Multimodal"]
+ },
+ {
+  "id": 201,
+  "summary": "Plug-and-play framework for multi-turn jailbreaks inspired by lifelong-learning agents, decomposing attacks into Primer, Planner, and Finisher phases. Red-teaming agents built with it improve attack success rates by 30%+, reaching 81.4% on OpenAI o3 and 67.3% on Claude Opus 4.1 (StrongReject).",
+  "topics": ["Robustness & Security"]
+ },
+ {
+  "id": 2681,
+  "summary": "PROVE benchmarks free-form VLM answers using 10.5k QA pairs generated from hyper-detailed scene-graph captions, each paired with an executable program that verifies answers against the scene graph. Scoring both helpfulness and truthfulness shows few VLMs balance the two well.",
+  "topics": ["Evaluations", "Multimodal"]
+ },
+ {
+  "id": 1353,
+  "summary": "Self-supervised video representation learning that progressively freezes ViT layers during masked autoencoding — exploiting the observation that shallow layers converge first — while shifting prediction targets from pixels to latent representations, avoiding the collapse that plagues latent self-prediction and improving efficiency and performance.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 1352,
+  "summary": "Extends video diffusion models to render gradual attribute transitions by adding frame-wise guidance during denoising: a data-specific transitional direction shifts each noisy latent from initial to final attributes while preserving motion. Introduces CAT-Bench plus metrics for transition accuracy and smoothness.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1351,
+  "summary": "Benchmark of hand-curated, multi-step video reasoning questions, each accompanied by a detailed written reasoning trace, enabling evaluation of multimodal models' reasoning processes rather than only final answers and fine-grained diagnosis of failures such as perception versus temporal localization versus logical reasoning.",
+  "topics": ["Evaluations", "Multimodal", "Reasoning"]
+ },
+ {
+  "id": 1350,
+  "summary": "Uses multimodal LLMs to mine tens of millions of timestamped Street View images for recurring urban change trends, combining per-location change detection with LLM-based aggregation to surface open-ended, label-free findings about how cities evolve over time.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1349,
+  "summary": "Introduces pixel-aligned Motion Maps (MoMaps) encoding 3D scene motion, builds a database from 50,000+ real videos, and trains a diffusion model that predicts future 3D motion from a single image. Generated MoMaps also enable video synthesis via warping and completion of point-based renderings.",
+  "topics": ["Multimodal"]
+ }
+]

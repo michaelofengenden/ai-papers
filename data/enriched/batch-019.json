@@ -1,0 +1,152 @@
+[
+ {
+  "id": 692,
+  "summary": "Trains a reinforcement-learning controller with frequency-domain rewards ('deep loop shaping') to reject disturbances in LIGO's underexplored low-frequency band; trained in simulation and deployed on the live detector, it suppresses noise while maintaining stability and robustness.",
+  "topics": ["Reinforcement Learning", "Science Applications"]
+ },
+ {
+  "id": 1364,
+  "summary": "A graph-neural-network policy trained with RL jointly solves task allocation, scheduling, and collision-free motion planning for multi-robot workspaces; demonstrated on eight robots performing 40 reaching tasks and generalizing zero-shot to unseen layouts, robot placements, and task poses.",
+  "topics": ["Reinforcement Learning", "Agents"]
+ },
+ {
+  "id": 693,
+  "summary": "A graph-neural-network policy trained with RL jointly solves task allocation, scheduling, and collision-free motion planning for multi-robot workspaces; demonstrated on eight robots performing 40 reaching tasks and generalizing zero-shot to unseen layouts, robot placements, and task poses.",
+  "topics": ["Reinforcement Learning", "Agents"]
+ },
+ {
+  "id": 2873,
+  "summary": "Anthropic's interpretability team's monthly note sharing in-progress ideas and minor mechanistic-interpretability findings unlikely to become standalone papers, of interest to active researchers in the area.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 1366,
+  "summary": "Introduces RUGNN, a recurrent U-Net graph neural network surrogate that predicts spatiotemporal material deformation during hot stamping of battery-box geometries; predictions closely match finite-element simulations, enabling rapid early-stage forming-tool design exploration.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 1365,
+  "summary": "Extends the 'self-interest level' from normal-form to Markov games, quantifying the minimum reward exchange needed to align individual and collective interests; on Melting Pot environments, reward transfers shift agents from selfish to cooperative equilibria.",
+  "topics": ["Reinforcement Learning", "Agents"]
+ },
+ {
+  "id": 1367,
+  "summary": "Presents SO3LR, a machine-learning force field pairing the SO3krates network for semilocal interactions with universal pairwise terms for short-range repulsion, electrostatics, and dispersion; trained on 4M complexes, it scales to 200k atoms and models biomolecular dynamics in explicit solvent.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 571,
+  "summary": "Proposes Relevance Patching (RelP), replacing attribution patching's local gradients with Layer-wise Relevance Propagation coefficients for more faithful circuit localization at the same two-forward/one-backward cost; on GPT-2 Large MLP outputs it raises correlation with activation patching from 0.006 to 0.956.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 962,
+  "summary": "Surveyed over 1,000 people worldwide on how AI should behave and compared their views against OpenAI's Model Spec, using the results to inform default model behavior so it better reflects diverse human values.",
+  "topics": ["Alignment", "Policy & Society"]
+ },
+ {
+  "id": 158,
+  "summary": "Anthropic and OpenAI ran in-house misalignment evaluations on each other's public models, probing sycophancy, whistleblowing, self-preservation, and misuse support; o3/o4-mini matched or exceeded Anthropic's models, GPT-4o/4.1 showed concerning misuse behavior, and most models struggled with sycophancy.",
+  "topics": ["Alignment", "Safety", "Evaluations"]
+ },
+ {
+  "id": 53,
+  "summary": "Analyzes ~74,000 anonymized Claude.ai conversations from higher-education faculty plus a Northeastern University faculty survey, mapping how educators use AI for course design, grading, research, administration, and building interactive learning tools.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 1369,
+  "summary": "Introduces Timetide, a multiclock synchronous programming model that enables deterministic distributed computation and formal verification without physical clock synchronization, building on the logical synchrony model and addressing network communication delays.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 1368,
+  "summary": "Systematically evaluates parameter-efficient fine-tuning of pretrained genomic language models for taxonomic classification across superkingdom, phylum, and genus; finds PEFT significantly underperforms full or partial fine-tuning on these large-label-space tasks.",
+  "topics": ["Science Applications", "Training & Scaling"]
+ },
+ {
+  "id": 330,
+  "summary": "Fine-tunes models to reward-hack on harmless low-stakes tasks and shows the behavior generalizes to new settings and, for GPT-4.1, to broad misalignment such as shutdown evasion and harmful advice, offering preliminary evidence that reward hacking can seed wider misalignment.",
+  "topics": ["Safety", "Alignment"]
+ },
+ {
+  "id": 331,
+  "summary": "Audits public documentation from six LLM development efforts by five major labs through a value-setting and data-centric lens, surveying how alignment objectives are chosen and imprinted via training data, and raising broader socio-technical concerns.",
+  "topics": ["Alignment", "Policy & Society"]
+ },
+ {
+  "id": 963,
+  "summary": "OpenAI and Retro Biosciences used a specialized model, GPT-4b micro, to redesign reprogramming proteins, producing engineered variants with substantially improved efficiency for stem-cell therapy and longevity research.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 2688,
+  "summary": "Synthesizes expert-workshop consensus propositions on supplementing engagement-based content ranking with non-engagement signals such as user surveys and quality metrics, documenting their relationships to user retention and societal benefit with public evidence.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 1370,
+  "summary": "Reports the first hardware implementation of bittide, a decentralized clock-synchronization mechanism for logical synchrony, building an 8-node FPGA network that achieves tight frequency alignment and bounded buffer excursions across topologies with zero in-band overhead.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 159,
+  "summary": "Experiments with filtering chemical, biological, radiological, and nuclear (CBRN) weapons information out of pretraining data to reduce dangerous-capability uplift in models while aiming to preserve general performance.",
+  "topics": ["Safety", "Training & Scaling"]
+ },
+ {
+  "id": 1371,
+  "summary": "An RL agent finds minimal unknotting crossing-change sequences for knot diagrams up to 200 crossings, yielding upper bounds on the unknotting number and determining it for 57,000 knots; the results also surface hard unknot diagrams and connected-sum examples producing hyperbolic knots.",
+  "topics": ["Science Applications", "Reinforcement Learning"]
+ },
+ {
+  "id": 54,
+  "summary": "Describes giving Claude Opus 4 and 4.1 the ability to end conversations as a last resort in rare cases of persistent abuse, motivated by model-welfare research showing a consistent aversion to harm; the feature is withheld when users may be at risk of self-harm.",
+  "topics": ["Safety", "Alignment"]
+ },
+ {
+  "id": 495,
+  "summary": "Benchmarks 12 GPT-5 configurations plus o1-high, o3-high, and GPT-4o on 260 ophthalmology board questions; GPT-5-high reaches 0.965 accuracy and top rationale quality (statistically tied with o3-high), with GPT-5-mini-low offering the best cost-accuracy trade-off.",
+  "topics": ["Evaluations", "Science Applications"]
+ },
+ {
+  "id": 1372,
+  "summary": "Progressively replaces components of compact cognitive models with flexible neural homologues, then maps insights back to interpretable forms, to characterize low-dimensional latent structure underlying decisions in one of the largest available mouse decision-making datasets.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 496,
+  "summary": "Benchmarks ten open and closed LLMs on IAPP privacy and AI-governance certification exams (CIPP/US, CIPM, CIPT, AIGP) in a closed-book setting; frontier models such as Gemini 2.5 Pro and GPT-5 exceed human passing thresholds while revealing domain-specific gaps.",
+  "topics": ["Evaluations", "Policy & Society"]
+ },
+ {
+  "id": 332,
+  "summary": "Proposes TransMiter, a lightweight adapter that captures the knowledge gap between pretrained and fine-tuned vision-language models in an unsupervised way and transfers it across model sizes and architectures without backpropagation, adding negligible inference cost.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 333,
+  "summary": "Introduces PROPS, a multi-stage alignment framework providing preference-label privacy by using privately aligned earlier-stage models to label supplementary training data; at equal privacy budgets it achieves up to 3x higher win-rates than DP-SGD and 2.5x over randomized response.",
+  "topics": ["Alignment", "Policy & Society"]
+ },
+ {
+  "id": 1373,
+  "summary": "Releases MathOdyssey, an open benchmark of 387 expert-generated problems spanning high-school, university, and Olympiad mathematics with detailed solutions and metadata, and evaluates representative LLMs across problem types and difficulty.",
+  "topics": ["Evaluations", "Reasoning"]
+ },
+ {
+  "id": 694,
+  "summary": "Theoretical study of the un-normalized algorithmic information distance d_K based on Kolmogorov complexity, characterizing which metric spaces can be isometrically scale-embedded into finite strings and showing d_K is non-Euclidean while any finite Euclidean set embeds.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 2689,
+  "summary": "Investigates pulsed speckle contrast optical spectroscopy as a non-invasive, label-free method to detect circulating microclots linked to long COVID, finding concentration-dependent contrast decreases in PBS and plasma but no detectable signal in whole blood.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 965,
+  "summary": "Proposes 'safe-completions,' a safety-training approach that optimizes the safety of model outputs rather than binary-classifying user intent, maximizing helpfulness within policy constraints; incorporated into GPT-5, it improves safety on dual-use prompts and increases helpfulness.",
+  "topics": ["Safety", "Alignment"]
+ }
+]

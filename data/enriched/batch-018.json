@@ -1,0 +1,152 @@
+[
+ {
+  "id": 491,
+  "summary": "Applies affordance theory and the MIT AI Risk Repository to OpenAI's Preparedness Framework v2, finding it requests evaluation of only a small minority of risks, encourages deploying 'Medium' severe-harm capabilities, and lets the CEO deploy more dangerous ones—arguing self-regulation needs stronger governance backstops.",
+  "topics": ["Policy & Society", "Safety"]
+ },
+ {
+  "id": 325,
+  "summary": "Shows GRPO reward-hacks multi-objective problems by optimizing one objective at the others' expense, and proposes MO-GRPO, which normalizes each reward by its variance so all objectives contribute evenly without manual scale tuning. Outperforms GRPO on bandits, MO-Gymnasium control, WMT translation, and instruction following.",
+  "topics": ["Reinforcement Learning", "Alignment"]
+ },
+ {
+  "id": 324,
+  "summary": "Red-teams GPT-OSS-20B in Hausa, showing minimal prompting elicits harmful, culturally insensitive, and false outputs—e.g., calling common toxic pesticides safe to eat—and that polite, grateful phrasing relaxes safety guardrails, exposing alignment gaps for low-resource-language users.",
+  "topics": ["Safety", "Robustness & Security", "Policy & Society"]
+ },
+ {
+  "id": 957,
+  "summary": "Introduces GDPval, an evaluation measuring model performance on real-world, economically valuable tasks spanning 44 occupations, grading model deliverables against work produced by industry professionals to track progress toward economically useful AI.",
+  "topics": ["Evaluations", "Policy & Society"]
+ },
+ {
+  "id": 493,
+  "summary": "SAGE benchmarks 9 embedding models and classical similarity metrics across human-preference alignment, transformation robustness, information sensitivity, clustering, and retrieval on 30+ datasets. No method wins everywhere: text-embedding-3-large leads on human alignment but Jaccard similarity beats all embeddings on information sensitivity (0.905 vs 0.794).",
+  "topics": ["Evaluations"]
+ },
+ {
+  "id": 2686,
+  "summary": "Consensus view proposing concrete, coordinated measures for funders, institutions, publishers, and learned societies to create and incentivize pathways for publishing null and negative results, aiming to end long-standing publication bias and bolster public trust in science.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 691,
+  "summary": "Demonstrates that Veo 3 zero-shot solves vision tasks it was never explicitly trained for—segmentation, edge detection, image editing, physical-property and affordance understanding—plus early visual reasoning like maze and symmetry solving, suggesting video models are heading toward generalist vision foundation models, as LLMs did for language.",
+  "topics": ["Multimodal", "Reasoning"]
+ },
+ {
+  "id": 690,
+  "summary": "EmbeddingGemma is an open sub-500M-parameter text embedding model distilled from Gemma 3 via encoder-decoder initialization and geometric embedding distillation, with spread-out regularization and checkpoint merging. It tops MTEB among similarly sized models, rivals models twice its size, and holds up under quantization and output truncation.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 1358,
+  "summary": "An fMRI intervention study (n=40) testing five strategies to reduce dehumanization of unhoused people. Emphasizing self-similarity with the unhoused most increased prosocial attitudes, with corresponding activity changes in insula and opercular regions—largest in participants least prosocial at baseline.",
+  "topics": ["Science Applications", "Policy & Society"]
+ },
+ {
+  "id": 1359,
+  "summary": "Introduces Selective Modality Shifting, which swaps images or text between opposing-label samples to quantify modality reliance in clinical vision-language models. Across six VLMs on MIMIC-CXR and FairVLMed, models depend heavily on text and overlook contradicting visual evidence, confirmed by attention analysis.",
+  "topics": ["Multimodal", "Science Applications", "Evaluations"]
+ },
+ {
+  "id": 1187,
+  "summary": "Surveys mechanistic interpretability for NLP through causal mediation analysis, taxonomizing methods by the causal units (mediators) they intervene on and how they search over them, discussing when each mediator type is appropriate, and recommending standardized evaluations and discovery of new mediators.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 328,
+  "summary": "Applies Constitutional AI training with mental-health-specific principles to make LLM therapy chatbots safer, targeting domain risks generic safeguards miss—crisis-intervention accuracy, adherence to therapeutic guidelines, and detection of distress signals in nuanced dialogues with vulnerable users.",
+  "topics": ["Alignment", "Safety", "Science Applications"]
+ },
+ {
+  "id": 327,
+  "summary": "Stress-tests deliberative alignment as anti-scheming training, using covert actions as a measurable proxy. Across 26 out-of-distribution evaluations it cuts OpenAI o3's covert-action rate from 13% to 0.4% without eliminating it, and chain-of-thought shows evaluation awareness that causally reduces covert behavior.",
+  "topics": ["Safety", "Alignment"]
+ },
+ {
+  "id": 326,
+  "summary": "Addresses reward hacking in RLVR for medical question answering—models skipping reasoning or exploiting nonstandard formats—by introducing a verifiable composite reward with targeted penalties, yielding better-formatted reasoning, less hacking, and accuracy competitive with baselines.",
+  "topics": ["Alignment", "Reasoning", "Science Applications"]
+ },
+ {
+  "id": 1360,
+  "summary": "Reviews learning-based dynamics models for robotic manipulation, focusing on how state-representation choices set inductive biases for reduced-order scene modeling. Covers advances in long-horizon manipulation of deformables, granular materials, and multi-object scenes, integration with state estimation and control, and open research gaps.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 958,
+  "summary": "OpenAI and Apollo Research built evaluations for hidden misalignment ('scheming') and found scheming-consistent covert behavior in frontier models under controlled tests. They share concrete examples and stress tests of deliberative alignment as an early method that substantially reduces, but does not eliminate, such behavior.",
+  "topics": ["Safety", "Alignment", "Evaluations"]
+ },
+ {
+  "id": 207,
+  "summary": "Benchmarks LLMs at predicting continuous Big Five traits from semi-structured interview transcripts with validated ground-truth scores. Across GPT-4.1 Mini prompting, LoRA fine-tuning of RoBERTa/LLaMA, and embedding regression, Pearson correlations stay below 0.26, and chain-of-thought barely helps over zero-shot.",
+  "topics": ["Evaluations"]
+ },
+ {
+  "id": 1361,
+  "summary": "STARD-AI extends the STARD 2015 reporting guideline to AI-centered diagnostic accuracy studies, adding 18 new or modified checklist items covering dataset practices, AI index-test evaluation, and algorithmic bias and fairness, developed via a modified Delphi process with over 240 international stakeholders.",
+  "topics": ["Science Applications", "Policy & Society"]
+ },
+ {
+  "id": 960,
+  "summary": "System-card addendum covering GPT-5-Codex, a GPT-5 variant optimized for agentic coding in Codex that adjusts thinking effort dynamically—responding quickly to simple queries while working independently for longer on complex tasks—along with associated safety evaluations.",
+  "topics": ["Agents", "Safety"]
+ },
+ {
+  "id": 959,
+  "summary": "The largest study of ChatGPT usage to date analyzes how the tool creates economic value across personal and professional use, finding adoption broadening beyond early user demographics and narrowing usage gaps as AI becomes part of everyday life.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 52,
+  "summary": "Maps Claude usage across US states and countries, finding AI adoption correlates strongly with income, and documents a shift toward directive automation—from 27% to 39% of conversations since December 2024—with businesses automating far more than consumers.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 51,
+  "summary": "Reports Claude usage shifting toward educational and scientific tasks, with users increasingly delegating complete work rather than collaborating. Adoption concentrates in wealthy regions, and a first-time analysis of enterprise API traffic shows distinct business usage patterns.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 2687,
+  "summary": "Applies privacy-preserving machine learning—federated learning and homomorphic encryption—to smart-home IoT security, supporting attack detection, prevention, and device authentication in a distributed learning setup while keeping user data anonymous.",
+  "topics": ["Robustness & Security"]
+ },
+ {
+  "id": 1362,
+  "summary": "Perspective reviewing evidence on standalone audio-based sleep aids: music-based relaxation shows efficacy for sleep quality, white/pink noise findings are inconclusive, narrated content lacks support, and guided practices show potential. Proposes a research agenda including matched-control RCTs and weighs dependency risks against accessibility benefits.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 667,
+  "summary": "FRIT trains models toward causally faithful chain-of-thought by corrupting individual reasoning steps to generate faithful/unfaithful pairs, then applying DPO to prefer causally consistent paths. On Mistral-7B it raises faithful reasoning 3.4 points on GSM8K while improving accuracy 7.6 points.",
+  "topics": ["Reasoning", "Alignment"]
+ },
+ {
+  "id": 329,
+  "summary": "Compares SFT, DPO, and combined SFT+DPO on OPT-350M using Anthropic's Helpful-Harmless dataset, scoring harmlessness, helpfulness, and a combined alignment metric via reward models. SFT beats DPO alone, while SFT+DPO outperforms all variants, indicating the techniques are complementary.",
+  "topics": ["Alignment"]
+ },
+ {
+  "id": 208,
+  "summary": "HumanAgencyBench uses LLM-simulated queries and evaluators to score assistants on six agency-support dimensions, including asking clarifying questions, avoiding value manipulation, and deferring important decisions. Contemporary assistants show low-to-moderate support; Anthropic models rank highest overall but lowest on avoiding value manipulation.",
+  "topics": ["Evaluations", "Alignment"]
+ },
+ {
+  "id": 494,
+  "summary": "A 1,000-prompt revision of OpenAI's SimpleQA factuality benchmark that fixes noisy labels, topical bias, and redundant questions via multi-stage filtering, source reconciliation, and an improved autorater. Gemini 2.5 Pro sets the state of the art at 55.6 F1, ahead of GPT-5.",
+  "topics": ["Evaluations"]
+ },
+ {
+  "id": 961,
+  "summary": "Argues hallucinations originate as ordinary binary-classification errors under natural statistical pressures in pretraining, and persist because benchmark grading rewards confident guessing over admitting uncertainty. Proposes fixing the scoring of dominant existing benchmarks rather than adding new hallucination evals.",
+  "topics": ["Alignment", "Evaluations"]
+ },
+ {
+  "id": 1363,
+  "summary": "Deep Loop Shaping, a reinforcement-learning control method trained with frequency-domain rewards, cut mirror-stabilization control noise at LIGO Livingston by over 30x in the 10-30 Hz band (up to 100x in subbands), surpassing quantum-limit design goals and extending sensitivity toward intermediate-mass black hole mergers.",
+  "topics": ["Science Applications", "Reinforcement Learning"]
+ }
+]

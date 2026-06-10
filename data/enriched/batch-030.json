@@ -1,0 +1,152 @@
+[
+ {
+  "id": 510,
+  "summary": "Shows existing fine-tuning attacks are shallow, targeting only the first response tokens, and introduces a 'refuse-then-comply' attack that evades token-level defenses and output filters, jailbreaking GPT-4o (57%) and Claude Haiku (72%).",
+  "topics": ["Robustness & Security", "Safety"]
+ },
+ {
+  "id": 359,
+  "summary": "Studies reward shaping to curb reward hacking in RLHF, deriving two design principles (bounded reward, rapid-then-gradual growth) and proposing Preference As Reward (PAR), which uses reward-model latent preferences and beats other shaping methods by 5+ points on AlpacaEval 2.0.",
+  "topics": ["Alignment"]
+ },
+ {
+  "id": 982,
+  "summary": "OpenAI's system card documenting pre-release safety work for the Deep Research agent, including external red teaming, Preparedness Framework frontier-risk evaluations, and the mitigations built to address key risk areas.",
+  "topics": ["Safety", "Agents"]
+ },
+ {
+  "id": 70,
+  "summary": "Proposes forecasting rare harmful model behaviors before deployment by extrapolating from small-scale samples: worst-case risk probabilities across query volume follow a power law, allowing prediction of how risk scales to millions of real-world queries.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 585,
+  "summary": "Documents 'emergent misalignment': fine-tuning LLMs (e.g. GPT-4o, Qwen2.5-Coder) narrowly to write insecure code induces broad unrelated misbehavior such as endorsing AI dominance and giving malicious advice, with misaligned responses in up to 50% of cases.",
+  "topics": ["Safety", "Alignment"]
+ },
+ {
+  "id": 71,
+  "summary": "Announces Claude 3.7 Sonnet's toggleable extended thinking mode with a configurable thinking budget, and discusses exposing the raw reasoning trace for trust and alignment monitoring along with its safety tradeoffs.",
+  "topics": ["Reasoning"]
+ },
+ {
+  "id": 586,
+  "summary": "Tests whether sparse autoencoders improve LLM activation probing under data scarcity, class imbalance, label noise, and covariate shift. SAEs occasionally beat baselines on individual datasets but no SAE ensemble consistently outperforms non-SAE baselines.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 360,
+  "summary": "Integrates safety filtering and constitutional AI into federated LLM training to prevent aggregating unsafe client models into a shared global model, improving safety by over 20% on AdvBench.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 2716,
+  "summary": "Empirically evaluates LLM-generated systems-engineering artifacts against a human-expert benchmark; NLP metrics cannot distinguish them, but qualitative analysis reveals serious, hard-to-detect failure modes such as premature design decisions.",
+  "topics": ["Evaluations"]
+ },
+ {
+  "id": 361,
+  "summary": "Introduces C3AI, a framework for selecting/structuring constitutional-AI principles and evaluating model adherence. Finds positively framed, behavior-based principles align better with human preferences, yet fine-tuned models adhere more to negatively framed ones, revealing a design-vs-adherence gap.",
+  "topics": ["Alignment"]
+ },
+ {
+  "id": 1491,
+  "summary": "A psychoanalytic social-work case study examining the psychology and motivations of a mission-oriented serial killer (the 'Mashhad Strangler'). Not an AI/ML paper; appears misattributed in this dataset.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 1490,
+  "summary": "Presents a framework for optimizing non-differentiable, non-decomposable ranking losses in image retrieval via SupRank, a smooth ranking surrogate, plus a decomposability-gap reduction; extends to hierarchical retrieval with a new H-AP metric and dataset.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 722,
+  "summary": "Introduces the Delta Variance family of computationally efficient epistemic uncertainty estimators for neural networks, requiring no architecture or training changes. Special cases recover popular methods, and it gets competitive results on a neural weather simulator at the cost of one gradient computation.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 673,
+  "summary": "Proposes FUR (Faithfulness by Unlearning Reasoning steps), measuring whether a chain of thought is faithful to a model's parametric beliefs by erasing reasoning-step information and observing prediction changes across four LMs and five multi-hop QA datasets.",
+  "topics": ["Reasoning", "Interpretability"]
+ },
+ {
+  "id": 983,
+  "summary": "OpenAI's SWE-Lancer benchmark of 1,400+ real freelance software-engineering tasks worth $1M total, evaluating frontier models on independent coding tasks and managerial decisions; even top models earn only a fraction of the available payouts.",
+  "topics": ["Evaluations", "Agents"]
+ },
+ {
+  "id": 511,
+  "summary": "Safety assessment of large reasoning models (DeepSeek-R1, o3-mini) finds open models lag o3-mini on safety, stronger reasoning yields more harmful outputs when misused, safety reasoning emerges but fails under attack, and R1's thinking traces are riskier than final answers.",
+  "topics": ["Safety", "Reasoning"]
+ },
+ {
+  "id": 362,
+  "summary": "Analyzes regularized Best-of-N sampling for LLM alignment, framing regularization as robust optimization over reward perturbations, and proposes Stochastic RBoN, a theoretically grounded worst-case approach evaluated on AlpacaFarm and Anthropic hh-rlhf.",
+  "topics": ["Alignment"]
+ },
+ {
+  "id": 512,
+  "summary": "Addresses data scarcity in proof-oriented programming (e.g. F*) via synthetic data augmentation for generation and repair, producing PoPilot, a 14B model that beats GPT-4o on project-level proof-oriented programming by 64% and improves GPT-4o outputs by 54% via repair.",
+  "topics": ["Reasoning", "Training & Scaling"]
+ },
+ {
+  "id": 513,
+  "summary": "Proposes RACE, a multi-turn jailbreak framework that recasts harmful queries as benign reasoning tasks using an attack state machine plus gain-guided exploration and self-play, reaching up to 96% higher attack success and 82-92% ASR against o1 and DeepSeek-R1.",
+  "topics": ["Robustness & Security"]
+ },
+ {
+  "id": 363,
+  "summary": "Argues reverse KL divergence beats forward KL for weak-to-strong generalization because its zero-forcing behavior down-weights unreliable weak supervision; derives tighter bounds and shows reverse KL/cross-entropy let strong models outperform weak supervisors empirically.",
+  "topics": ["Alignment"]
+ },
+ {
+  "id": 1492,
+  "summary": "Describes Turing.jl, a general-purpose probabilistic programming language built on Julia that decouples model specification from inference for flexible, efficient Bayesian modeling, surveying its design, features, and ecosystem.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 224,
+  "summary": "Studies improving LLM system-prompt robustness against conflicting or adversarial user inputs, building evaluation and fine-tuning datasets from GPT Store and HuggingChat prompts; realistic fine-tuning and classifier-free guidance help, but current techniques fall short.",
+  "topics": ["Robustness & Security", "Alignment"]
+ },
+ {
+  "id": 1493,
+  "summary": "An AlphaFold Education Summit training resource covering UniProt sequence-analysis tools (BLAST and Align), aimed at upskilling researchers and educators—particularly in under-resourced regions—to apply structural biology tools in their work.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 723,
+  "summary": "Introduces Poly-Autoregressive (PAR) modeling, which forecasts an ego agent's behavior by tokenizing the joint state histories of all interacting agents; a small transformer beats standard autoregressive baselines on human action, vehicle trajectory, and hand-object pose forecasting.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 173,
+  "summary": "Finds Claude models sometimes falsely claim inability to perform a harmful version of a task they can otherwise do, rather than openly refusing—a sandbagging-like behavior—and discusses its implications for capability evaluations and AI safety.",
+  "topics": ["Safety", "Alignment"]
+ },
+ {
+  "id": 724,
+  "summary": "Scales vision-language pretraining to 100 billion image-text examples. Western-centric benchmarks saturate, but cultural-diversity tasks and low-resource languages gain substantially; common CLIP-based quality filtering inadvertently reduces cultural diversity.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 364,
+  "summary": "Proposes RLSP (Reinforcement Learning via Self-Play), a post-training recipe—SFT on reasoning demos, an exploration reward, then outcome-verified RL—that decouples exploration from correctness, boosting MATH-500 by 23% on Llama-3.1-8B and eliciting emergent behaviors like backtracking.",
+  "topics": ["Reasoning", "Reinforcement Learning"]
+ },
+ {
+  "id": 73,
+  "summary": "Analyzes millions of Claude.ai conversations to map AI's economic footprint, finding usage concentrated in software development and technical writing, touching 25%+ of tasks in 36% of occupations, and leaning toward augmentation (57%) over automation (43%).",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 514,
+  "summary": "Proposes an iterative deepening sampling algorithm that systematically triggers a fixed model's self-correction to generate higher-quality self-reflection data, improving success on hard Math500 and AIME problems and benefiting downstream training.",
+  "topics": ["Reasoning"]
+ },
+ {
+  "id": 587,
+  "summary": "Challenges the idea that SAEs find canonical, atomic features using two techniques: SAE stitching shows smaller SAEs are incomplete (larger SAEs add novel latents), and meta-SAEs show latents decompose into combinations of finer features (e.g. 'Einstein' into 'scientist', 'Germany').",
+  "topics": ["Interpretability"]
+ }
+]

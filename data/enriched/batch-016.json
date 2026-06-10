@@ -1,0 +1,152 @@
+[
+ {
+  "id": 1348,
+  "summary": "Fine-tunes contrastive VLMs for fine-grained open-set retrieval while avoiding catastrophic forgetting, combining continual-learning regularizers with careful validation and hyperparameter design. Retains visual-text alignment without any text data or the original text encoder, performing strongly on fine- and coarse-grained retrieval benchmarks.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 1347,
+  "summary": "Replaces depth-sorted rasterization in 3D Gaussian splatting with an unbiased Monte Carlo estimator of volume rendering, removing sorting, enabling accurate blending of overlapping Gaussians, and adding a compute-quality knob via sample count. An OpenGL shader implementation renders over 4x faster than sorted rasterization.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1346,
+  "summary": "Identifies policy idling, where learned manipulation policies stall in small state regions, and exploits its detectability: Pause-Induced Perturbations (PIP) perturb the robot at detected idle states to escape problematic basins of attraction, improving test-time performance on dual-arm tasks without extra supervision or training.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1345,
+  "summary": "Bridges end-to-end driving and video generation models: proposes statistical measures that use E2E planners to assess generated-video realism, exploits generation controllability to probe planner distribution gaps, and shows synthetic video is a cost-effective alternative to real-world data collection.",
+  "topics": ["Multimodal", "Evaluations"]
+ },
+ {
+  "id": 1344,
+  "summary": "Constrained RL framework that conditions a single quadruped locomotion policy on noise-reduction levels, decomposing critic value representations to generalize across noise constraints without retraining. Achieves continuously adjustable footstep-noise reduction with an improved agility-noise Pareto trade-off, validated in simulation and on real robots.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1343,
+  "summary": "Benchmark of five scientific video tasks spanning medical vision, animal behavior, and weather forecasting, testing whether general video foundation models transfer across domains. Six ViFMs with simple trainable readouts reach state-of-the-art on several tasks while exposing limitations of current models.",
+  "topics": ["Evaluations", "Multimodal", "Science Applications"]
+ },
+ {
+  "id": 1342,
+  "summary": "Incrementally updates Gaussian-splatting 3D representations from sparse captures of changing scenes: a change-detection module segments updated from static regions, enabling local optimization instead of full re-optimization, and past scene states can be stored and recovered. Yields faster updates with better reconstruction quality than prior methods.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1341,
+  "summary": "Diffusion model conditioned on geometric priors that jointly estimates camera distortion and scene geometry using a generic ray camera model, with edge-aware attention focusing on geometric rather than semantic features and a database of 3,000+ ray-traced lenses. Reduces estimated ray-bundle angular error by ~8.2 degrees on real-world data.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1340,
+  "summary": "Directly compares the same architecture trained for video versus image diffusion on downstream tasks (classification, action recognition, depth estimation, tracking): video diffusion representations consistently win, with widely varying margins. Also analyzes effects of layer choice, noise level, model size, and training budget.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1339,
+  "summary": "Unified latent diffusion model generating color, depth, and surface normals in a single process, built on a VAE that encodes all three into a shared latent space. Supports text-to-image-plus-geometry generation, monocular depth/normal estimation, and joint 3D inpainting, surpassing task-specific methods on normal accuracy and depth-normal consistency.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1338,
+  "summary": "Iterative video motion segmentation combining optical flow and epipolar cues with a pretrained video segmentation model to separate static from dynamic scene content. Beats unsupervised and synthetic-data-trained supervised baselines, and paired with off-the-shelf SfM sets a new state of the art for camera calibration on dynamic scenes.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1337,
+  "summary": "Observes that most video token-reduction methods fail to beat randomly dropping tokens, and derives principles of visual tokens, e.g. token value follows a Pareto distribution with few tokens carrying most perceptual information. The lightweight LITE model selects high-value tokens, beating state-of-the-art GFLOPs-accuracy trade-offs on Kinetics-400 and Something-Something-V2.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 1336,
+  "summary": "Formalizes style-aware drag-and-drop: inserting a subject from one image into a differently styled target both plausibly and style-consistently. Combines LoRA-based style-aware personalization with bootstrapped domain adaptation of a photorealistic object-insertion model, significantly outperforming inpainting approaches, and releases the SubjectPlop evaluation dataset.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1335,
+  "summary": "Reformulates tracking-any-point as sequential next-token prediction: a causal model without tracking-specific inductive biases decodes point trajectories frame by frame, enabling purely online tracking. Achieves state-of-the-art results on TAP-Vid benchmarks, with common tracking heuristics emerging naturally from training.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1334,
+  "summary": "Uses a generalizable 3D Gaussian Splatting framework to produce 3D tokens directly consumable by a pretrained LLM, enabling zero-shot 3D visual question answering from posed images alone. Outperforms task-specific 3D models and image-only 2D-LMM baselines while rivaling 3D LMMs that require explicit 3D inputs.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1333,
+  "summary": "Factor-based framework for evaluating out-of-distribution robustness of multisensory (vision plus force-torque) policies on peg-in-hole assembly, using a Perceiver IO policy. Grasp-pose variation poses the biggest generalization challenge, naive per-modality augmentation is insufficient, and force-torque proves the most informative modality for this contact-rich task.",
+  "topics": ["Reinforcement Learning", "Evaluations"]
+ },
+ {
+  "id": 1332,
+  "summary": "Extends backward-compatible training to cross-modal retrieval: a projection module pretrained only on text maps a new CLIP-style model's embeddings into an old model's space, avoiding the old model during training. Enables backfill-free upgrades of vision-language retrieval systems with parameter-efficient training.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 1331,
+  "summary": "Feed-forward latent diffusion model that directly generates 3D scene representations (Gaussians) from one or more input images in seconds on a single GPU, without per-scene optimization. Trained on large-scale multiview data with geometry from dense reconstruction, sharply reducing inference cost versus optimization-based 3D generation.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 485,
+  "summary": "Benchmarks frontier and open LLMs on India's public legal exams, plus a lawyer-graded blinded study of long-form Advocate-on-Record answers. Models clear historical cutoffs on objective exams but none beats the human topper on long-form reasoning, with failures in procedural compliance, citation discipline, and forum-appropriate voice.",
+  "topics": ["Evaluations"]
+ },
+ {
+  "id": 486,
+  "summary": "Framework for RLVR training and evaluation on 10 NP-hard tasks, each with a controllable instance generator, rule-based verifier, and heuristic solver providing approximate ground truth. Curriculum zero-RLVR on Qwen2.5-7B beats GPT-4o on the derived NP-Bench and generalizes out-of-domain to logic, puzzle, and math reasoning.",
+  "topics": ["Reasoning", "Evaluations"]
+ },
+ {
+  "id": 203,
+  "summary": "Introduces fine-tuning auditing agents that inspect a fine-tuning dataset plus pre- and post-fine-tuning models and assign risk scores to catch adversarial fine-tuning before deployment. Across eight attacks and 1,400+ audits, the best configuration detects 56.2% of attacks at 1% false positives, including covert cipher attacks that evade content moderation.",
+  "topics": ["Robustness & Security", "Safety", "Agents"]
+ },
+ {
+  "id": 156,
+  "summary": "Counterintuitive fine-tuning technique: modifying training prompts to explicitly request an undesired behavior (e.g., reward hacking) prevents the model from learning it, without substantially hurting desired capabilities. Prompts that more strongly elicit the behavior before fine-tuning inoculate more effectively, giving a heuristic for choosing inoculation prompts.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 2682,
+  "summary": "Argues static, model-only evaluations miss interaction harms such as parasocial relationships, social manipulation, and cognitive overreliance that emerge through sustained human-AI use. Proposes design principles for interactive evaluations, including ecologically valid scenarios, human-impact metrics, and diverse participation, and discusses challenges for integrating them into AI governance.",
+  "topics": ["Evaluations", "Safety", "Policy & Society"]
+ },
+ {
+  "id": 1354,
+  "summary": "Analyzes 5,372 open-ended annotator comments on AI-generated image safety, finding judgments grounded in moral, emotional, and contextual reasoning beyond predefined taxonomies and shaped by the annotation guidelines themselves. Argues safety evaluation should scaffold moral reflection and accommodate subjective, context-sensitive interpretations of harm.",
+  "topics": ["Policy & Society", "Evaluations"]
+ },
+ {
+  "id": 319,
+  "summary": "Information-bottleneck reward model (InfoRM) filters preference-irrelevant features to reduce reward misgeneralization; reward-hacked responses surface as Mahalanobis outliers in its latent space, motivating a distribution-level regularizer (IBL) proven equivalent to pessimistic RL, plus an outlier-probability metric for quantifying reward hacking and triggering early stopping.",
+  "topics": ["Alignment"]
+ },
+ {
+  "id": 320,
+  "summary": "Rather than learning rewards from scratch, PBRR repairs a human-specified proxy reward by learning an additive, transition-dependent correction from preferences with targeted exploration. Matches prior preference-based RL regret bounds in tabular domains and outperforms baselines on reward-hacking benchmarks while needing substantially less feedback.",
+  "topics": ["Alignment", "Reinforcement Learning"]
+ },
+ {
+  "id": 204,
+  "summary": "Shows narrow fine-tuning leaves readable traces in LLM activations: activation differences on the first tokens of random text reveal the fine-tuning domain's format and content, and an interpretability agent given this access far outperforms prompting baselines. Holds across false-fact, emergent-misalignment, and subliminal-learning models; mixing in pretraining data largely removes the biases.",
+  "topics": ["Interpretability", "Safety"]
+ },
+ {
+  "id": 47,
+  "summary": "Outlines nine categories of policy ideas for AI's economic impact, spanning workforce development, permitting reform, fiscal policy, and social services, organized by scenario severity from modest labor-market effects to dramatic job losses. Developed with economists and motivated by Economic Index data showing users increasingly delegating full tasks to AI.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 1184,
+  "summary": "Test-time prompt-injection defense: a few special DefensiveTokens with security-optimized embeddings are prepended to the LLM input, achieving robustness comparable to training-time defenses with minimal utility drop. Developers can omit the tokens when security matters less, flexibly trading between state-of-the-art utility and near-SOTA security.",
+  "topics": ["Robustness & Security"]
+ },
+ {
+  "id": 1355,
+  "summary": "FLOSS applies flow matching to single-channel audio source separation with strict mixture consistency, augmenting mixture samples with artificial noise to match the K-source dimensionality and using a permutation-equivariant architecture. Demonstrated on separating overlapping speech.",
+  "topics": ["Multimodal"]
+ }
+]

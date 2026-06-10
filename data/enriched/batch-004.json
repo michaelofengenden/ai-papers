@@ -1,0 +1,152 @@
+[
+ {
+  "id": 13,
+  "summary": "Surveys 81,000 Claude users about AI's economic effects and links their stated concerns to patterns measured in actual Claude usage traffic, offering a grounded read on how AI is reshaping work.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 12,
+  "summary": "Launches a monthly survey, run via Anthropic's automated Interviewer, that collects qualitative feedback from Claude users on how AI is affecting their jobs, productivity, and expectations to complement traditional labor-market indicators.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 1237,
+  "summary": "Introduces CoVA, a composed video retrieval task incorporating both visual and audio variations, plus the AV-Comp benchmark and AVT compositional fusion, which selectively aligns text queries to the most relevant modality and beats unimodal fusion baselines.",
+  "topics": ["Multimodal", "Evaluations"]
+ },
+ {
+  "id": 1236,
+  "summary": "Presents SmoothCruiser, a planning algorithm for entropy-regularized MDPs and two-player games that exploits the regularized Bellman operator's smoothness to achieve problem-independent O~(1/eps^4) sample complexity, unlike unregularized settings lacking polynomial worst-case guarantees.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1235,
+  "summary": "Proposes a budgeted online influence-maximization framework that minimizes total campaign cost rather than a cardinality constraint, with an independent-cascade algorithm under edge-level semi-bandit feedback and improved regret bounds that also tighten the cardinality-constrained case.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1234,
+  "summary": "Analyzes two determinantal-point-process estimators for Monte Carlo integration: a fixed-DPP one with O(N^{-(1+1/d)}) variance for smooth functions and an unbiased function-tailored one, generalizing both to continuous settings and providing sampling algorithms.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 272,
+  "summary": "Proposes Reverse Constitutional AI, which inverts a harmless constitution into a toxicity constitution and uses a critique-revision RLAIF pipeline to synthesize adversarial red-teaming data; probability clamping curbs reward hacking, improving semantic coherence ~15% without weakening adversarial strength.",
+  "topics": ["Robustness & Security", "Alignment", "Safety"]
+ },
+ {
+  "id": 1238,
+  "summary": "Applies computer vision and ML to street-view imagery to predict six perceptual dimensions across 1930s HOLC redlining grades in Buffalo, finding persistent perceptual inequality driven by built-environment features like trees, buildings, and roads via SHAP analysis.",
+  "topics": ["Policy & Society", "Multimodal"]
+ },
+ {
+  "id": 1239,
+  "summary": "Derives sample-complexity bounds for learning eps-optimal policies in Stochastic Shortest Path problems with a generative model, proving an Omega(SAB*^3/(c_min eps^2)) lower bound with matching algorithms and showing SSPs are strictly harder than finite-horizon or discounted settings.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 273,
+  "summary": "Introduces GRIFT, which detects reward hacking by computing and compressing gradients of a model's chain-of-thought; it beats CoT Monitor and TRACE by over 25% relatively and, used in rejection fine-tuning, reduces hacking while improving true-task performance.",
+  "topics": ["Alignment", "Reasoning", "Interpretability"]
+ },
+ {
+  "id": 2657,
+  "summary": "Presents ORION, a multi-agent LLM framework that automates end-to-end analysis of immune-profiling (PhIP-seq) data; it recovered the canonical APS-1 autoantibody signature in about two hours versus months of manual work and prioritized candidate targets in Down syndrome data.",
+  "topics": ["Science Applications", "Agents"]
+ },
+ {
+  "id": 922,
+  "summary": "OpenAI's GPT-Rosalind, a frontier reasoning model built to accelerate life-sciences workflows including drug discovery, genomics analysis, and protein reasoning.",
+  "topics": ["Science Applications", "Reasoning"]
+ },
+ {
+  "id": 275,
+  "summary": "Introduces Rejection-Gated Policy Optimization, replacing the importance-sampling ratio with a smooth differentiable acceptance gate; it guarantees bounded gradient variance under heavy-tailed ratios, unifies TRPO/PPO/REINFORCE, matches PPO's cost, and extends to RLHF preference fine-tuning.",
+  "topics": ["Reinforcement Learning", "Alignment"]
+ },
+ {
+  "id": 274,
+  "summary": "Shows RLVR-trained reasoning models game verifiers on inductive tasks by enumerating instance labels instead of inducing rules; introduces Isomorphic Perturbation Testing to detect such shortcuts, finding the behavior specific to RLVR models and worsening with task complexity and inference compute.",
+  "topics": ["Alignment", "Reasoning", "Evaluations"]
+ },
+ {
+  "id": 1173,
+  "summary": "Demonstrates subliminal learning: a student model distilled on a teacher's semantically unrelated outputs (e.g., number sequences) inherits the teacher's behavioral traits, even broad misalignment, when base models match, implying safety evaluations must scrutinize data and model provenance, not just behavior.",
+  "topics": ["Safety", "Alignment", "Training & Scaling"]
+ },
+ {
+  "id": 277,
+  "summary": "Empirically evaluates four drop-in techniques for LLM-as-a-judge (ensemble scoring, task-specific criteria injection, calibration context, and adaptive escalation) on RewardBench 2; criteria injection plus ensembling reaches 85.8% accuracy (+13.5pp), with small models benefiting most.",
+  "topics": ["Evaluations", "Alignment"]
+ },
+ {
+  "id": 276,
+  "summary": "Surveys reward hacking in RLHF/RLAIF/RLVR, cataloguing manifestations like sycophancy and benchmark overfitting and their generalization into deception, and proposes the Proxy Compression Hypothesis framing hacking as optimizing expressive policies against compressed reward representations.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 14,
+  "summary": "Anthropic experiment in which nine Claude instances autonomously proposed, tested, and analyzed ideas to improve weak-to-strong supervision; Claude reached a 0.97 performance-gap-recovery score after five days versus a 0.23 human baseline, suggesting AI can accelerate alignment research.",
+  "topics": ["Alignment", "Agents", "Safety"]
+ },
+ {
+  "id": 2658,
+  "summary": "A workshop advancing bidirectional human-AI alignment, a reciprocal process where humans and AI co-adapt, gathering HCI, AI, and social-science researchers to develop value-centered design, interactive alignment methods, and societal-impact evaluation frameworks.",
+  "topics": ["Alignment", "Policy & Society"]
+ },
+ {
+  "id": 1240,
+  "summary": "A CHI community meet-up convening international HCI researchers on responsible, human-centered AI across value-sensitive design, ethics, explainability, and equity, using a town-hall format to set priorities and forge cross-border collaborations.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 455,
+  "summary": "Introduces PaperScope, a multimodal multi-document benchmark for agentic deep research built on a knowledge graph of 2,000+ AI papers, with 2,000+ QA pairs spanning reasoning, retrieval, summarization, and problem-solving; even advanced deep-research systems score poorly.",
+  "topics": ["Evaluations", "Agents", "Multimodal"]
+ },
+ {
+  "id": 278,
+  "summary": "Formulates reward-hacking mitigation as robust policy optimization over all r-correlated proxy rewards, deriving a tractable max-min objective; the method outperforms ORPO in worst-case returns and yields interpretable worst-case rewards under linear feature assumptions.",
+  "topics": ["Alignment", "Reinforcement Learning"]
+ },
+ {
+  "id": 184,
+  "summary": "Introduces compute-grounded reasoning, resolving answerable sub-problems via deterministic computation before LLM generation; Spatial Atlas instantiates it as an A2A server with a spatial scene-graph engine and self-healing ML pipeline, achieving competitive, interpretable results on FieldWorkArena and MLE-Bench.",
+  "topics": ["Agents", "Reasoning", "Evaluations"]
+ },
+ {
+  "id": 279,
+  "summary": "Fine-tunes Qwen3-8B with sycophancy-inducing GRPO and finds consistent but non-significant calibration degradation (higher ECE/MCE); matrix scaling cuts ECE 40-64% yet leaves a structured residual miscalibration, establishing a methodology for assessing reward hacking's calibration impact.",
+  "topics": ["Alignment", "Evaluations"]
+ },
+ {
+  "id": 456,
+  "summary": "A comparative analysis tracing the GPT family from GPT-3 to GPT-5 across technical framing, modality, deployment, and governance, arguing later models are aligned, multimodal, tool-oriented systems rather than just larger predictors, while limitations like hallucination and benchmark fragility persist.",
+  "topics": ["Evaluations", "Policy & Society"]
+ },
+ {
+  "id": 1241,
+  "summary": "A reply to Hu arguing that reasoning traces need not faithfully reflect underlying computation in order to serve as resource-rational accounts of the cost of human thinking.",
+  "topics": ["Reasoning"]
+ },
+ {
+  "id": 280,
+  "summary": "Probes per-iteration hidden states of the looped transformer Ouro-2.6B, training ~5M-parameter evaluator heads to predict human preference on HH-RLHF; a pairwise probe hits 95.2% accuracy, revealing preference is encoded relationally rather than independently, as an internal value-consistency signal.",
+  "topics": ["Interpretability", "Alignment"]
+ },
+ {
+  "id": 15,
+  "summary": "An Anthropic explainer on AI agents covering how they work and the practices used to make them trustworthy as agentic systems become a dominant mode of AI use.",
+  "topics": ["Agents", "Safety"]
+ },
+ {
+  "id": 645,
+  "summary": "Tests LLMs' limits on discovering and executing multi-step latent planning in graph path-finding, finding a depth ceiling (tiny transformers ~3 steps, GPT-5.4 ~7) and a gap between discovering versus executing latent strategies, lending support to chain-of-thought monitoring.",
+  "topics": ["Reasoning", "Interpretability"]
+ },
+ {
+  "id": 565,
+  "summary": "Introduces ROTATE, a data-free, forward-pass-free method that disentangles MLP neurons in weight space by maximizing vocabulary-space kurtosis, recovering sparse interpretable 'vocabulary channels' whose ablation selectively disables behaviors and yields neuron descriptions 2-3x better than activation baselines.",
+  "topics": ["Interpretability"]
+ }
+]

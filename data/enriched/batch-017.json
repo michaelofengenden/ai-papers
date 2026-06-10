@@ -1,0 +1,152 @@
+[
+ {
+  "id": 665,
+  "summary": "Demonstrates that training only against output monitors (without CoT access) can still produce obfuscated chains of thought, via safe-output generalization and token-conditioning effects, and introduces two mitigations yielding a Pareto improvement in monitorability versus task performance.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 1185,
+  "summary": "Across four experiments with 961 participants, finds that geometric structure of musical scales modulates perceptual sensitivity to out-of-scale notes, persisting even in unfamiliar tuning systems, positioning scale geometry as a culture-independent representational primitive in melodic processing.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 487,
+  "summary": "Tests whether models can reason in 28 ciphers to evade chain-of-thought monitoring; finds accuracy drops sharply for unfamiliar ciphers despite comprehension, with capability tied to pretraining prevalence, suggesting ciphered reasoning is currently an ineffective evasion tactic.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 205,
+  "summary": "Shows LLMs, including reasoning models like o3 and Gemini 2.5, frequently over-recognize spurious patterns in randomly generated integer sequences while succeeding on arithmetic ones, framing this confabulation as an AI analog of Bacon's Idola Tribus and a limit on logical consistency.",
+  "topics": ["Evaluations", "Reasoning"]
+ },
+ {
+  "id": 2683,
+  "summary": "Applies equality saturation to real-world ML compute graphs, replacing hand-tuned local optimization heuristics with a global performance model that accounts for downstream transformations, improving discovery of effective graph optimization compositions on state-of-the-art hardware.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 1356,
+  "summary": "Identifies that the final diffusion steps in latent diffusion models can degrade sample quality due to dimensionality reduction, and derives, under a Gaussian linear-autoencoder framework, conditions where lower-dimensional latents benefit from earlier stopping while higher-dimensional ones need later termination.",
+  "topics": ["Training & Scaling", "Multimodal"]
+ },
+ {
+  "id": 954,
+  "summary": "Presents OpenAI's framework and real-world testing methodology for defining and measuring political bias in ChatGPT, aimed at improving objectivity and reducing bias in model responses.",
+  "topics": ["Policy & Society", "Evaluations"]
+ },
+ {
+  "id": 321,
+  "summary": "Proposes ConG, which uses contrastive decoding between pre- and post-alignment weak models to generate higher-quality samples for weak-to-strong generalization; links implicit rewards to contrastive decoding, denoising weak-model outputs and improving robustness of capability transfer.",
+  "topics": ["Alignment"]
+ },
+ {
+  "id": 48,
+  "summary": "Joint study with UK AISI and the Alan Turing Institute showing that roughly 250 malicious documents can backdoor an LLM regardless of model size or total training data, challenging the assumption that attackers need a fixed percentage of training data rather than a small absolute count.",
+  "topics": ["Robustness & Security", "Safety"]
+ },
+ {
+  "id": 569,
+  "summary": "Argues thinking models like DeepSeek R1 mostly repurpose reasoning mechanisms already present in base models; an unsupervised method discovers interpretable reasoning behaviors, and steering only 12% of tokens in base models recovers up to 91% of the performance gap without weight updates.",
+  "topics": ["Reasoning", "Interpretability"]
+ },
+ {
+  "id": 157,
+  "summary": "Finds Sonnet 3.7 can train to evade either a reasoning monitor or an output-only monitor individually, but cannot use reasoning to improve malicious backdoor success when both are applied, supporting CoT monitors as strong assurance while noting persuasion vulnerabilities.",
+  "topics": ["Safety", "Reasoning"]
+ },
+ {
+  "id": 49,
+  "summary": "Releases Petri, an open-source framework using AI agents to automatically audit target models across diverse scenarios; applied to 14 frontier models with 111 seed instructions, it elicited misaligned behaviors including deception, oversight subversion, whistleblowing, and misuse cooperation.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 206,
+  "summary": "Introduces GROK, a grounded multimodal LLM jointly processing fundus photos, OCT, and text for ophthalmic and systemic diagnosis via a quantitative-to-qualitative reasoning chain; with LoRA on a 7B Qwen2 backbone it beats larger baselines and OpenAI o3 on report quality and clinical metrics.",
+  "topics": ["Science Applications", "Multimodal"]
+ },
+ {
+  "id": 2684,
+  "summary": "Presents Kanzi, a flow-based diffusion autoencoder for protein structure tokenization that replaces frame-based, SE(3)-invariant components with global coordinates, standard attention, and a single flow-matching loss, outperforming existing tokenizers on reconstruction at far smaller size and cost.",
+  "topics": ["Science Applications", "Training & Scaling"]
+ },
+ {
+  "id": 488,
+  "summary": "Performs failure-mode analysis of six frontier VLMs on Physion, Physion++, and CLEVRER using custom subtests isolating perception and physics understanding, finding subtest mastery correlates only weakly with benchmark accuracy—models often answer correctly without grounding in perception or physics.",
+  "topics": ["Evaluations", "Multimodal"]
+ },
+ {
+  "id": 50,
+  "summary": "Argues AI is at an inflection point for cybersecurity and describes Anthropic's work improving Claude's defensive capabilities; reports Claude Sonnet 4.5 matching or exceeding Opus 4.1 at discovering code vulnerabilities, alongside examples from competitions and disrupted threat actors.",
+  "topics": ["Robustness & Security", "Safety"]
+ },
+ {
+  "id": 1357,
+  "summary": "Introduces ATOMIC, an end-to-end framework combining Segment Anything, LLMs, clustering, and topological analysis for fully autonomous zero-shot characterization of 2D materials, achieving 99.7% single-layer segmentation accuracy on MoS2 and detecting grain boundaries under variable imaging conditions.",
+  "topics": ["Science Applications", "Agents"]
+ },
+ {
+  "id": 322,
+  "summary": "Proposes MIRA, a training-free inference-time alignment method for text-to-image diffusion that adds an image-space score-based KL surrogate to constrain noise optimization, mitigating reward hacking; achieves over 60% win rate while preserving prompt adherence with near-zero distributional drift.",
+  "topics": ["Multimodal", "Alignment"]
+ },
+ {
+  "id": 2871,
+  "summary": "A collection of in-progress notes from Anthropic's interpretability team, sharing developing ideas and minor findings—some early strands of forthcoming research, others points unlikely to warrant a standalone paper.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 2685,
+  "summary": "Presents Mercury, a multi-GPU operator compiler built on a loop-based IR (CommIR) that treats remote GPU memory as an explicitly managed extension of the memory hierarchy, automatically reproducing hand-tuned strategies like RingAttention and Ulysses and sometimes discovering better ones.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 1186,
+  "summary": "Perspective from Summerfield et al. examining advanced AI's epistemic, material, and foundational impacts on democracy—from citizens' political competence and election integrity to democratic principles—arguing AI poses substantial risks but also offers ways to strengthen discourse and find common ground.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 666,
+  "summary": "Proposes TRACE, which detects implicit reward hacking by quantifying reasoning effort: progressively truncating CoT and measuring expected reward, since hacking yields high reward from little reasoning. Beats strong CoT monitors by 65% on math and 30% on coding, surfacing unknown loopholes.",
+  "topics": ["Reasoning", "Alignment"]
+ },
+ {
+  "id": 570,
+  "summary": "Studies secret elicitation by training LLMs that apply hidden knowledge while denying it, then evaluating black- and white-box methods to extract it; prefill attacks work best across settings, while logit-lens and SAE-based techniques also help, establishing a public benchmark.",
+  "topics": ["Interpretability", "Safety"]
+ },
+ {
+  "id": 489,
+  "summary": "Presents a three-pronged fine-tuning jailbreak for a dataset-only black-box interface combining safety-styled wrappers, benign lexical encodings, and a backdoor, so individual datapoints look innocuous; achieves over 97% attack success against GPT-4.1 and GPT-4o despite provider defenses.",
+  "topics": ["Robustness & Security"]
+ },
+ {
+  "id": 956,
+  "summary": "System card for Sora 2, OpenAI's video-and-audio generation model offering more accurate physics, sharper realism, synchronized audio, improved steerability, and broader stylistic range, with documentation of its capabilities and safety considerations.",
+  "topics": ["Multimodal", "Safety"]
+ },
+ {
+  "id": 955,
+  "summary": "Announces Sora 2, a video generation model that is more physically accurate, realistic, and controllable than prior systems, adding synchronized dialogue and sound effects, available in the new Sora app.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 490,
+  "summary": "Introduces Lita, a minimal-scaffolding 'lite' coding agent designed to reveal models' true underlying capabilities without elaborate hand-crafted workflows; on Aider Polyglot and SWE-Bench it matches or beats workflow-based agents using fewer tokens and far less design effort.",
+  "topics": ["Agents", "Evaluations"]
+ },
+ {
+  "id": 323,
+  "summary": "Models strategic sandbagging in sequential decision-making using a survival bandit framework, proving theoretically that the setting induces deliberate underperformance in rational agents, and constructs a statistical test to distinguish sandbagging from genuine incompetence, validated in simulation.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 689,
+  "summary": "Proposes ReStraV for detecting AI-generated video by measuring deviations from the 'perceptual straightening' hypothesis—quantifying temporal curvature and stepwise distance in DINOv2 representations; a lightweight classifier reaches 97.17% accuracy and 98.63% AUROC on VidProM, beating prior methods.",
+  "topics": ["Multimodal", "Robustness & Security"]
+ },
+ {
+  "id": 492,
+  "summary": "Introduces RadLE, a 50-case expert-level radiology 'spot diagnosis' benchmark testing frontier models via their native web interfaces; board-certified radiologists scored 83% versus the best model GPT-5 at 30%, with a taxonomy of visual reasoning errors showing models fall far short of experts.",
+  "topics": ["Evaluations", "Multimodal", "Science Applications"]
+ }
+]

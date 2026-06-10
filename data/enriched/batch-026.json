@@ -1,0 +1,152 @@
+[
+ {
+  "id": 1454,
+  "summary": "Surveys LLM-based human-agent systems (LLM-HAS) that fold human information, feedback, or control into agent pipelines to improve reliability and safety, organizing core components (profiling, feedback, interaction, orchestration), emerging applications, and open challenges.",
+  "topics": ["Agents", "Alignment"]
+ },
+ {
+  "id": 705,
+  "summary": "Proposes proactive text-to-image agents that ask clarifying questions when uncertain and present an editable belief graph of inferred user intent; human studies and automated evaluation show over 2x higher VQAScore alignment than standard single-turn generation.",
+  "topics": ["Agents", "Multimodal"]
+ },
+ {
+  "id": 706,
+  "summary": "Shows that integrating phonemic transcriptions via enhanced in-context-learning retrieval narrows the performance gap between Latin and non-Latin script languages and improves multilingual knowledge transfer in text-based LLMs at inference time.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 504,
+  "summary": "Introduces oab-bench, 105 Brazilian Bar Exam questions with grading guidelines for evaluating legal writing; Claude-3.5 Sonnet passes all 21 exams (7.93/10 average), and frontier models like o1 correlate strongly with human graders as automated judges.",
+  "topics": ["Evaluations"]
+ },
+ {
+  "id": 707,
+  "summary": "Introduces Flow-Lenia, a mass-conservative extension of the Lenia continuous cellular automaton that produces stable complex self-organizing patterns, embeds rule parameters within its own dynamics for multispecies simulation, and exhibits emergent evolutionary dynamics.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 580,
+  "summary": "Compares activation-monitoring techniques for flagging unsafe LM outputs: linear probing, prompted probing, and SAE-based pooling. Zero-shot prompting is a reasonable baseline, but activation and prompted probing substantially outperform it given sufficient training data.",
+  "topics": ["Interpretability", "Safety"]
+ },
+ {
+  "id": 62,
+  "summary": "Anthropic Economic Index analysis comparing Claude Code and Claude.ai usage: the coding agent shows 79% task automation versus 49%, web development dominates usage, and startups adopt agentic coding tools far faster than enterprises.",
+  "topics": ["Policy & Society", "Agents"]
+ },
+ {
+  "id": 1455,
+  "summary": "Shows existing vulnerability-detection datasets suffer poor labels, duplication, and leakage, inflating code-LM scores; introduces PrimeVul with better labeling and chronological splits, where a 7B model drops from 68% F1 on BigVul to 3% on PrimeVul.",
+  "topics": ["Evaluations", "Robustness & Security"]
+ },
+ {
+  "id": 710,
+  "summary": "A theoretical account of when in-context learning emerges versus disappears, via a gating model choosing between in-weight and in-context predictors; generalization and regret analysis identifies the distributional conditions, corroborated on transformers and fine-tuned LLMs.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 709,
+  "summary": "Converts pretrained LLMs into parameter-sharing Recursive Transformers that loop a single block of layers, adding loop-specific low-rank adapters for layer specialization; with distillation they rival full-size models, plus a Continuous Depth-wise Batching inference scheme.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 708,
+  "summary": "Position paper introducing 'generative ghosts'—AI agents modeled on specific deceased people that generate novel content—mapping the design space and practical and ethical implications, and proposing a research agenda for safe, beneficial AI afterlives.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 1456,
+  "summary": "Empirical study of how industry practitioners adopt LLMs into data-curation workflows, documenting current practices, use cases, perceived benefits, and challenges of integrating LLMs into data pipelines.",
+  "topics": ["Training & Scaling", "Policy & Society"]
+ },
+ {
+  "id": 711,
+  "summary": "MELODI is a hierarchical memory architecture for long contexts that compresses short-term memory recurrently across layers and consolidates long-term memory in a single middle layer; it matches dense Memorizing Transformers while cutting memory footprint 8x.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 167,
+  "summary": "Investigates whether finetuning on synthetic documents can insert or modify specific factual beliefs in LLMs, exploring this as a safety tool for building model organisms and reducing risk from advanced AI systems.",
+  "topics": ["Safety", "Alignment"]
+ },
+ {
+  "id": 63,
+  "summary": "Anthropic outlines a research program on model welfare, taking seriously the possibility that future AI systems could warrant moral consideration, and commits to investigating welfare-relevant states and pursuing low-cost precautionary interventions.",
+  "topics": ["Safety", "Policy & Society"]
+ },
+ {
+  "id": 1458,
+  "summary": "Through artistic inquiry and situated dialogue with non-Western art communities, this work reimagines critical AI futures, foregrounding cultural perspectives typically marginalized in dominant AI discourse.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 1457,
+  "summary": "Introduces an anatomically detailed whole-body model of Drosophila in a physics simulator with fluid and adhesion force models; end-to-end RL trains neural controllers for naturalistic walking, flight, and vision-guided hierarchical motor control.",
+  "topics": ["Science Applications", "Reinforcement Learning"]
+ },
+ {
+  "id": 168,
+  "summary": "Argues that even without solving alignment, layered safeguards ('bumpers') can reliably catch and correct misalignment during development, outlining how iterative detect-and-fix loops could keep increasingly capable models safe.",
+  "topics": ["Safety", "Alignment"]
+ },
+ {
+  "id": 2707,
+  "summary": "A method to infer interparticle interaction potentials directly from observed stochastic trajectories by maximizing trajectory likelihood; it works in and out of equilibrium without assuming a functional form, recovering depletion interactions from colloidal-sphere experiments.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 2706,
+  "summary": "Benchmarks six LLMs on classifying crisis-related social media posts across events, information types, and linguistic features; GPT-4o and GPT-4 generalize best, but all models struggle with flood data, urgent-request categories, and inputs containing typos.",
+  "topics": ["Evaluations", "Robustness & Security"]
+ },
+ {
+  "id": 1459,
+  "summary": "Extends optimal web-refresh crawling to exploit noisy change signals such as sitemap pings; the scalable, decentralized algorithm maintains cache freshness under bandwidth limits with fair per-page performance and a constant total crawl rate.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 712,
+  "summary": "Argues against the 'Axiom of Rational Convergence,' contending AI safety should ask how diverse communities can coexist rather than converge on universal values; advocates context-appropriate norms and polycentric governance over a single alignment target.",
+  "topics": ["Policy & Society", "Alignment"]
+ },
+ {
+  "id": 505,
+  "summary": "aiXamine is a black-box evaluation platform aggregating 40+ benchmarks across eight safety and security dimensions; testing 50+ LLMs surfaced vulnerabilities including adversarial weakness in GPT-4o, bias in Grok-3, and privacy gaps in Gemini 2.0.",
+  "topics": ["Evaluations", "Safety", "Robustness & Security"]
+ },
+ {
+  "id": 64,
+  "summary": "Analyzes 700,000 real-world Claude conversations to build the first large-scale empirical taxonomy of values an AI expresses in practice, examining how expressed values shift across contexts.",
+  "topics": ["Alignment", "Policy & Society"]
+ },
+ {
+  "id": 216,
+  "summary": "Real-world case study showing lightweight prompt-injection attacks—delivered via user input, web retrieval, and system-level agent instructions—can persistently manipulate ChatGPT's behavior and bypass safety filters; framed as a security alert rather than an attack guide.",
+  "topics": ["Robustness & Security"]
+ },
+ {
+  "id": 581,
+  "summary": "Uses sparse autoencoders to mechanistically dissect in-context learning in Gemma-1 2B, identifying abstract features that encode and causally trigger the task; scales sparse feature-circuit analysis to link task-detection features to task-execution features via attention and MLPs.",
+  "topics": ["Interpretability", "Training & Scaling"]
+ },
+ {
+  "id": 217,
+  "summary": "A multi-agent pipeline combining a vision-language model, an LLM, and CLIP for zero-shot detection of novel hazardous objects in driving scenes; extends the COOOL benchmark with natural-language hazard descriptions and evaluates via semantic similarity.",
+  "topics": ["Agents", "Multimodal"]
+ },
+ {
+  "id": 2708,
+  "summary": "Argues prehospital large-vessel-occlusion detection should not rely on a single sensitivity/specificity threshold; using optical blood-flow imaging, shows thresholds can be titrated to suit the diverse needs of different prehospital systems of care.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 1460,
+  "summary": "Scales the Cell2Sentence framework to a 27B-parameter LLM trained on 1B+ tokens of transcriptomic data, text, and metadata; RL fine-tuning boosts perturbation and reasoning tasks, and a virtual screen nominated silmitasertib for context-selective antigen presentation, validated experimentally.",
+  "topics": ["Science Applications", "Training & Scaling"]
+ },
+ {
+  "id": 2709,
+  "summary": "Examines how companion AI systems affect human relationships, weighing potential risks and benefits and proposing design considerations for building companion AI that supports rather than harms users' social well-being.",
+  "topics": ["Policy & Society"]
+ }
+]

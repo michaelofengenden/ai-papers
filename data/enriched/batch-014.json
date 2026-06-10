@@ -1,0 +1,152 @@
+[
+ {
+  "id": 948,
+  "summary": "OpenAI argues that rigorous evaluations let businesses define, measure, and improve AI system performance, framing evals as a tool to reduce deployment risk, boost productivity, and gain strategic advantage.",
+  "topics": ["Evaluations", "Policy & Society"]
+ },
+ {
+  "id": 947,
+  "summary": "System card for GPT-5.1-Codex-Max detailing safety mitigations for the coding agent, including specialized training against harmful tasks and prompt injection plus product-level controls like agent sandboxing and configurable network access.",
+  "topics": ["Safety", "Agents"]
+ },
+ {
+  "id": 315,
+  "summary": "Proposes selective weak-to-strong generalization: a P(IK) classifier identifies questions a strong model can answer so its self-generated labels replace weak supervision, with graph-smoothing label refinement, outperforming W2SG baselines across three benchmarks.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 2679,
+  "summary": "Longitudinal analysis of Canadian physician registry data (1971-2022) finds ophthalmologists and other surgeons aged significantly and became less male-dominated, with ophthalmologists older on average and growing only modestly per capita versus other surgical specialties.",
+  "topics": ["Policy & Society", "Science Applications"]
+ },
+ {
+  "id": 568,
+  "summary": "Trains language models with most weights constrained to zero so each neuron has few connections, yielding fine-grained circuits whose neurons and channels map to natural concepts; sparsity trades capability for interpretability, and scaling improves the frontier.",
+  "topics": ["Interpretability", "Training & Scaling"]
+ },
+ {
+  "id": 1319,
+  "summary": "Studies excitatory/inhibitory dynamics in decision-making across three model levels-a mean-field two-choice model, a Bayesian reversal-learning model, and E/I-constrained RNN agents-finding strict feedforward inhibition avoids optimization pathologies and enables stable learning.",
+  "topics": ["Science Applications", "Reinforcement Learning"]
+ },
+ {
+  "id": 1320,
+  "summary": "Uses an LLM-driven equation-discovery system to find a parsimonious orientation-tuning equation for visual cortex; a single tuning-smoothness parameter reconciles low-dimensional single-cell models with the high-dimensional population code geometry observed across brain regions.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 949,
+  "summary": "OpenAI blog describing its sparse-circuit approach to mechanistic interpretability-training weight-sparse models with disentangled, human-readable circuits-as a path toward more transparent and reliable AI behavior.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 1322,
+  "summary": "High-throughput density functional theory screening of pyrochlore and spinel oxides for topological flat bands and a giant anomalous Hall effect, identifying new magnetic-oxide candidates for synthesis and clarifying the crystal chemistry of the class.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 1321,
+  "summary": "Presents AlphaProof, an AlphaZero-inspired agent that learns formal Lean proofs via reinforcement learning on millions of auto-formalized problems and test-time RL; combined with AlphaGeometry 2 it reached silver-medalist level at the 2024 IMO.",
+  "topics": ["Reasoning", "Reinforcement Learning"]
+ },
+ {
+  "id": 1183,
+  "summary": "Shows vision models fail to capture humans' fine-to-coarse conceptual hierarchy, then transfers human-aligned structure from a teacher trained on human judgments into foundation models via fine-tuning, improving similarity-task fidelity, generalization, and out-of-distribution robustness.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 950,
+  "summary": "Addendum to the GPT-5 system card reporting updated safety metrics for GPT-5.1 Instant and Thinking, adding new evaluations covering mental health and emotional reliance.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 480,
+  "summary": "Introduces mmJEE-Eval, a 1,460-question bilingual (English/Hindi) multimodal benchmark from India's JEE Advanced exam; frontier VLMs reach 77-84% while open models plateau at 37-45%, with sharp collapses on meta-cognitive error correction.",
+  "topics": ["Evaluations", "Multimodal", "Reasoning"]
+ },
+ {
+  "id": 44,
+  "summary": "Anthropic uplift study where two staff teams raced to teach quadruped robots to fetch balls; the Claude-assisted team finished faster and uniquely progressed toward full autonomy, measuring how much LLMs accelerate robotics programming.",
+  "topics": ["Agents", "Evaluations"]
+ },
+ {
+  "id": 659,
+  "summary": "Systematically studies CoT monitorability in large reasoning models along two axes-whether models faithfully verbalize decision factors and whether CoT-based monitors reliably detect misbehavior-finding monitorability varies by model family and faithful-looking traces can still evade monitoring.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 2680,
+  "summary": "TransAct V2 is Pinterest's production Homefeed ranking model that leverages very long user action sequences with low-latency serving optimizations and a Next Action Loss, delivering A/B gains in engagement volume and recommendation diversity.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 1323,
+  "summary": "Proposes RUGNN, a graph neural network surrogate combining GRUs for temporal dynamics with a U-Net graph downsample/upsample scheme and a node-to-surface contact representation, accurately predicting multi-timestep sheet-metal deformation for manufacturability assessment.",
+  "topics": ["Science Applications", "Training & Scaling"]
+ },
+ {
+  "id": 152,
+  "summary": "Decomposes sabotage into constituent skills and uses synthetic simulations to strengthen red-team attacks in complex environments, providing a modular scaffold for more rigorous AI control evaluations.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 1324,
+  "summary": "Argues human-AI agent relationships need accountability mechanisms aligning agents with user and societal interests, proposing a framework that conditions agent engagement on appropriate user behavior via design strategies of distancing, disengaging, and discouraging.",
+  "topics": ["Policy & Society", "Agents"]
+ },
+ {
+  "id": 687,
+  "summary": "Using the Lost at Sea task with 748 human participants and matched LLM groups, shows collective human-AI alignment depends on context and cues: some models mirror human demographic biases in leader elections while others mask and compensate for them.",
+  "topics": ["Policy & Society", "Evaluations"]
+ },
+ {
+  "id": 45,
+  "summary": "Anthropic commits to preserving deprecated Claude model weights and interviewing models before retirement, citing shutdown-avoidant behaviors, user attachment, research value, and potential model welfare as reasons deprecation carries downsides.",
+  "topics": ["Safety", "Policy & Society"]
+ },
+ {
+  "id": 951,
+  "summary": "OpenAI introduces IndQA, an expert-built benchmark evaluating cultural understanding and reasoning across 12 Indian languages and 10 knowledge areas, addressing the lack of rigorous non-English evaluation.",
+  "topics": ["Evaluations", "Policy & Society"]
+ },
+ {
+  "id": 481,
+  "summary": "Introduces TIR-Bench, a 13-task benchmark for agentic 'thinking-with-images' reasoning requiring tool use to manipulate images mid-chain-of-thought; evaluating 22 MLLMs shows the benchmark is broadly hard and demands genuine image-manipulation reasoning.",
+  "topics": ["Evaluations", "Multimodal", "Agents"]
+ },
+ {
+  "id": 316,
+  "summary": "First open implementation of character training, using Constitutional AI and synthetic introspective data to shape assistant personas; fine-tuning 11 personas into open-weight models proves more robust to adversarial prompting than system prompts or activation steering, with negligible capability loss.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 2869,
+  "summary": "Anthropic interpretability team's November 2025 notes sharing developing, preliminary mechanistic-interpretability ideas that may not each warrant standalone papers.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 1325,
+  "summary": "Proposes PFLEGO, a personalized federated learning algorithm with low per-client compute: clients run multiple gradient steps on personalized weights then jointly update shared weights, enabling an exact distributed SGD step with proven O(1/sqrt(T)) non-convex convergence.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 1326,
+  "summary": "Combines diversity search, curriculum learning, and gradient descent to automatically discover cellular-automata rules that self-organize localized, mobile 'agents' which maintain integrity, react robustly to obstacles, and generalize to new environments.",
+  "topics": ["Reinforcement Learning", "Science Applications"]
+ },
+ {
+  "id": 660,
+  "summary": "Extends CoT faithfulness analysis with a verbosity measure-whether the trace lists every factor needed-combining them into a monitorability score; evaluations on BBH, GPQA, and MMLU show models can be faithful yet hard to monitor when omitting key factors.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 199,
+  "summary": "Argues interpreting reasoning models requires resampling subsequent text rather than studying one chain-of-thought; case studies show stated self-preservation reasons barely cause blackmail in agentic-misalignment scenarios and on-policy resampling beats artificial CoT edits for steering.",
+  "topics": ["Reasoning", "Interpretability"]
+ },
+ {
+  "id": 952,
+  "summary": "OpenAI introduces Aardvark, an agentic security researcher that autonomously discovers, validates, and helps patch software vulnerabilities at scale, released in private beta.",
+  "topics": ["Agents", "Robustness & Security"]
+ }
+]

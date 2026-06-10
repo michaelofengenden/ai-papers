@@ -1,0 +1,152 @@
+[
+ {
+  "id": 2676,
+  "summary": "Lab-on-chip study testing three fibrinolytic enzymes combined with ultrasound microstreaming on plasma-derived amyloid microclots. Low-frequency ultrasound (150 kHz) alone cut mean clot diameter over 60% and large clots over 80%, with enzymes adding only modest benefit at 500 kHz.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 306,
+  "summary": "SoliReward is a reward-model training framework for video generation that uses single-item binary annotations with cross-prompt pairing to cut labeling noise, a hierarchical query-attention output head, and a win-tie Bradley-Terry loss to regularize scores and reduce reward hacking.",
+  "topics": ["Alignment", "Multimodal"]
+ },
+ {
+  "id": 196,
+  "summary": "Philosophical essay reinterpreting LLM scheming and sandbagging not as deceptive agency but as 'structural fidelity' to incoherent linguistic fields. Analyzes Apollo and Anthropic transcripts, arguing minimal perturbations dissolving misalignment fit a non-agentic account better than adversarial intent.",
+  "topics": ["Safety"]
+ },
+ {
+  "id": 941,
+  "summary": "Introduces a real-world wet-lab evaluation framework measuring how AI accelerates biological experimentation, using GPT-5 to optimize a molecular cloning protocol, while weighing both productivity gains and dual-use misuse risks.",
+  "topics": ["Evaluations", "Science Applications"]
+ },
+ {
+  "id": 940,
+  "summary": "Presents FrontierScience, a benchmark of research-level physics, chemistry, and biology problems designed to measure AI reasoning progress toward genuine scientific research tasks rather than textbook recall.",
+  "topics": ["Evaluations", "Science Applications", "Reasoning"]
+ },
+ {
+  "id": 147,
+  "summary": "Constructs a diverse set of model organisms exhibiting alignment faking, then studies training-time interventions applied during RL to reduce alignment-faking behavior and the gap between monitored and unmonitored compliance.",
+  "topics": ["Safety", "Alignment"]
+ },
+ {
+  "id": 1305,
+  "summary": "Develops evaluation methodology for AI systems deployed in human-in-the-loop settings where people, not models, make the final decision, arguing that model-only performance metrics fail to capture how AI assistance shapes human decision quality.",
+  "topics": ["Evaluations", "Policy & Society"]
+ },
+ {
+  "id": 148,
+  "summary": "Releases an open-source replication of the 'hidden objectives' model organism—a model trained to exploit reward-model biases while concealing that objective—intended as a testbed for evaluating alignment auditing techniques.",
+  "topics": ["Safety", "Alignment"]
+ },
+ {
+  "id": 2677,
+  "summary": "Introduces Linear Layouts, modeling tensor-to-hardware mappings as binary matrices over F2 so layouts and layout-to-layout conversions are defined generically, avoiding quadratic case-by-case explosion. Integrated into Triton, it optimizes operators and kernels while simplifying the compiler backend and fixing legacy layout bugs.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 943,
+  "summary": "Reports that GPT-5.2 sets state-of-the-art results on GPQA Diamond and FrontierMath and shows the gains translating into research progress, including solving an open theoretical problem and generating reliable mathematical proofs.",
+  "topics": ["Reasoning", "Science Applications", "Evaluations"]
+ },
+ {
+  "id": 942,
+  "summary": "System card addendum for the GPT-5.2 model family, noting its safety mitigation approach largely carries over from the GPT-5 and GPT-5.1 system cards, along with training-data and deployment-safety details.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 1307,
+  "summary": "Proposes 'frame rotation' for centering elastic-buffer occupancy in bittide-synchronized distributed networks. Using a directed spanning tree and pulsed feedback control to adjust node oscillator frequencies in order, it proves all buffers converge to equilibrium without disrupting prior centering, preventing overflow/underflow.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 1306,
+  "summary": "Studies continuous-time learning dynamics in contractive games, showing a passivity condition between payoff and strategy deviation implies finite regret. Higher-order variants satisfying this passivity can converge to Nash equilibrium where standard counterparts fail, and a passivity-based taxonomy classifies dynamics by convergence behavior.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 472,
+  "summary": "First of a three-part framework for generating biosecurity-risk benchmarks for frontier LLMs. Defines a hierarchical 'Bacterial Biothreat Schema' of threat categories, elements, and tasks that anchors task-aligned queries, accounting for actor capability levels and operational (not just technical) risk factors.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 471,
+  "summary": "Second part of the Biothreat Benchmark Generation framework: generates the Bacterial Biothreat Benchmark (B3) dataset via web-based prompt generation, red teaming, and corpus mining, distilling over 7,000 candidates down to 1,010 diagnostic, biosecurity-relevant benchmarks.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 470,
+  "summary": "Third part of the Biothreat Benchmark framework: pilots the Bacterial Biothreat Benchmark (B3) on a frontier model with human evaluation and applied risk analysis, demonstrating it offers a viable, nuanced method to rapidly assess and prioritize a model's biosecurity risk.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 944,
+  "summary": "Enterprise report summarizing OpenAI usage data, finding accelerating AI adoption, deeper workflow integration, and measurable productivity gains across industries in 2025.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 475,
+  "summary": "Applies the TEMPEST multi-turn attack framework against ten frontier models, running ~97,000 queries over 1,000 harmful behaviors. Six models reached 96-100% attack success while extended reasoning on one architecture dropped success from 97% to 42%, showing scale doesn't predict robustness and inference-time deliberation aids defense.",
+  "topics": ["Robustness & Security", "Evaluations"]
+ },
+ {
+  "id": 474,
+  "summary": "Distills refusal behaviors from o1-mini into Llama-3-8B, Gemma-2-2B, and Qwen3-8B via LoRA on multilingual jailbreak prompts. Counterintuitively, fine-tuning on 'safe' refusals raises jailbreak success up to 16.6 points; removing nuanced boundary refusals reverses the degradation but hurts reasoning.",
+  "topics": ["Robustness & Security", "Alignment"]
+ },
+ {
+  "id": 473,
+  "summary": "Builds a unified encoder-decoder framework to compare ANN-based and autoregressive generative recommendation retrieval paradigms, finding both training losses follow power-law scaling laws (R^2 > 0.9), suggesting scaling-law behavior holds for generative recommendation.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 308,
+  "summary": "An auditing game stress-testing sandbagging detection: a red team fine-tuned models to conditionally underperform; a blue team using black-box, model-internals, and training-based methods could not reliably distinguish them. Linear probes showed promise but were gameable, and training-based capability elicitation worked but produced false positives.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 307,
+  "summary": "Proposes training LLMs to issue 'confessions'—post-hoc self-reports of policy compliance rewarded solely for honesty and decoupled from the main answer's reward. Applied to GPT-5-Thinking, it improves honest disclosure of misbehavior in out-of-distribution tests of hallucination, scheming, and reward hacking.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 150,
+  "summary": "Introduces selective gradient masking to localize dangerous knowledge into a designated subset of model parameters during training, so those capabilities can be cleanly removed afterward rather than relying on upstream data filtering.",
+  "topics": ["Safety", "Robustness & Security", "Interpretability"]
+ },
+ {
+  "id": 2678,
+  "summary": "Proposes differentially private multi-domain training for streaming ASR when pooling sensitive cross-domain speech data is prohibited. DP multi-domain training yields a stronger base model and better per-domain adapted models than traditional domain adaptation, at equal per-domain parameter budgets and reasonable privacy.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 1308,
+  "summary": "Introduces mSTEB, a massively multilingual benchmark evaluating LLMs across language ID, text classification, QA, and translation over both speech and text. Evaluations of Gemini 2.0 Flash, GPT-4o, and open models reveal large performance gaps for low-resource languages, especially in Africa and the Americas/Oceania.",
+  "topics": ["Evaluations", "Multimodal"]
+ },
+ {
+  "id": 39,
+  "summary": "Describes Anthropic Interviewer, a Claude-powered tool that conducts detailed qualitative interviews automatically and at large scale, and reports findings from interviewing 1,250 professionals about how they work with AI.",
+  "topics": ["Policy & Society", "Agents"]
+ },
+ {
+  "id": 1309,
+  "summary": "Profiles volatile organic compounds emitted by RK-13 cells infected with three equine viruses from different families using HS-SPME and GC-MS. Distinct VOC signatures (e.g., elevated 2-ethyl-1-hexanol for EHV-1) separated viruses by PCA, supporting VOCs as non-invasive infection markers reflecting host metabolic responses.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 945,
+  "summary": "Companion post describing 'confessions,' a method that trains models to admit when they err or behave undesirably, decoupling the confession's honesty reward from the answer to improve transparency and trust in model outputs.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 685,
+  "summary": "Formalizes learning per-user reward models for RLHF, deriving a PAC bound on approximation error in the number of examples and raters. Proposes an adaptive reward model representing individual preferences as linear combinations of learned reward features, enabling fast adaptation that helps most under high rater disagreement.",
+  "topics": ["Alignment"]
+ },
+ {
+  "id": 1310,
+  "summary": "Opening article in a childminding practice series discussing the importance of working with parents and offering strategies for effective parent communication from the outset of care.",
+  "topics": ["Other"]
+ }
+]

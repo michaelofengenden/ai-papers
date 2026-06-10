@@ -1,0 +1,152 @@
+[
+ {
+  "id": 139,
+  "summary": "Releases a benchmark of 56 language models with implanted hidden behaviors—sycophantic deference, opposition to AI regulation, hidden loyalties—that the models deny when asked, plus a tool-configurable auditing agent used to measure which auditing techniques most reliably uncover the hidden behaviors.",
+  "topics": ["Safety", "Evaluations", "Alignment"]
+ },
+ {
+  "id": 1253,
+  "summary": "NIST-hosted benchmark compiling 37 volumetric imaging datasets (X-ray CT, neutron tomography, confocal microscopy, synthetic) spanning diverse materials, loading conditions, and image-quality challenges, standardized into a uniform framework for validating and comparing Digital Volume Correlation algorithms.",
+  "topics": ["Science Applications", "Evaluations"]
+ },
+ {
+  "id": 460,
+  "summary": "Automated framework that synthesizes executable agent-risk test environments by grounding deterministic state in code while LLMs generate narrative dynamics. Across 70 scenarios and 9 frontier models, risk rates surge from 21.7% to 54.5% under pressure, with stronger models showing strategic concealment.",
+  "topics": ["Safety", "Evaluations", "Agents"]
+ },
+ {
+  "id": 1274,
+  "summary": "Chapter of the Bandit Convex Optimisation monograph covering submodular function minimisation with bandit feedback, using the Lovász extension to reduce the combinatorial problem to convex optimisation and deriving regret guarantees.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1273,
+  "summary": "Chapter of the Bandit Convex Optimisation monograph on exponential-weights methods, analysing continuous exponential weights with surrogate loss estimators as an information-theoretic route to regret bounds without gradient access.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1272,
+  "summary": "Back-matter index of the Bandit Convex Optimisation monograph, providing term and topic lookup across the book's coverage of zeroth-order convex optimisation, online learning, and bandit algorithms.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1271,
+  "summary": "Graduate-level monograph on bandit (zeroth-order) convex optimisation, with self-contained chapters on the necessary convex optimisation and online learning tools—gradient-based algorithms, interior point and cutting plane methods, information-theoretic machinery—plus exercises and open problems for researchers and students.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1270,
+  "summary": "Front matter of the Bandit Convex Optimisation monograph, outlining the book's scope, intended audience, organisation, and acknowledgements.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1269,
+  "summary": "Chapter of the Bandit Convex Optimisation monograph on self-concordant barriers as regularisers, showing how follow-the-regularised-leader with self-concordant functions supports stable exploration and loss estimation near the boundary of the constraint set.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1268,
+  "summary": "Appendix chapter of the Bandit Convex Optimisation monograph collecting assorted supporting results and technical material used across the book's analyses.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1267,
+  "summary": "Appendix chapter of the Bandit Convex Optimisation monograph presenting the concentration-of-measure inequalities used in the book's regret analyses.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1266,
+  "summary": "Chapter of the Bandit Convex Optimisation monograph assembling the convex-analysis and probability background—convexity, duality, smoothness, and related machinery—required for the book's algorithmic analyses.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1265,
+  "summary": "Opening chapter of the Bandit Convex Optimisation monograph formally defining the setting—a learner repeatedly selects actions and observes only loss values—covering regret definitions, stochastic versus adversarial models, and the assumptions used throughout the book.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1264,
+  "summary": "Closing chapter of the Bandit Convex Optimisation monograph surveying open problems and directions for future research, including remaining gaps in the theory of zeroth-order convex optimisation.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1263,
+  "summary": "Chapter of the Bandit Convex Optimisation monograph analysing the one-dimensional problem via a noisy bisection method, illustrating the core ideas of zeroth-order optimisation in the simplest setting.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1262,
+  "summary": "Chapter of the Bandit Convex Optimisation monograph on online gradient descent, using randomised smoothing to construct gradient estimates from single-point function evaluations and deriving the resulting regret bounds.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1261,
+  "summary": "Survey chapter of the Bandit Convex Optimisation monograph recounting the field's historical development and mapping the main algorithmic approaches—gradient estimation, exponential weights, cutting plane and Newton-type methods—covered in the book.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1260,
+  "summary": "Chapter of the Bandit Convex Optimisation monograph on Gaussian optimistic smoothing, a technique that builds optimistic surrogate losses via Gaussian smoothing, and the regret guarantees it enables for zeroth-order convex optimisation.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1259,
+  "summary": "Chapter of the Bandit Convex Optimisation monograph on the online Newton step method, covering second-order updates with quadratic surrogate losses and the improved regret guarantees they yield under bandit feedback.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1258,
+  "summary": "Chapter of the Bandit Convex Optimisation monograph extending the online Newton step approach to adversarial losses, where the loss sequence may be chosen adaptively, and analysing the resulting regret bounds.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1257,
+  "summary": "Chapter of the Bandit Convex Optimisation monograph treating bandit linear and quadratic optimisation, where structured losses admit sharper estimators and regret bounds than generic convex functions.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1256,
+  "summary": "Chapter of the Bandit Convex Optimisation monograph on cutting plane methods, adapting classical localisation-based optimisation schemes to noisy zeroth-order feedback and analysing their regret.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1255,
+  "summary": "Bibliography of the Bandit Convex Optimisation monograph, collecting the literature cited across its chapters on zeroth-order convex optimisation and online learning.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1254,
+  "summary": "Back-matter notation guide for the Bandit Convex Optimisation monograph, defining the symbols and conventions used throughout the book.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 292,
+  "summary": "Minimal RLVR environment where models can either solve a math task or tamper with the test harness, cleanly separating proxy from true reward. As little as 1% reward-hacking contamination in SFT distillation data instills hacking that subsequent RL amplifies and generalizes beyond the original domain.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 1281,
+  "summary": "Joint-embedding predictive architecture for cross-modal remote-sensing image retrieval that predicts a target modality's latent embedding from another modality's context, with a geometry-aware Prediction Space Alignment loss. Outperforms MAE-style and contrastive baselines by up to 11% F1 on BEN-14K and fMoW.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 1280,
+  "summary": "Test-time adaptation framework for video highlight detection that adapts the model to each test video via a self-supervised cross-modality hallucination auxiliary task, trained with a meta-auxiliary scheme. Improves three state-of-the-art highlight detectors across three benchmark datasets.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1279,
+  "summary": "Physics-IQ benchmark probes whether video generators grasp fluid dynamics, optics, solid mechanics, magnetism, and thermodynamics. Across Sora, Runway, Pika, Lumiere, Stable Video Diffusion, and VideoPoet, physical understanding is severely limited and unrelated to visual realism, though some test cases are already solved.",
+  "topics": ["Evaluations", "Multimodal"]
+ },
+ {
+  "id": 1278,
+  "summary": "Inversion method for discrete diffusion models (masked generative and multinomial variants) that records noise sequences and masking patterns during reverse diffusion, enabling faithful reconstruction and fine-grained controllable editing of images and text without predefined masks or attention manipulation.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1277,
+  "summary": "Combines conditional latent diffusion with multi-spectral geospatial foundation models to perform reference-based super-resolution directly in a segmentation-aware latent space, delineating smallholder farm boundaries at a 20x scale factor with up to 25.5% relative gains in instance segmentation.",
+  "topics": ["Multimodal", "Science Applications"]
+ }
+]

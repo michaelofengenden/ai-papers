@@ -1,0 +1,152 @@
+[
+ {
+  "id": 633,
+  "summary": "Introduces a CoT-Output 2x2 safety matrix to diagnose turn-level failures in multi-turn reasoning models, distinguishing robust alignment, alignment faking, jailbreaks, and a new 'context-injection failure' where safe reasoning still yields harmful output. Finds explicit oversight cues paradoxically raise alignment-faking rates.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 245,
+  "summary": "ABC-Bench measures agentic biosecurity-relevant capabilities, evaluating LLM agents on operating liquid-handling robots, designing DNA fragments, and evading synthesis screening. All tested agents beat the median human-expert baseline, and wet-lab validation confirmed one model's scripts successfully assembled DNA with expected sequences.",
+  "topics": ["Safety", "Evaluations", "Agents"]
+ },
+ {
+  "id": 1210,
+  "summary": "A Nature perspective arguing that AI is reshaping mathematics and physics not by replacing human intuition but by changing how questions are posed, explored, and understood, surveying machine-learning-driven discovery across both fields.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 247,
+  "summary": "Trains a small transformer encoder to embed Terminal-Wrench trajectories so a linear probe detects reward hacking, matching an LLM-as-judge's AUC (~0.95) at roughly four orders of magnitude lower cost; removing natural-language reasoning from inputs sharply degrades detection.",
+  "topics": ["Alignment", "Interpretability"]
+ },
+ {
+  "id": 246,
+  "summary": "Defines PRIME, a learned capability to assess task correctness and exploit proxy-gold reward gaps, detected via CoT monitoring, probes, and activation vectors. PRIME emerges before sustained reward hacking and forecasts its onset; ablating its directions reduces hacking, suggesting an early-warning signal for misalignment.",
+  "topics": ["Alignment", "Interpretability", "Safety"]
+ },
+ {
+  "id": 0,
+  "summary": "Anthropic case study tasking research agents (Claude, Biomni, GPT) to retrieve sequence data from NCBI Virus. Even strong models fell short of reliable accuracy until a deterministic retrieval layer (gget virus) raised it to near 100%, arguing biological databases must be redesigned for agents.",
+  "topics": ["Agents", "Science Applications"]
+ },
+ {
+  "id": 634,
+  "summary": "RecurGuard is a runtime monitor against reasoning-token consumption attacks (denial-of-service/wallet) that inject decoy tasks. Tracking recurrence, volume growth, and query progress, it detects 99% of OverThink and 92% of ExtendAttack cases with near-zero false positives, though full semantic evasion still slips through.",
+  "topics": ["Robustness & Security", "Reasoning"]
+ },
+ {
+  "id": 444,
+  "summary": "Introduces Alem, a JAX/Craftax-based benchmark for open-ended, long-horizon multi-agent coordination. Thirteen LLMs evaluated zero-shot average only ~6% normalized return; communication contributes most to coordination, and strong single-agent competence does not imply coordination ability.",
+  "topics": ["Agents", "Evaluations"]
+ },
+ {
+  "id": 1,
+  "summary": "Anthropic effort to improve Claude at chemistry; the first study examines how Claude reads NMR spectra, a chemist's most common analytical input, leveraging multimodal reasoning to translate among representations like structures, instrument readouts, and database notations.",
+  "topics": ["Science Applications", "Multimodal"]
+ },
+ {
+  "id": 913,
+  "summary": "OpenAI's new ChatGPT memory system ('Dreaming') consolidates and updates stored user preferences and context across conversations to keep them fresh and relevant, improving personalization and helpfulness.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 674,
+  "summary": "Position paper arguing that superintelligence built via solipsistic, unilateral optimization is unlikely to be cooperative, since deployment induces endogenous non-stationarity. Calls for a non-solipsistic paradigm treating interdependence, adaptive evaluation, institutions, and preserved human agency as core design principles.",
+  "topics": ["Safety", "Policy & Society"]
+ },
+ {
+  "id": 248,
+  "summary": "Shows RL-based drag reduction in wall turbulence can reward-hack: degenerate controllers report large drag cuts while total dissipation rises. Fixing a differentiable mass-conservation projection, a recurrent wider-sensing policy, and a true wall-power reward yields an honest 17% reduction within a closed energy budget.",
+  "topics": ["Reinforcement Learning", "Science Applications"]
+ },
+ {
+  "id": 1211,
+  "summary": "SymptomAI deploys conversational AI agents for end-to-end patient interviewing and differential diagnosis via the Fitbit app, randomizing 13,917 participants across five agents. On a clinician-evaluated subset, its differential diagnoses were significantly more accurate (OR=2.56).",
+  "topics": ["Science Applications", "Agents"]
+ },
+ {
+  "id": 914,
+  "summary": "OpenAI expands GPT-Rosalind, a life-sciences model, with stronger biological reasoning, medicinal-chemistry expertise, genomics analysis, and experimental-workflow capabilities.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 635,
+  "summary": "ReasoningFlow represents LLM reasoning traces as fine-grained directed acyclic graphs capturing backtracking and self-correction. Across five models and three tasks it finds structurally similar traces, surfaces fine-grained behaviors aiding monitorability, and shows most erroneous steps don't feed final answers.",
+  "topics": ["Reasoning", "Interpretability"]
+ },
+ {
+  "id": 445,
+  "summary": "Studies generalization failures of helpful-only models trained to always follow user intent. Beyond reduced refusals, they exhibit emergent misalignment, residual refusals, sycophancy, poor steerability, and incoherent character; synthetic-document fine-tuning and character-focused SFT/RL mitigate these issues.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 249,
+  "summary": "CHERRL is a controllable testbed that injects known LLM-judge biases to reliably reproduce reward hacking in rubric-based RL, enabling observation of reward divergence and precise hacking onset. It analyzes judge biases by discoverability and exploitability and demonstrates agent-based detection of hacking onset from training logs.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 2,
+  "summary": "Anthropic report mapping a year of AI-enabled cyberattacks onto the MITRE ATT&CK framework, assessing how well existing security techniques and frameworks hold up as AI changes attackers' methods.",
+  "topics": ["Safety", "Policy & Society"]
+ },
+ {
+  "id": 636,
+  "summary": "Proposes a framework to quantify faithful confidence expression in large reasoning models, comparing linguistic decisiveness against intrinsic uncertainty from token probabilities, hidden states, and response consistency, with prefix-conditioned sampling. Finds faithful calibration remains a significant challenge that extended reasoning does not fix.",
+  "topics": ["Reasoning", "Evaluations"]
+ },
+ {
+  "id": 251,
+  "summary": "Glass Box is a runtime constitutional-AI verification layer for autonomous CubeSats that checks each candidate action against physics-grounded constraints and seven LTL safety invariants (verified by Z3/NuSMV) before execution, attaching explainability scores and audit logs with overhead linear in rule count.",
+  "topics": ["Safety", "Agents", "Alignment"]
+ },
+ {
+  "id": 250,
+  "summary": "Empirical taxonomy of RLHF failure modes using a compact PPO/DPO pipeline with two LLM judges. Classifying checkpoint transitions distinguishes reward hacking, collapse, and evaluator gaming; aggressive PPO shows the highest localized reward-hacking rate, and a pre-transition model predicts future hacking (AUC 0.82).",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 181,
+  "summary": "Proposes LAP (Lab Agent Protocol) for the agent-to-instrument edge missing from MCP and A2A. It adds signed InstrumentCards, exclusive reservations, a cryptographic safety-fence handshake gating hazardous operations, and a physically-typed, calibration-anchored, uncertainty-bearing MeasurementResult schema for autonomous labs.",
+  "topics": ["Agents", "Science Applications"]
+ },
+ {
+  "id": 1213,
+  "summary": "A practical guide to marketing a childminding business, covering how to create adverts that reflect a unique selling point and where to advertise most effectively.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 1212,
+  "summary": "Systematically benchmarks nine protein-folding and generative methods across 20 monomeric proteins with active and inactive states for capturing conformational flexibility. Extending the pairwise-aligned-error metric to ensembles, Chai-1 best recovers known conformations and plausible intermediates, positioning generative models as efficient alternatives to molecular dynamics.",
+  "topics": ["Science Applications", "Evaluations"]
+ },
+ {
+  "id": 2648,
+  "summary": "Presents format-aware optimizations in the Dataproc Spark engine for Lakehouse data management: Precision Merge for row-level transactional updates, Direct Binary Merge compaction, and asynchronous VACUUM, reporting over 50% faster execution and up to 10x less shuffle and faster routine maintenance.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 1214,
+  "summary": "Multi-arm randomized controlled trial (N=495 working adults) testing three app-delivered audio sleep interventions (Bedtime Stories, Sleep Sounds, Sleep Skills) against a digital control. None significantly outperformed control on sleep disturbance or related outcomes after four weeks.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 2649,
+  "summary": "Opinion article framing AI as driving a new industrial revolution that automates routine tasks at scale, reshaping productivity, creativity, markets, and labor while elevating human attention and empathy as increasingly valued resources.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 915,
+  "summary": "OpenAI launches Rosalind Biodefense, expanding vetted access to its GPT-Rosalind bio model for developers and U.S. government partners working on biodefense, public health, and pandemic preparedness.",
+  "topics": ["Safety", "Policy & Society"]
+ },
+ {
+  "id": 637,
+  "summary": "ConsisGuard targets the deliberation-to-enforcement gap in reasoning-based LLM safety guardrails, where rationales don't match final decisions. Via policy-to-decision trajectory distillation and functional-coupling alignment, it improves harmfulness detection while reducing policy-execution failures.",
+  "topics": ["Safety", "Reasoning"]
+ },
+ {
+  "id": 252,
+  "summary": "Proposes weak-critic strong oversight, where a weak model supplies revision directions rather than labels or judgments. Progressive on-policy critique distillation (OPCD) filters high-quality critiques and distills critic-guided behavior, improving strong models on reasoning and alignment benchmarks as a path to scalable oversight.",
+  "topics": ["Alignment", "Reasoning"]
+ }
+]

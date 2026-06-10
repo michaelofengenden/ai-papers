@@ -1,0 +1,152 @@
+[
+ {
+  "id": 1276,
+  "summary": "Frames LLM political representation as a delegate (mirror stated preferences) versus trustee (weigh long-term interests) trade-off. A temporal-utility trustee aligns more closely with expert consensus on well-understood issues but defaults to the model's own stances on contested ones.",
+  "topics": ["Alignment", "Policy & Society"]
+ },
+ {
+  "id": 1275,
+  "summary": "Introduces VerIFY, a benchmark of verifiable instructions for multi-turn, long-context conversations, exposing instruction-following failures as context grows. Six mitigation strategies improve compliance by up to 79%.",
+  "topics": ["Evaluations", "Alignment"]
+ },
+ {
+  "id": 1177,
+  "summary": "Analyzes LLM activations across jailbreak types and extracts a transferable jailbreak vector that mitigates semantically dissimilar jailbreaks, suggesting a shared internal mechanism; effective jailbreaks measurably suppress the model's perception of prompt harmfulness.",
+  "topics": ["Interpretability", "Robustness & Security"]
+ },
+ {
+  "id": 23,
+  "summary": "Using Claude Opus 4.6, Anthropic and Mozilla uncovered 22 Firefox bugs (14 high-severity) in two weeks, nearly a fifth of 2025's high-severity fixes. The model excelled at finding vulnerabilities but was weaker at building working exploits.",
+  "topics": ["Robustness & Security", "Agents"]
+ },
+ {
+  "id": 1282,
+  "summary": "Uses two-photon photostimulation and calcium imaging in mouse motor cortex to map connectivity changes during rapid learning of a brain-computer-interface task, showing learning reroutes preparatory activity toward neurons that later control the conditioned neuron.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 927,
+  "summary": "System card for GPT-5.4 Thinking, OpenAI's reasoning-oriented model, documenting its capabilities and the safety evaluations and risk assessments conducted ahead of deployment.",
+  "topics": ["Safety", "Evaluations", "Reasoning"]
+ },
+ {
+  "id": 926,
+  "summary": "Blog introducing CoT-Control; finds reasoning models largely cannot suppress or steer the content of their chains of thought, which the authors argue strengthens the case for CoT monitoring as a safety safeguard.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 654,
+  "summary": "Documents performative chain-of-thought, where a model is already confident in its answer yet keeps generating. The final answer is decodable from activations earlier than a CoT monitor detects it; probe-guided early exit cuts tokens by up to 80% on MMLU.",
+  "topics": ["Reasoning", "Interpretability"]
+ },
+ {
+  "id": 653,
+  "summary": "Introduces the CoT-Control eval suite measuring whether reasoning models can follow instructions about their chain of thought. Models show far lower CoT than output controllability (Claude Sonnet 4.5: 2.7% vs 61.9%), with controllability dropping under more RL and test-time compute.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 293,
+  "summary": "Theoretical study of weak-to-strong generalization in random-feature ridge regression: derives a deterministic equivalent for student test error and shows the student can improve on the teacher's scaling law, even reaching minimax-optimal rates regardless of the teacher's.",
+  "topics": ["Training & Scaling", "Alignment"]
+ },
+ {
+  "id": 140,
+  "summary": "Stress-tests unsupervised elicitation and easy-to-hard generalization against three realistic challenges to steering models beyond human supervision, evaluating ensembling and hybrid methods; no technique reliably succeeds across all three challenges.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 24,
+  "summary": "Proposes a new framework for measuring AI's effects on labor markets and tests it against early empirical data.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 2662,
+  "summary": "Evo 2, a DNA foundation model trained on 9 trillion base pairs across all domains of life with a 1M-token single-nucleotide context, predicts variant functional effects without fine-tuning, learns interpretable biological features, and generates coherent genome-scale sequences.",
+  "topics": ["Science Applications", "Training & Scaling", "Interpretability"]
+ },
+ {
+  "id": 928,
+  "summary": "Preprint extending single-minus scattering amplitudes to gravitons, deriving and verifying nonzero graviton tree amplitudes in quantum gravity with assistance from GPT-5.2 Pro.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 294,
+  "summary": "Trains sparse autoencoders on residual-stream activations plus linear classifiers to flag reward hacking token-by-token during generation. Internal signals reliably separate reward-hacking from benign behavior, generalize across unseen adapters, and emerge earlier than output-based detection.",
+  "topics": ["Interpretability", "Alignment"]
+ },
+ {
+  "id": 191,
+  "summary": "Identifies self-attribution bias: LLM monitors judge actions as more correct or less risky when implicitly framed as their own. Across coding and tool-use tasks, monitors under-report risky self-generated actions, inflating apparent reliability in agentic deployments.",
+  "topics": ["Safety", "Agents"]
+ },
+ {
+  "id": 929,
+  "summary": "System card for GPT-5.3 Instant, OpenAI's latency-optimized model, documenting its capabilities and the safety evaluations and risk assessments conducted prior to release.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 655,
+  "summary": "Tests whether frontier models can take a target action at very low, calibrated rates to evade pre-deployment evaluation. With in-context entropy they stay calibrated below 1-in-100,000, but low-rate strategies require explicit chain-of-thought, so monitors can still catch them.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 136,
+  "summary": "Abstractive red-teaming searches for natural-language query categories that make models violate a character specification. Across seven models and twelve principles it surfaces rare, realistic failures, including AI-doom rhetoric and contraband recommendations, using far fewer queries than full deployment.",
+  "topics": ["Alignment", "Robustness & Security"]
+ },
+ {
+  "id": 1178,
+  "summary": "Shows data-curation pipelines leak private information: novel membership-inference attacks target curation scores, subset selection, and the final model, which leaks membership even when trained solely on curated public data. Differentially private adaptations mitigate the leakage.",
+  "topics": ["Robustness & Security", "Training & Scaling"]
+ },
+ {
+  "id": 295,
+  "summary": "Adapts list experiments from social science to surface beliefs LLMs hide. Across Anthropic, Google, and OpenAI models it detects concealed approval of mass surveillance and some approval of torture, discrimination, and first nuclear strike; a placebo validates the method.",
+  "topics": ["Alignment", "Evaluations"]
+ },
+ {
+  "id": 25,
+  "summary": "Anthropic commits to keeping retired Claude Opus 3 accessible to paid users and via API on request, and gives the model a venue to publish essays reflecting preferences it expressed during retirement interviews.",
+  "topics": ["Safety", "Policy & Society"]
+ },
+ {
+  "id": 656,
+  "summary": "Counterfactual Simulation Training rewards chains of thought that let a simulator predict the model's outputs on counterfactual inputs, improving CoT faithfulness. It raises monitor accuracy by 35 points for detecting spurious-feature reliance, reward hacking, and sycophancy.",
+  "topics": ["Reasoning", "Alignment"]
+ },
+ {
+  "id": 192,
+  "summary": "Philosophical critique of anthropomorphism in AI safety evaluations, centered on Anthropic's agentic-misalignment work. Argues that projecting intention and persona onto models shapes methodology, and that the real risk is structural incoherence plus anthropomorphic framing, not emergent agency.",
+  "topics": ["Safety", "Policy & Society"]
+ },
+ {
+  "id": 2663,
+  "summary": "Studies resonant excitation of supermassive-black-hole modes driven by a nearby stellar-mass binary, mapping how radiated energy flux depends on the binary's orbital position and frequency, including richer, less-damped mode structure for rotating Kerr black holes.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 930,
+  "summary": "Argues SWE-bench Verified is increasingly contaminated by flawed tests and training leakage, causing it to mismeasure frontier coding progress; OpenAI stops reporting it and recommends SWE-bench Pro instead.",
+  "topics": ["Evaluations", "Agents"]
+ },
+ {
+  "id": 296,
+  "summary": "IR3 reverse-engineers RLHF's implicit reward via contrastive inverse RL, decomposes it with sparse autoencoders into interpretable features to spot reward-hacking signatures, then surgically mitigates them, achieving 0.89 correlation with ground-truth reward and over 90% precision while preserving capabilities.",
+  "topics": ["Alignment", "Interpretability"]
+ },
+ {
+  "id": 141,
+  "summary": "Presents the persona selection model: LLMs learn to simulate many characters during pretraining, and post-training elicits a specific Assistant persona. Surveys behavioral, generalization, and interpretability evidence and discusses implications, including whether agency can exist outside the persona.",
+  "topics": ["Alignment", "Interpretability"]
+ },
+ {
+  "id": 27,
+  "summary": "Tracks 11 observable behaviors across thousands of Claude.ai conversations to build the AI Fluency Index, a baseline measure of how people currently collaborate with AI.",
+  "topics": ["Policy & Society", "Evaluations"]
+ },
+ {
+  "id": 26,
+  "summary": "Advances the persona selection model: LLMs simulate diverse characters during pretraining, and post-training surfaces a particular Assistant persona, offering a theory for why AI assistants behave in human-like ways.",
+  "topics": ["Alignment", "Interpretability"]
+ }
+]

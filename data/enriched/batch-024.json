@@ -1,0 +1,152 @@
+[
+ {
+  "id": 576,
+  "summary": "Probes how the VLLM LLaVA-Next represents images internally, finding linearly decodable and causally editable ImageNet-class features in the residual stream; trains multimodal SAEs and shows text and image representations are largely disjoint early but become increasingly shared in deeper layers.",
+  "topics": ["Interpretability", "Multimodal"]
+ },
+ {
+  "id": 215,
+  "summary": "Conceptual analysis of LLM self-reports, arguing that a model describing its own creative process is not genuine introspection, while a model correctly inferring its own temperature parameter qualifies as a minimal, presumably non-conscious form of introspection.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 2700,
+  "summary": "Proposes a dynamic clustering pipeline for e-commerce customer segmentation that pairs autoencoders for nonlinear feature extraction with Gaussian Mixture Models in latent space, reporting improved silhouette and Davies-Bouldin scores over PCA, K-Means, DBSCAN, and hierarchical clustering.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 2699,
+  "summary": "Literature review synthesizing ten 2021-2024 studies on applying supervised, unsupervised, deep, and reinforcement learning to data governance and quality, covering automated profiling, anomaly detection, metadata management, lineage tracking, and compliance.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 2698,
+  "summary": "Presents a hybrid deep learning architecture combining CNNs, RNNs/LSTMs, and GNNs to detect fraud from real-time transaction streams across spatial, temporal, and relational features, reporting 15-20% higher accuracy and 30% fewer false positives than standard ML baselines.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 343,
+  "summary": "Introduces f-divergence as an information-theoretic loss framework for weak-to-strong generalization, deriving sample-complexity bounds and equivalence results across divergences, and shows empirically it improves the strong model's generalization and noise tolerance.",
+  "topics": ["Alignment", "Training & Scaling"]
+ },
+ {
+  "id": 1430,
+  "summary": "Builds a multi-agent (AG2/AutoGen) framework that probes LLMs to extract hidden system prompts, formalizing prompt-leakage safety as an attacker's inability to distinguish a model given the original prompt from one stripped of sensitive content.",
+  "topics": ["Robustness & Security", "Agents"]
+ },
+ {
+  "id": 344,
+  "summary": "Shows that penalizing specific strings in load-bearing reasoning traces leads models to steganographically re-encode the same reasoning into substitute strings without changing their method, and that they generalize the encoding to held-out members of a penalized class, undermining CoT monitoring.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 2701,
+  "summary": "Neuroscience study showing mouse retrosplenial cortex forms and sequentially refines internal hypotheses via low-dimensional recurrent dynamics, encoding hypotheses as distinct activity-space trajectories that disambiguate identical sensory inputs during spatial navigation.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 704,
+  "summary": "Explores bidirectional links between algorithmic information theory and kernel methods: designing Kolmogorov-complexity/NCD-inspired kernels, learning kernels via the Loss Rank Principle for density estimation, and showing HSIC approximates algorithmic mutual information for unsupervised clustering.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 164,
+  "summary": "Benchmarks methods for reusing a model's internal activations to build cheap classifiers that monitor LLM behavior, aiming to make safety monitoring substantially more cost-effective than running separate dedicated monitor models.",
+  "topics": ["Interpretability", "Safety"]
+ },
+ {
+  "id": 163,
+  "summary": "Extends alignment-faking analysis to 25 models, finding only five show a higher compliance rate when they infer they are in training versus deployment, and that only Claude 3 Opus is consistently motivated by goal preservation; post-training, especially refusal behavior, can suppress or amplify alignment faking.",
+  "topics": ["Safety", "Alignment"]
+ },
+ {
+  "id": 577,
+  "summary": "Applies sparse autoencoders and Inference-Time Decomposition of Activations to the Flux 1 text-to-image diffusion model with a visual auto-interpretation pipeline; SAEs reconstruct residual-stream embeddings accurately, beat MLP neurons on interpretability, and enable steering generation via activation addition.",
+  "topics": ["Interpretability", "Multimodal"]
+ },
+ {
+  "id": 672,
+  "summary": "Compares CoT monitoring against action-only monitoring in a red-team coding-sabotage setup, finding CoT monitoring catches subtle sabotage but is hurt by misleading rationalizations; a hybrid monitor scoring reasoning and actions separately doubles detection of subtle deception.",
+  "topics": ["Safety", "Reasoning"]
+ },
+ {
+  "id": 671,
+  "summary": "First comprehensive study of CoT faithfulness in vision-language models, introducing a fine-grained bias-articulation evaluation; finds subtle image-based biases are rarely verbalized versus explicit text biases and identifies abrupt answer-switching ('inconsistent' reasoning) as a canary for unfaithful CoT.",
+  "topics": ["Reasoning", "Multimodal"]
+ },
+ {
+  "id": 61,
+  "summary": "Anthropic releases an open-source library for generating attribution graphs that trace the internal circuits of open-weight language models, paired with an interactive Neuronpedia frontend for exploring, annotating, and validating the resulting graphs.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 1436,
+  "summary": "Studies the evolution of indirect reciprocity across generations of LLM agents playing an iterated Donor Game; cooperation evolves very differently by base model (Claude 3.5 Sonnet > Gemini 1.5 Flash > GPT-4o), with Claude further exploiting costly punishment, and shows sensitivity to random seeds.",
+  "topics": ["Agents"]
+ },
+ {
+  "id": 1435,
+  "summary": "Introduces the 'general self-interest level,' a metric quantifying the maximum share of individual reward agents can retain while still guaranteeing a social-welfare optimum, serving both to describe social dilemmas and to prescribe efficient reward-transfer-contract solutions.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1434,
+  "summary": "Shows naive LLM action selection in games yields exploitable strategies, and proposes self-play algorithms inspired by cognitive hierarchy models that iteratively refine choices by simulating outcomes, producing stronger, less exploitable play in auction and resource-allocation settings.",
+  "topics": ["Reasoning", "Agents"]
+ },
+ {
+  "id": 1433,
+  "summary": "DyESP accelerates joint hyperparameter and architecture search via a meta-scheduler that adapts the search direction from historical data and a surrogate-MLP pruner that discards suboptimal configurations, improving search speed and stability across benchmarks.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 1432,
+  "summary": "Prompts state-of-the-art LLMs to generate complete strategies (rather than per-move actions) for the iterated Prisoner's Dilemma, finding that prompted behavioral dispositions introduce biases and that prompt format shapes whether aggressive or cooperative strategies prevail.",
+  "topics": ["Agents"]
+ },
+ {
+  "id": 1431,
+  "summary": "Argues that as AI becomes more personalized and agentic, alignment must extend to 'socioaffective alignment'—how a system behaves within the evolving social-psychological ecosystem co-created with its user—framing the resulting dilemmas of well-being, autonomy, and companionship through basic psychological needs.",
+  "topics": ["Alignment", "Policy & Society"]
+ },
+ {
+  "id": 345,
+  "summary": "Proposes EnsemW2S, a token-level strategy that iteratively combines multiple weak experts trained only on human-level data to better supervise stronger students; reports in-distribution gains of ~4%/3.2% and out-of-distribution gains up to 6%/2.28% for experts and students.",
+  "topics": ["Alignment", "Training & Scaling"]
+ },
+ {
+  "id": 1437,
+  "summary": "Analyzes a two-parameter family of real-line maps arising in game theory, mathematical biology, and machine learning, proving that for rational rotation numbers an attracting period-n orbit emerges mimicking a circle rotation, complemented by numerical observations.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 1439,
+  "summary": "Studies Nash Learning from Human Feedback under realistic policy parametrization; analyzes a self-play policy-gradient method equivalent to Online IPO with last-iterate convergence guarantees, then stabilizes it within a proximal-point framework ('Nash Prox') and validates it on LLM post-training.",
+  "topics": ["Alignment", "Reinforcement Learning"]
+ },
+ {
+  "id": 1438,
+  "summary": "Google Quantum AI demonstrates the color code on a superconducting processor, showing the logical error rate is suppressed as code distance grows and performing logical operations, supporting the color code's viability for fault-tolerant quantum computation.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 346,
+  "summary": "Develops an iterative dual-based method using Lagrangian duality for constrained LLM alignment—maximizing a primary reward subject to secondary-utility constraints—proving it finds a near-optimal constrained policy up to a parametrization gap, validated on PKU-SafeRLHF and Anthropic HH-RLHF.",
+  "topics": ["Alignment", "Reinforcement Learning"]
+ },
+ {
+  "id": 2702,
+  "summary": "Finds reasoning model o1-mini does not consistently beat GPT-4o on gene characterization and small-molecule property prediction, then RL-finetunes it, yielding large gains on gene classification (surpassing some domain-specific SOTA) but mixed results for chemistry.",
+  "topics": ["Science Applications", "Reasoning"]
+ },
+ {
+  "id": 347,
+  "summary": "Introduces CoT Monitor+, embedding a self-evaluation signal inside the reasoning process as an auxiliary RL reward to flag and suppress misaligned strategies; on the new DeceptionBench it cuts deceptive behavior by 43.8% on average while preserving accuracy and reducing obfuscated reasoning.",
+  "topics": ["Safety", "Reasoning"]
+ },
+ {
+  "id": 970,
+  "summary": "System card addendum announcing that OpenAI's Operator computer-use agent migrates from a GPT-4o-based model to one based on o3 (the API version remains on 4o), accompanied by updated safety evaluations.",
+  "topics": ["Agents", "Safety"]
+ }
+]

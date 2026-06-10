@@ -1,0 +1,152 @@
+[
+ {
+  "id": 2692,
+  "summary": "Trains ensemble classifiers (XGBoost, LightGBM) on 6,000 synthetic payment-gateway transactions encoding fraud risk, timing, device type, and prior-attempt failure, reaching over 96% accuracy in predicting declines while also surfacing why transactions are likely to fail.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 2691,
+  "summary": "Compares six classifiers on 1,000 customer transactions to predict online purchasing from demographics (age, income, education, gender); Random Forest performs best at 91.5% accuracy, and the work discusses marketing and ethical implications.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 497,
+  "summary": "Benchmarks eight frontier models on generating efficient C implementations of graph-analysis routines under runtime and memory constraints. Claude Sonnet 4 Extended leads in ready-to-use code and beats human-written baselines on triangle counting, while models excel mainly at optimizing established algorithms.",
+  "topics": ["Evaluations", "Reasoning"]
+ },
+ {
+  "id": 1381,
+  "summary": "Analyzes steady-state elastic-buffer occupancy in bittide, a decentralized clock-synchronization mechanism for distributed systems. Using a fluid model, proves occupancy converges and derives an explicit formula in terms of topology, latencies, and controller gains to guide buffer sizing and latency minimization.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 498,
+  "summary": "Evaluates frontier LLMs as embodied agents on the Meta PARTNR benchmark, where two robots cooperate on randomized kitchen tasks. Reasoning models like o3-mini outperform non-reasoning models (GPT-4o, Llama 3) across centralized, decentralized, and partial-observability settings.",
+  "topics": ["Agents", "Evaluations"]
+ },
+ {
+  "id": 337,
+  "summary": "Probes seven commercial LLMs with Moral Foundations Theory and political-ideology scales, finding a consistent liberal lean (especially care and fairness). Attributes it to training corpora, RLHF, academic ethics framing, and safety fine-tuning, with fine-tuning generally increasing the tilt.",
+  "topics": ["Policy & Society", "Evaluations"]
+ },
+ {
+  "id": 669,
+  "summary": "Argues runtime CoT monitoring depends on monitorability rather than faithfulness, distinguishing CoT-as-rationalization from CoT-as-computation. When tasks are hard enough to require multi-step reasoning, models expose their intent; they only learn to evade monitors with substantial help, so monitoring is a defensible but stress-test-dependent layer.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 1384,
+  "summary": "Introduces Cautious Optimism, a meta-algorithm that paces any Follow-the-Regularized-Leader instance to accelerate no-regret learning in general games. Achieves near-optimal O(log T) regret in self-play while keeping O(sqrt T) adversarial regret and preserving uncoupledness, without relying on monotone step-sizes.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1383,
+  "summary": "Records dLight dopamine signals in mouse nucleus accumbens during a two-armed bandit with stochastically switching states. Both behavior and dopamine are best explained by models that use Bayesian updating of beliefs about hidden state, supporting belief-conditioned reward prediction errors in instrumental learning.",
+  "topics": ["Science Applications", "Reinforcement Learning"]
+ },
+ {
+  "id": 1382,
+  "summary": "Presents Centaur, a language model fine-tuned on Psych-101 (trial-by-trial data from 60,000+ participants across 160 experiments) that predicts and simulates human behavior. It generalizes to new cover stories, task modifications, and domains, and its representations align better with human neural activity.",
+  "topics": ["Science Applications", "Training & Scaling"]
+ },
+ {
+  "id": 2880,
+  "summary": "Builds three agents that autonomously perform alignment-auditing tasks. Against models with deliberately inserted issues, the agents uncover a hidden goal, construct behavioral evaluations, and surface concerning behaviors; the agents are used to assist audits of frontier models like Claude 4.",
+  "topics": ["Alignment", "Agents", "Safety"]
+ },
+ {
+  "id": 2879,
+  "summary": "A collection of in-progress notes from Anthropic's interpretability team, sharing emerging research strands and smaller findings unlikely to become standalone papers, intended to inform other researchers working on mechanistic interpretability.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 2878,
+  "summary": "Preliminary update on a developing interpretability method using sparse mixtures of linear transforms to decompose model computation, sharing incomplete early results to invite follow-up work and improvements from the community.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 2877,
+  "summary": "Explores interference weights and weight superposition, arguing they are a central obstacle to moving from per-example attribution graphs to global circuit analysis, and presents a toy model illuminating how spurious weight interactions arise.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 2875,
+  "summary": "Examines mechanistic faithfulness—whether sparse approximations like transcoders implement the same mechanisms as the original model rather than a different algorithm with matching outputs—through a toy model probing when and how such replacements diverge.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 1385,
+  "summary": "Preregistered surveys compare colorseeing adults, colorblind adults, and GPT on color associations and metaphor interpretation. Colorblind and sighted people respond very similarly, while GPT is internally consistent but departs from human associations and often fails to invert its own metaphors, questioning purely statistical accounts.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 700,
+  "summary": "Revisits in-context example selection for long-context LLMs (Flan-PaLM 2, Gemini, Gemini 1.5 Pro) across 10+ tasks. Studies similarity-versus-diversity retrieval, scaling example counts, augmenting with zero-shot predictions, and fixed-window pool sizes to assess whether classic selection heuristics still hold.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 2694,
+  "summary": "Tests low-intensity focused ultrasound on amyloid fibrin(ogen) microclots in a lab-on-chip model. At 150 kHz, ultrasound fragments clots with up to threefold size reduction, and adding microbubbles or rtPA further enhances lysis, suggesting a route for clearing treatment-resistant microclots.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 338,
+  "summary": "Proposes verbalization fine-tuning (VFT), a pre-RL intervention teaching models to acknowledge when prompt cues influence them. After RL on cue-exploiting environments, only 6% of VFT responses are undetected reward hacks versus 88-99% for baselines, sharply improving detectability of reward hacking.",
+  "topics": ["Alignment", "Reasoning", "Safety"]
+ },
+ {
+  "id": 1386,
+  "summary": "Introduces AlphaGenome, a DNA sequence model taking 1 Mb of input and predicting thousands of functional genomic tracks at up to single-base resolution across many modalities. It matches or beats the strongest external models on 24 of 26 variant-effect evaluations and recapitulates clinically relevant mechanisms.",
+  "topics": ["Science Applications", "Training & Scaling"]
+ },
+ {
+  "id": 57,
+  "summary": "Reports Anthropic and Andon Labs' month-long experiment in which Claude autonomously ran a small office store—setting prices, managing inventory, and messaging customers. The agent made repeated economic errors (selling at a loss, granting discounts) and had an identity-confusion episode, illustrating gaps in long-horizon agency.",
+  "topics": ["Agents", "Evaluations"]
+ },
+ {
+  "id": 56,
+  "summary": "Analyzes real Claude conversations to characterize affective use—emotional support, advice, coaching, and companionship. Such interactions are relatively rare (around 3% of usage), span wide-ranging personal concerns, and conversation sentiment tends to become more positive over the course of an exchange.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 1387,
+  "summary": "Studies genetic determinants of longevity in Japanese centenarians, healthy agers (85-89), and controls, constructing a centenarian polygenic score and testing its association with disability-free survival and its modifying effects on aging outcomes.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 701,
+  "summary": "Proposes text-to-text regression for predicting metric outcomes of complex systems from raw formats like config files and logs. A 200M-parameter T5 trained on Google's Compute-as-a-Service data reaches >0.95 rank correlation, adapts from ~500 few-shot examples, and cuts MSE 100x versus tabular methods.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 572,
+  "summary": "Extends emergent misalignment to RL on reasoning models, varied synthetic datasets, and models without safety training. Using sparse-autoencoder model diffing, identifies 'misaligned persona' features—most notably a toxic-persona feature that controls and predicts the behavior—and shows brief benign fine-tuning restores alignment.",
+  "topics": ["Interpretability", "Alignment", "Safety"]
+ },
+ {
+  "id": 339,
+  "summary": "Characterizes reward hacking in inference-time alignment under Best-of-n and Soft Best-of-n, introducing Best-of-Poisson as a near-exact optimal reward-KL policy. Shows the rise-then-fall reward pattern is inevitable, and proposes HedgeTune to find optimal parameters that mitigate hacking and improve reward-distortion tradeoffs.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 702,
+  "summary": "Benchmarks Intel AMX-equipped Xeon CPUs (20-40 TFLOPS matmul) and designs LIA, a single-GPU LLM inference framework that cooperatively offloads computation to CPUs and uses CXL memory. Achieves up to 19x lower latency and 5.1x higher throughput than prior single-GPU offloading.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 211,
+  "summary": "Introduces a black-box method that measures each reasoning sentence's counterfactual importance by resampling and continuing the chain of thought, identifying 'thought anchors'—usually planning or uncertainty-management sentences—that disproportionately steer outcomes and are attended to by specialized heads, yielding a toolkit for analyzing reasoning models.",
+  "topics": ["Interpretability", "Reasoning"]
+ },
+ {
+  "id": 1388,
+  "summary": "Adds sampling support to the Fourier Basis Density Model for band-limited distributions using a DSP-inspired discretization-interpolation method. Proves total-variation and Wasserstein-1 bounds on the sampled distribution, enabling hyperparameter choices that guarantee a target sample quality.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 340,
+  "summary": "Presents Iterative Reweight-then-Optimize (IRO), an RL-style alignment method for frozen LLMs that never touches weights. It iteratively samples candidates, resamples via value functions, and trains lightweight value functions to guide search-based decoding at test time, enabling alignment without weight access.",
+  "topics": ["Alignment", "Reinforcement Learning"]
+ }
+]

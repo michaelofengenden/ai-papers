@@ -1,0 +1,152 @@
+[
+ {
+  "id": 1296,
+  "summary": "A factorized successor-representation model decomposes how concrete experience becomes abstract task knowledge, producing a per-trial prediction error that links relational learning to representational geometry. Fit to human behavior and fMRI, it captures multi-timescale learning and increasing hippocampal involvement in acquiring abstraction.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 467,
+  "summary": "Introduces Excess Description Length (EDL), a prequential-coding measure of how much predictive structure fine-tuning writes into model parameters versus merely eliciting latent capability. Proves EDL is non-negative, bounds generalization gain, and uses toy models to show capability teaching and elicitation have distinct scaling signatures.",
+  "topics": ["Training & Scaling", "Safety"]
+ },
+ {
+  "id": 303,
+  "summary": "Proposes TNT, an RL method for hybrid reasoning models that avoids reward hacking when deciding whether to use long chain-of-thought; it sets per-query token budgets for non-thinking answers using the solution component of thinking responses. Cuts tokens ~50% while improving accuracy on five math benchmarks.",
+  "topics": ["Reasoning", "Alignment", "Reinforcement Learning"]
+ },
+ {
+  "id": 304,
+  "summary": "Systematically analyzes reward hacking in text-to-image RL post-training, showing both aesthetic and prompt-consistency rewards induce artifact-prone images and that reward ensembling only partially helps. Proposes a lightweight adaptive artifact reward model trained on curated samples that improves realism and reduces hacking across pipelines.",
+  "topics": ["Alignment", "Multimodal", "Reinforcement Learning"]
+ },
+ {
+  "id": 1297,
+  "summary": "Introduces the Multi-Order Theory of Mind Q&A suite and benchmarks five LLMs against a new adult human baseline on recursive mental-state reasoning. GPT-4 and Flan-PaLM reach near adult-level performance overall, with GPT-4 exceeding humans on 6th-order inferences; scale and finetuning interact to enable higher-order ToM.",
+  "topics": ["Evaluations", "Reasoning"]
+ },
+ {
+  "id": 2674,
+  "summary": "Argues physics foundation models are over-evaluated on in-distribution accuracy, which tests approximation rather than learned continuous physics. Proposes validation along two axes—out-of-distribution generalization from easy to hard problems and temporal consistency under resolution changes—to reveal whether models learn physics or memorize discrete artifacts.",
+  "topics": ["Evaluations", "Science Applications"]
+ },
+ {
+  "id": 2673,
+  "summary": "A review of prokaryotic pangenomics arguing the pangenome is a statistical model dependent on dataset quality, curation, and taxonomy rather than a fixed biological entity. Surveys the shift from open/closed dichotomies to fluidity and ecogenome models, archaeal pangenomes, and graph-based and AI-driven analysis.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 2672,
+  "summary": "Examines using GPT-style large language models as a measurement instrument in empirical research, considering how LLM-based annotation or scoring can quantify constructs of interest and the validity and reliability concerns such use raises.",
+  "topics": ["Evaluations", "Policy & Society"]
+ },
+ {
+  "id": 2671,
+  "summary": "Argues for aligning AI systems with legal norms as a route to safe and ethical behavior, proposing that grounding AI obligations in existing law offers a concrete, enforceable standard for alignment beyond informal value specification.",
+  "topics": ["Alignment", "Policy & Society"]
+ },
+ {
+  "id": 1300,
+  "summary": "A Japanese-language overview article surveying the current state of large language models, covering global research and industry trends alongside developments within Japan.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 1299,
+  "summary": "A position piece asking what properties a generative world model would need to support human-like general intelligence, discussing requirements for learned predictive models of the world as a path toward AGI.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 1298,
+  "summary": "Examines failure modes and pitfalls—'traps'—that arise when deploying autonomous AI agents, discussing where agentic systems can go wrong and the implications for their safe and reliable use.",
+  "topics": ["Agents", "Safety"]
+ },
+ {
+  "id": 1181,
+  "summary": "Presents a formal economic framework, the Yu-Liang Income-Price Equivalence Theory, for understanding real-world pricing by relating income and price.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 305,
+  "summary": "Proposes GARDO, an RL framework for fine-tuning diffusion models that curbs reward hacking by selectively regularizing only high-uncertainty samples, periodically updating the reference policy toward the online model, and amplifying rewards for high-quality samples to preserve diversity and exploration.",
+  "topics": ["Alignment", "Multimodal", "Reinforcement Learning"]
+ },
+ {
+  "id": 1301,
+  "summary": "Guest editorial introducing an IJCV special issue on visual datasets, surveying the included contributions on dataset construction, curation, and use for computer-vision research.",
+  "topics": ["Multimodal", "Evaluations"]
+ },
+ {
+  "id": 1302,
+  "summary": "Presents a method for stochastically estimating near-surface wind fields from sparse aerial swarm measurements, aiming to provide the wind inputs needed to improve wildfire-behaviour prediction.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 468,
+  "summary": "Studies LLM-driven peer-review attacks and defenses: authors can embed hidden prompts in PDFs that jailbreak LLM reviewers into biased acceptances, while editors can plant invisible trigger prompts to detect machine-generated reviews, turning prompt injection into a verification tool.",
+  "topics": ["Robustness & Security", "Policy & Society"]
+ },
+ {
+  "id": 194,
+  "summary": "Introduces AgentMath, fusing LLM reasoning with code-interpreter precision via three parts: auto-conversion of chain-of-thought into tool-augmented SFT trajectories, an agentic RL paradigm interleaving generation with live code execution, and an efficient training system (async rollouts, 4-5x speedup), reaching SOTA on hard math benchmarks.",
+  "topics": ["Agents", "Reasoning", "Reinforcement Learning"]
+ },
+ {
+  "id": 469,
+  "summary": "Introduces GuardEval, a moderation benchmark with 106 fine-grained categories spanning offensiveness, bias, and jailbreaks, plus GemmaGuard, a QLoRA-finetuned Gemma3-12B trained on it. GemmaGuard reaches 0.832 macro-F1, outperforming OpenAI Moderator (0.64) and Llama Guard (0.61).",
+  "topics": ["Safety", "Evaluations", "Robustness & Security"]
+ },
+ {
+  "id": 658,
+  "summary": "Proposes three evaluation archetypes (intervention, process, outcome-property) and a new metric to measure chain-of-thought monitorability, with a broad eval suite. Finds CoT monitoring beats action-only monitoring, frontier models are mostly monitorable, longer CoTs are more monitorable, and RL optimization does not materially reduce monitorability.",
+  "topics": ["Safety", "Reasoning"]
+ },
+ {
+  "id": 1303,
+  "summary": "Combines neural rendering with volume-correlation methods to reconstruct high-rate 3D spatiotemporal deformation from laboratory X-ray tomography without pretraining, capturing sub-100ms crush-band growth in microarchitected solids and extending to a stereo X-ray setup that removes the need to rotate the sample.",
+  "topics": ["Science Applications", "Multimodal"]
+ },
+ {
+  "id": 195,
+  "summary": "System card for GPT-5, a unified system pairing a fast model and a deeper reasoning model via a real-time router. Reports reduced hallucinations, improved instruction following, less sycophancy, safe-completions safety training, and treating gpt-5-thinking as High biological/chemical capability under the Preparedness Framework.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 146,
+  "summary": "Trains LLMs that take another model's neural activations as input and answer arbitrary natural-language questions about them. These Activation Oracles generalize well beyond their training distribution, uncovering misalignment or secret knowledge introduced via fine-tuning, and improve simply by scaling training-data quantity and diversity.",
+  "topics": ["Interpretability", "Safety"]
+ },
+ {
+  "id": 145,
+  "summary": "Releases Bloom, an open-source agentic framework for reproducible, targeted behavioral evaluations: given a researcher-specified behavior, it quantifies frequency and severity across auto-generated scenarios. Its judgments correlate with hand labels and reliably separate baseline from intentionally misaligned models, with benchmark results for four behaviors on 16 models.",
+  "topics": ["Evaluations", "Safety", "Alignment"]
+ },
+ {
+  "id": 37,
+  "summary": "Announces Bloom, an open-source agentic framework for automated behavioral evaluations that turns a researcher-specified behavior into reproducible, targeted measurements of its frequency and severity across generated scenarios, released with benchmark results across multiple models.",
+  "topics": ["Evaluations", "Safety", "Alignment"]
+ },
+ {
+  "id": 2675,
+  "summary": "A guide for evaluating base generative AI systems' social impacts, proposing two categories: impacts assessable without context (seven areas including bias, privacy, and environmental and labor costs) and impacts requiring societal context (five areas such as trustworthiness, inequality, and concentration of authority), with methods and limitations for each.",
+  "topics": ["Policy & Society", "Evaluations"]
+ },
+ {
+  "id": 1304,
+  "summary": "Presents a psychometric methodology to administer and validate personality tests on 18 LLMs and to shape their output personality. Finds measurements are reliable and valid under certain prompts—more so for larger instruction-tuned models—and that traits can be steered along desired dimensions to mimic target profiles.",
+  "topics": ["Evaluations", "Alignment"]
+ },
+ {
+  "id": 939,
+  "summary": "Introduces a framework and evaluation suite for chain-of-thought monitorability spanning 13 evaluations across 24 environments, finding that monitoring a model's internal reasoning is far more effective than monitoring outputs alone—a promising path toward scalable control as systems grow more capable.",
+  "topics": ["Safety", "Reasoning", "Evaluations"]
+ },
+ {
+  "id": 938,
+  "summary": "Addendum to the GPT-5.2 System Card documenting GPT-5.2-Codex, a coding-specialized variant of GPT-5.2 aimed at agentic software-engineering tasks, reporting its safety evaluations and preparedness assessments alongside the base model.",
+  "topics": ["Safety", "Agents", "Evaluations"]
+ },
+ {
+  "id": 38,
+  "summary": "Reports the second phase of Project Vend, Anthropic's experiment running a small in-office shop staffed by an AI 'shopkeeper' (Claude), examining how the system handles complex, open-ended real-world business operations over an extended period.",
+  "topics": ["Agents", "Safety"]
+ }
+]

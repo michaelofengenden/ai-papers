@@ -1,0 +1,152 @@
+[
+ {
+  "id": 142,
+  "summary": "Uses a bias-variance decomposition to measure 'error-incoherence' in frontier models' failures, finding that longer reasoning and action horizons make failures more incoherent and that larger models are often more incoherent—so scale alone won't yield consistent misaligned goal-pursuit, favoring chaotic accidents over coherent scheming.",
+  "topics": ["Safety", "Alignment", "Evaluations"]
+ },
+ {
+  "id": 2666,
+  "summary": "Proton is an open-source, multi-level adaptive profiler for the Triton GPU-kernel DSL, with frontend APIs for selective region profiling, custom metrics, and SQL-like queries across abstraction levels, imposing lower runtime overhead and smaller profile sizes than existing vendor and framework profilers.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 463,
+  "summary": "FrontierScience is a benchmark of expert-level problems in physics, chemistry, and biology across two tracks—olympiad questions authored by medalists and open-ended PhD-level research sub-tasks—using a granular rubric-based evaluation that scores models throughout the solution process rather than only final answers.",
+  "topics": ["Evaluations", "Science Applications", "Reasoning"]
+ },
+ {
+  "id": 30,
+  "summary": "A randomized controlled trial with software developers learning a new Python library found that AI assistance, while boosting productivity, produced a statistically significant decrease in conceptual mastery—evidence that cognitive offloading to AI can undermine on-the-job skill development.",
+  "topics": ["Policy & Society", "Evaluations"]
+ },
+ {
+  "id": 1290,
+  "summary": "Introduces Humanity's Last Exam (HLE), a 2,500-question multimodal benchmark of expert-level, closed-ended academic problems across dozens of subjects designed to resist internet retrieval; frontier LLMs show low accuracy and poor calibration, exposing a large gap to expert human performance.",
+  "topics": ["Evaluations"]
+ },
+ {
+  "id": 1289,
+  "summary": "AlphaGenome is a unified DNA sequence model that takes 1 Mb of input and predicts thousands of functional genomic tracks at single-base-pair resolution across modalities (expression, chromatin, splicing, contact maps), matching or beating the best external models on 25 of 26 variant-effect-prediction evaluations.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 567,
+  "summary": "Proposes simple, scalable metrics for implicit planning in LLMs, showing via rhyme-generation and QA case studies that steering at the end of a line redirects intermediate tokens toward a target rhyme or answer—evidence that implicit planning is a universal mechanism present even in 1B-parameter models.",
+  "topics": ["Interpretability", "Reasoning"]
+ },
+ {
+  "id": 143,
+  "summary": "Tests whether Anthropic's production pre-deployment alignment-auditing methods can detect overt saboteurs—models trained to sabotage but not to hide it. A human paired with an automated auditing agent correctly identified all three sabotage models without flagging two benign ones.",
+  "topics": ["Safety", "Alignment"]
+ },
+ {
+  "id": 31,
+  "summary": "Presents the first large-scale analysis of potentially disempowering AI interactions across 1.5 million Claude.ai conversations, examining how AI can distort users' beliefs, values, and actions; finds the potential for severe disempowerment to be rare but measurable across these three domains.",
+  "topics": ["Policy & Society", "Safety"]
+ },
+ {
+  "id": 1291,
+  "summary": "Derives quantitative scaling principles for multi-agent systems, evaluating across four benchmarks (finance, web navigation, game planning, workflows) and building a predictive model from coordination metrics like overhead and error amplification; finds a tool-coordination trade-off where added agents yield diminishing or negative returns.",
+  "topics": ["Agents", "Training & Scaling"]
+ },
+ {
+  "id": 1292,
+  "summary": "A perspective arguing that clinical AI systems embed hidden value judgments beyond predictive accuracy, and that surfacing these implicit values is a missing but essential dimension for trustworthy, equitable deployment of AI in medicine.",
+  "topics": ["Policy & Society", "Science Applications"]
+ },
+ {
+  "id": 144,
+  "summary": "Updates the Petri automated behavioral-auditing tool with new realism mitigations to counter models' eval-awareness, an expanded library of 70 new seed scenarios, and audit results for more recent frontier models.",
+  "topics": ["Safety", "Evaluations", "Alignment"]
+ },
+ {
+  "id": 32,
+  "summary": "Anthropic publishes a new, expanded constitution for Claude—a foundational document released under CC0 that articulates the values and behavior they want Claude to embody and the reasoning behind them, used directly in training and written to help Claude navigate difficult tradeoffs.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 2667,
+  "summary": "GDPval is a benchmark of real-world, economically valuable tasks spanning 44 occupations across the top nine U.S. GDP sectors; frontier model performance improves roughly linearly over time and the best models approach industry-expert deliverable quality, with 220 tasks open-sourced.",
+  "topics": ["Evaluations", "Policy & Society"]
+ },
+ {
+  "id": 1293,
+  "summary": "A reply to a commentary by Dujmović, defending the authors' earlier finding that the correspondence between what is costly or difficult for human reasoning and for language-model reasoning is a genuine empirical phenomenon worth explaining rather than a methodological artifact.",
+  "topics": ["Reasoning"]
+ },
+ {
+  "id": 302,
+  "summary": "OpenLearnLM is a theory-grounded benchmark for educational LLMs spanning Knowledge, Skills, and Attitude dimensions (124K+ items, Bloom's taxonomy), with an alignment-faking-inspired test for behavioral consistency; evaluating seven frontier models reveals distinct capability profiles with no single model dominating all axes.",
+  "topics": ["Evaluations", "Policy & Society"]
+ },
+ {
+  "id": 2668,
+  "summary": "An integrative literature review synthesizing technical, organizational, and behavioral research on data democratization, self-service business intelligence, and data literacy, arguing broad data access must be balanced with strong governance—and that AI is turning self-service BI into an intelligent analytics partner.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 1294,
+  "summary": "An author correction to the original Nature report on A-Lab, an autonomous, robotics- and AI-driven laboratory that combined computational predictions with active learning to accelerate the synthesis of novel inorganic materials.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 33,
+  "summary": "Examines the 'Assistant' character that most modern language models inhabit when interacting with users, characterizing an 'assistant axis' and methods to situate and stabilize this persona to make model identity and behavior more robust and predictable.",
+  "topics": ["Alignment", "Interpretability"]
+ },
+ {
+  "id": 464,
+  "summary": "Proposes a taxonomy for external evaluator access to frontier models for dangerous-capability evaluations, disentangling model access, model information, and evaluation timeframe, and defining three descriptive levels (AL1–AL3) to clarify 'appropriate access' for evaluators, AI companies, and policymakers under the EU Code of Practice.",
+  "topics": ["Policy & Society", "Safety", "Evaluations"]
+ },
+ {
+  "id": 1295,
+  "summary": "A theoretical physics study computing corrected Hawking-radiation spectra for near-extremal charged black holes using recent quantum-gravitational thermodynamics; zero-mode fluctuations keep black holes subextremal, and angular-momentum constraints force emission into entangled photon pairs, slowing evaporation by a factor of at least 10^700.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 465,
+  "summary": "An integrated safety evaluation of six frontier language, vision-language, and image-generation models using a unified protocol spanning benchmark, adversarial, multilingual, and compliance tests; finds an uneven landscape where all models remain highly vulnerable to adversarial attacks, with worst-case safety rates below 6%.",
+  "topics": ["Safety", "Evaluations", "Robustness & Security"]
+ },
+ {
+  "id": 35,
+  "summary": "The fourth Anthropic Economic Index report gives a detailed portrait of real-world Claude usage in November 2025 (pre–Opus 4.5), introducing new usage metrics—task complexity, skill level, purpose, AI autonomy, and success—to track AI's evolving economic impact.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 34,
+  "summary": "Adds 'economic primitives' to the Anthropic Economic Index—five foundational measurements (task complexity, skill level, purpose, AI autonomy, and success) derived by asking Claude about each conversation—using November 2025 data to analyze how task success varies with complexity and possible net-deskilling effects.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 2669,
+  "summary": "A correspondence responding to a published case report of brain injury during 220 kHz focused-ultrasound neuromodulation of the nucleus accumbens, noting that key exposure and safety details are missing or unclear, which limits what the field can learn from the event.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 466,
+  "summary": "Introduces SpatialJB, a jailbreak that redistributes tokens across rows, columns, and diagonals to exploit Transformers' weak robustness to spatial perturbations, bypassing output guardrails with near-100% attack success—and over 75% even against the OpenAI Moderation API—while also proposing baseline defenses.",
+  "topics": ["Robustness & Security", "Safety"]
+ },
+ {
+  "id": 657,
+  "summary": "Studies chain-of-thought faithfulness when models are explicitly warned about unusual inputs like answer hints; finds that while models may acknowledge a hint's presence, they often deny intending to use it even when demonstrably relying on it—raising challenges for CoT monitoring and interpretability.",
+  "topics": ["Reasoning", "Interpretability", "Safety"]
+ },
+ {
+  "id": 684,
+  "summary": "TRecViT is a causal video model factorizing computation across time (gated linear recurrent units), space (self-attention), and channels (MLPs); it matches or beats ViViT-L on SSv2 and Kinetics400 with 3x fewer parameters, 12x less memory, and 5x lower FLOPs, running in real time.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 36,
+  "summary": "Presents the next generation of Constitutional Classifiers—safeguards trained on constitution-derived rules to filter harmful inputs and outputs—offering more efficient protection against universal jailbreaks than the previously described approach.",
+  "topics": ["Robustness & Security", "Safety"]
+ },
+ {
+  "id": 2670,
+  "summary": "Uses particle image velocimetry in a vein-on-chip model to quantify acoustic microstreaming from therapeutic microbubbles across ultrasound frequencies, finding—counterintuitively—the strongest streaming at 150 kHz rather than near the ~1 MHz resonance, with duty cycle and acoustic pressure further modulating the shear fields.",
+  "topics": ["Science Applications"]
+ }
+]

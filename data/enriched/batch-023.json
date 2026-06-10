@@ -1,0 +1,152 @@
+[
+ {
+  "id": 1420,
+  "summary": "Uses generative video models to simulate capture inconsistencies (varying illumination, scene motion) as synthetic training data for a multi-view harmonization network that reconciles inconsistent observations into a consistent 3D scene, outperforming traditional augmentation for static reconstruction from casual captures.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1419,
+  "summary": "Develops a theoretical framework for sinusoidal implicit neural representations via an amplitude-phase expansion showing layer compositions generate integer-combination frequencies. The resulting TUNER method initializes inputs by spectral sampling and bounds the spectrum during training, improving stability, convergence, and reconstruction detail.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 1418,
+  "summary": "Solves the omnimatte problem by finetuning a video inpainting diffusion model on a small curated dataset to identify and remove object-specific scene effects, decomposing videos into complete layers with shadows and reflections without assuming static backgrounds or known camera pose/depth.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1417,
+  "summary": "Applies vision-language models to image cropping via visual in-context learning, combining automatic retrieval of in-context examples with iterative crop refinement. Handles free-form, subject-aware, and aspect-ratio-aware cropping, outperforming state-of-the-art methods without task-specific training.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1416,
+  "summary": "A ViT token pruner using auxiliary prediction heads that learn task-relevant token selection end-to-end; heads are removed after training, giving throughput close to a random pruner. Achieves 1.5-4x speedups across classification, segmentation, and detection with small performance drops.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 1415,
+  "summary": "Training-free panoramic video generation from a fixed-resolution diffusion model: an Offset Shifting Denoiser with a rotating window yields seamless boundaries while Global Motion Guidance preserves motion continuity, producing arbitrary-size 360-degree dynamic scenes with constant VRAM regardless of output resolution.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1414,
+  "summary": "Chapters hour-long videos by feeding an LLM speech transcripts plus captions of frames chosen by speech-guided selection, training it to emit chapter boundaries and titles in one forward pass. Improves F1 from 26.7% to 45.3% on VidChapters-7M.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1413,
+  "summary": "Shows that improving caption quality in weakly labeled training data substantially boosts compositional understanding in standard CLIP models, which otherwise perform near chance, reaching state-of-the-art on ARO and SugarCrepe without bespoke architectures and improving image retrieval.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 1412,
+  "summary": "Combines MLLM semantics with explicit geometric reasoning for 3D object placement: extracting relevant low-level geometry, constructing and solving geometric constraints, and pruning candidates for common sense. Places objects more effectively in complex scenes than prior work.",
+  "topics": ["Multimodal", "Reasoning"]
+ },
+ {
+  "id": 1411,
+  "summary": "TexTok conditions image tokenization on descriptive captions so token capacity focuses on fine-grained visual detail. Improves reconstruction FID 29-48% on ImageNet-256/512, lifts generation FID 16-34%, and yields a 93.5x DiT inference speedup using only 32 tokens.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 1410,
+  "summary": "Extends algebraic effect handlers with choice continuations exposing possible future losses, letting programmers write loss-aware optimization operations inspired by the selection monad. Proves progress, type soundness, termination, and adequacy for a model language, with a Haskell implementation.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 1409,
+  "summary": "Optimizes the overfitted C3 image codec for Wasserstein Distortion rather than data-distribution modeling, matching generative codecs like HiFiC on quality-bitrate tradeoff with under 1% of decoding MACs. A rater study shows WD predicts human Elo scores at over 94% Pearson correlation.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1408,
+  "summary": "ACID, an online batch-selection method, uses active data curation as an alternative to knowledge distillation for contrastive multimodal pretraining, beating strong KD baselines; combined with KD (ACED) it sets state-of-the-art on 27 zero-shot classification/retrieval tasks with up to 11% fewer inference FLOPs.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 1407,
+  "summary": "Benchmark and training framework for fine-grained temporal alignment in multi-event video-text models, building hard negatives via reordering and action-word swaps over ActivityNet-Captions and YouCook2. A hierarchical pairwise preference loss and concatenation pretraining improve compositional sensitivity.",
+  "topics": ["Multimodal", "Evaluations"]
+ },
+ {
+  "id": 1406,
+  "summary": "Flexible Frame Selector is a learnable policy that picks the most informative video frames for video-language models, easing input context limits. Maintains or improves accuracy on video question-answering and reasoning benchmarks while substantially reducing frames processed downstream.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1405,
+  "summary": "CaPO aligns text-to-image diffusion models with multiple reward models and no human annotations, calibrating rewards by expected win-rate against pretrained-model samples and selecting training pairs from Pareto frontiers. Outperforms DPO on GenEval and T2I-CompBench in single- and multi-reward settings.",
+  "topics": ["Multimodal", "Alignment"]
+ },
+ {
+  "id": 1404,
+  "summary": "Mines 4D reconstructions from internet stereoscopic wide-angle videos by fusing camera pose, stereo depth, and tracking into pseudo-metric point clouds with long-term motion trajectories. Training a DUSt3R variant on this data generalizes 3D structure-and-motion prediction to diverse real scenes.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1403,
+  "summary": "Splits Rust verification between automated proving of safe code and targeted semi-automated verification of unsafe code via Gillian-Rust, which embeds RustBelt lifetime logic and RustHornBelt prophecies, verifying real standard-library code orders of magnitude faster than comparable tools and linking with Creusot.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 1402,
+  "summary": "Audio-driven human video generation from a single image, pairing a human-to-3D-motion diffusion model with a spatiotemporally controlled image diffusion architecture; generates full upper-body gestures without per-person training. Trained on MENTOR (800K identities), it surpasses prior methods on three benchmarks.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1401,
+  "summary": "Conditions a video generation model on sparse or dense motion trajectories ('motion prompts'), translating high-level user requests into semi-dense trajectories via motion prompt expansion. Enables camera/object control, motion transfer, and image editing, with emergent behaviors like realistic physics.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1400,
+  "summary": "Watermarks 3D Gaussian Splatting so both the model and rendered images carry copyright messages, using Frequency-Guided Densification to split high-frequency Gaussians plus gradient masking and a wavelet-subband loss. Remains robust to image distortions and model attacks while preserving rendering quality.",
+  "topics": ["Robustness & Security", "Multimodal"]
+ },
+ {
+  "id": 1399,
+  "summary": "B-Free trains AI-generated-image detectors on fakes produced from real images via stable-diffusion conditioning, ensuring semantic alignment so detectors learn generation artifacts rather than content biases. Improves generalization, robustness, and calibration across 27 generators including FLUX and Stable Diffusion 3.5.",
+  "topics": ["Robustness & Security", "Multimodal"]
+ },
+ {
+  "id": 1398,
+  "summary": "Creates dynamic 3D (4D) scenes from monocular video using a multi-view video diffusion model that synthesizes novel views at arbitrary camera poses and timestamps, then optimizes a deformable 3D Gaussian representation. Competitive on novel-view synthesis and dynamic reconstruction benchmarks.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 1397,
+  "summary": "Adapts a deep visual SLAM framework with careful training and inference modifications to estimate camera parameters and depth maps from casual monocular videos of dynamic scenes, handling unconstrained camera paths and low parallax more accurately and robustly than prior work at comparable speed.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 214,
+  "summary": "Survey of 445 references on LLM/GenAI risks and defenses spanning platform integrity, healthcare diagnostics, finance, cybersecurity, and privacy, compiling trends such as rising AI-assisted malware, scams, and deepfakes alongside LLM-based fraud detection and moderation, with a governance roadmap and implementation blueprint.",
+  "topics": ["Policy & Society", "Safety", "Robustness & Security"]
+ },
+ {
+  "id": 1426,
+  "summary": "Astro-DSB, a Diffusion Schrödinger Bridge with a pairwise domain assumption, solves observational inverse problems in giant molecular clouds for star formation, beating astrostatistical and discriminative pixel-to-pixel baselines on simulations and Taurus B213 observations, with stronger out-of-distribution generalization.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 1427,
+  "summary": "Generalized Lagrangian Equilibrium Propagation extends EP's variational formulation to time-varying inputs under arbitrary boundary conditions, and shows Hamiltonian Echo Learning is the special case preserving EP's hardware-friendly traits: forward-only operation, efficient scaling, and local learning.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 342,
+  "summary": "A frozen instruction-tuned 7B LLM with a one-line JSON rubric and rank-16 LoRA serves as a plug-and-play RLHF judge, reaching 96.2% on RewardBench (beating 27B-70B reward models) and letting a 7B actor hit 92% on GSM-8K via online PPO.",
+  "topics": ["Alignment"]
+ },
+ {
+  "id": 1429,
+  "summary": "Models a rope built from a fundamental string to study relativistic limits on transmitting power and information by wiggling one end, arguing both are bounded and conjecturing the two capacities interfere: maximal power transmission permits no information transfer, and vice versa.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 1428,
+  "summary": "Optimizes force fields through end-to-end differentiable atomistic simulation, computing analytic gradients of simulated properties (elastic constants, phonon dispersion, radial distribution functions) to tune classical potentials and fine-tune machine-learned ones, improving accuracy and temperature generalization over energy/force-based fitting.",
+  "topics": ["Science Applications"]
+ }
+]

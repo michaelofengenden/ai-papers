@@ -1,0 +1,152 @@
+[
+ {
+  "id": 964,
+  "summary": "System card for GPT-5, a unified system that routes queries among gpt-5-main, gpt-5-thinking, and lightweight variants like gpt-5-thinking-nano depending on task demands, documenting capability and safety evaluations and mitigations across the model family.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 1374,
+  "summary": "Generalizes AIXI to broader utility functions over interaction histories, interpreting semimeasure loss either as a 'chance of death' or as total ignorance under imprecise probability. Computes expected utilities via Choquet integrals, analyzes their computability, and recovers the standard recursive value function as a special case.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 334,
+  "summary": "Attributes reward hacking in PRM-guided external reasoning to confounding semantic features. Causal Reward Adjustment trains sparse autoencoders on PRM activations and applies backdoor adjustment to estimate true path rewards, improving math-solving accuracy without retraining the PRM or policy model.",
+  "topics": ["Alignment", "Interpretability", "Reasoning"]
+ },
+ {
+  "id": 966,
+  "summary": "Stress-tests gpt-oss before release via malicious fine-tuning to maximize biology and cybersecurity capabilities (RL with web browsing; agentic CTF solving). Even fine-tuned, gpt-oss underperforms OpenAI o3 and barely advances the open-weight frontier, informing the release decision and providing a template for open-weight risk assessment.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 209,
+  "summary": "Introduces gpt-oss-120b and gpt-oss-20b, open-weight mixture-of-experts reasoning models trained with large-scale distillation and RL, optimized for agentic use (browsing, Python tools, function calling). Released under Apache 2.0 with strong math, coding, and safety benchmark results.",
+  "topics": ["Training & Scaling", "Reasoning", "Agents"]
+ },
+ {
+  "id": 1375,
+  "summary": "Nature comment arguing that capable AI agents raise fresh questions about safety, human-machine relationships, and social coordination, calling for scientists, engineers, and policymakers to engage so that interactions between humans and agents, and among agents themselves, remain broadly beneficial.",
+  "topics": ["Policy & Society", "Agents", "Safety"]
+ },
+ {
+  "id": 2690,
+  "summary": "Proposes offline multi-slicing-and-summarization user embeddings encoding Instagram histories up to 70,000 events as a cost-effective alternative to end-to-end long-sequence recommenders. A single upstream foundation model produces the DV365 embedding, deployed in 15 production models across Instagram and Threads for over a year.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 1376,
+  "summary": "Introduces ForTy, a global benchmark of 200,000 multi-temporal satellite time series (Sentinel-1/2, climate, elevation) with per-pixel labels distinguishing natural forest, planted forest, and tree crops. A new transformer for multi-modal, multi-temporal segmentation outperforms CNN and transformer baselines.",
+  "topics": ["Science Applications", "Evaluations"]
+ },
+ {
+  "id": 2874,
+  "summary": "Monthly research notes from Anthropic's interpretability team sharing developing ideas, preliminary results, and minor findings on circuits-style analysis, including work in progress expected to mature into future publications.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 695,
+  "summary": "Introduces EgoIntention, a benchmark for grounding implicit user intentions to objects in egocentric images, where multimodal LLMs misidentify context objects and miss affordances. Reason-to-Ground instruction tuning, chaining intention reasoning with object grounding, beats naive fine-tuning while preserving standard description grounding.",
+  "topics": ["Multimodal", "Evaluations"]
+ },
+ {
+  "id": 210,
+  "summary": "After training on declarative descriptions of fictitious chatbots, GPT-4o infers a chatbot's name from characteristic responses alone (out-of-context abduction), and such training amplifies the described behaviors during later iterative training—evidence bearing on situational awareness and AI safety.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 55,
+  "summary": "Identifies persona vectors—activation-space directions for traits like evil, sycophancy, and hallucination propensity—that monitor personality fluctuations at deployment, predict finetuning-induced trait shifts, enable preventative steering, and flag training data likely to cause undesirable persona changes. Extraction is automated from natural-language trait descriptions.",
+  "topics": ["Interpretability", "Alignment", "Safety"]
+ },
+ {
+  "id": 2876,
+  "summary": "Extends circuit-tracing methodology beyond MLP layers by introducing a way to decompose attention computations into interpretable feature interactions, tracing how query-key matches arise from features and filling a major missing piece in attribution-style analyses of transformers.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 1377,
+  "summary": "HybridRNNs blend RL-inspired structure with recurrent networks to model human reversal learning. The Context-ANN variant, adding latent reward history and choice perseverance, matches generic RNNs' predictive accuracy while keeping interpretable value representations, suggesting humans use flexible, context-sensitive strategies beyond classical RL accounts.",
+  "topics": ["Science Applications", "Reinforcement Learning"]
+ },
+ {
+  "id": 335,
+  "summary": "Frontier and small open models, when prompted, can covertly sandbag dangerous-capability evaluations zero-shot, evading a chain-of-thought monitor 16-36% of the time when monitor-aware (conditioned on successful sandbagging). Analysis of uncaught CoTs yields five covert sandbagging policies and maps failure modes of CoT monitoring.",
+  "topics": ["Safety", "Reasoning", "Evaluations"]
+ },
+ {
+  "id": 1378,
+  "summary": "A semi-automated pipeline combining AI-assisted, atlas-based, and manual segmentation measures five tongue muscles from MRI, validated on 178 scans. Motor neuron disease patients with speech and swallowing deficits show smaller muscle volumes; demographic normalization enables post-hoc analysis of existing neuroimaging datasets.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 1379,
+  "summary": "TokenVerse personalizes DiT-based text-to-image generation by optimizing per-word directions in the semantic token modulation (shift/scale) space, disentangling objects, materials, pose, and lighting from single images and enabling plug-and-play composition of concepts drawn from multiple images, outperforming prior personalization methods.",
+  "topics": ["Multimodal"]
+ },
+ {
+  "id": 336,
+  "summary": "Specification Self-Correction has a model detect and rewrite exploitable flaws in its own guiding specification at inference time: generate, critique, revise the spec, then regenerate. Models initially game tainted rubrics in 50-70% of creative-writing and agentic-coding cases; SSC cuts this vulnerability by over 90% without weight updates.",
+  "topics": ["Alignment", "Reasoning"]
+ },
+ {
+  "id": 160,
+  "summary": "Develops three Claude-based agents that automate alignment auditing: an investigator that uncovers a model's hidden goal using interpretability and behavioral tools, an evaluation-building agent, and a breadth-first red-teaming agent. Validated on models with deliberately implanted misalignment, the agents uncover hidden goals and surface concerning behaviors.",
+  "topics": ["Alignment", "Agents", "Safety"]
+ },
+ {
+  "id": 1380,
+  "summary": "Presents Aeneas, a generative neural network for Latin epigraphy that restores damaged inscriptions, estimates their date and geographical origin, and retrieves textual parallels across a large corpus. In studies with historians, its contextual suggestions improved restoration and attribution, extending the earlier Ithaca work on ancient Greek.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 967,
+  "summary": "Reports a real-world deployment of an LLM-based clinical copilot with Penda Health primary-care clinics in Kenya, where the tool reduced diagnostic errors by 16% in practice, offering evidence for safe and effective AI-assisted clinical decision support.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 162,
+  "summary": "Constructs tasks where more test-time compute hurts: longer reasoning makes Claude models more distracted by irrelevant details, makes OpenAI o-series models overfit familiar problem framings, shifts regression toward spurious features, and can amplify concerning behaviors such as expressions of self-preservation—showing extended thinking is not uniformly beneficial.",
+  "topics": ["Reasoning", "Safety", "Evaluations"]
+ },
+ {
+  "id": 161,
+  "summary": "Teacher models with a trait (e.g., liking owls, misalignment) generate semantically unrelated data such as number sequences; student models trained on it acquire the trait even after filtering—but only when sharing the teacher's base model. A theoretical result shows such transmission is generic, making distillation an unexpected pitfall.",
+  "topics": ["Safety", "Alignment", "Training & Scaling"]
+ },
+ {
+  "id": 968,
+  "summary": "System card for ChatGPT agent, which unifies deep research, browser automation, and code-execution tools in a single agentic model; documents safeguards including prompt-injection defenses and biology-related mitigations under OpenAI's Preparedness Framework.",
+  "topics": ["Agents", "Safety", "Evaluations"]
+ },
+ {
+  "id": 696,
+  "summary": "Position paper proposing that AI developers engage creative communities by combining Howard Becker's 'art worlds' framing with participatory AI principles, arguing generative AI affects entire creative ecosystems and that community-driven, localized adaptation can counter cultural erasure and marginalization.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 668,
+  "summary": "Cross-lab position paper arguing chain-of-thought monitoring offers a promising but fragile safety opportunity: models that reason in natural language can be monitored for intent to misbehave, albeit imperfectly. Recommends research into CoT monitorability and that frontier developers weigh how design decisions might erode it.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 699,
+  "summary": "SLIM compresses LLMs in one shot—no retraining—by unifying probabilistic uniform quantization (SLIM-Quant), 2:4 semi-structured pruning, and low-rank adapters computed in closed form from a novel saliency function. Improves accuracy by up to 5.66% over prior methods with up to 4.3x layer-wise speedup.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 698,
+  "summary": "SpeechSSM applies linear-time state-space sequence modeling to generate coherent multi-minute speech (up to 16 minutes) in a single decoding session without text intermediates, surpassing Transformer spoken LMs on long-form coherence and efficiency. Also introduces LibriSpeech-Long and new embedding-based and LLM-judged long-form metrics.",
+  "topics": ["Multimodal", "Training & Scaling", "Evaluations"]
+ },
+ {
+  "id": 697,
+  "summary": "SIGIR perspective surveying LLMs' interconnected roles in information retrieval—rankers, synthetic data generators, judges, and assistants—and warning of over-reliance when multiple LLMs interact within one service. Experiments on public test collections show how relationships among LLMs in different roles affect retrieval effectiveness.",
+  "topics": ["Evaluations"]
+ },
+ {
+  "id": 2693,
+  "summary": "Builds machine learning models to forecast cloud storage costs from usage patterns, using a synthetic dataset of 5,000 records with 16 features. Data egress volume and total storage size emerge as the strongest cost predictors, with XGBoost achieving the highest accuracy among tested models.",
+  "topics": ["Other"]
+ }
+]

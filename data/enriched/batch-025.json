@@ -1,0 +1,152 @@
+[
+ {
+  "id": 578,
+  "summary": "Proposes ITDA, which greedily builds dictionaries of raw activations via matching pursuit instead of training SAEs, cutting training cost to ~1% of SAE time and data. Reconstruction slightly lags SAEs, but dictionary Jaccard similarity beats CKA and SVCCA for cross-model comparison, scaling to Llama-3.1 405B.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 348,
+  "summary": "Proves no existing preference-alignment loss is robust (redescending) under label noise and introduces Hölder-DPO, which provably is, yielding a gradient-free metric that localizes mislabeled feedback. Applied to Anthropic HH-RLHF, it reveals substantial noise whose removal improves alignment across methods.",
+  "topics": ["Alignment"]
+ },
+ {
+  "id": 1442,
+  "summary": "Response in Trends in Cognitive Sciences defending the authors' hypothesis that prolonged infant immaturity supports foundation-model-style learning: acquiring rich, general-purpose representations from experience before goal-directed behavior emerges. Addresses critiques of the analogy between infant development and large-scale pretraining.",
+  "topics": ["Science Applications", "Training & Scaling"]
+ },
+ {
+  "id": 1441,
+  "summary": "Book chapter weighing open frontier-model release: researcher access and transparency benefits versus cybersecurity and toxic-content risks. Argues today's open-weight models' benefits outweigh their risks, but future risk profiles are hard to forecast, recommending policy that encourages openness alongside transparency requirements and safety evaluations.",
+  "topics": ["Policy & Society", "Safety"]
+ },
+ {
+  "id": 1440,
+  "summary": "Handbook chapter introducing deep learning and reinforcement learning as tools for simulating language emergence, positioned against older agent-based, Bayesian, and genetic-algorithm approaches. Reviews key findings, limitations, and efforts toward more realistic simulations, targeting linguists and cognitive scientists studying language evolution.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 500,
+  "summary": "SEAL jailbreaks large reasoning models by stacking multiple ciphers with randomly or adaptively varied length, order, and combination, overwhelming reasoning to bypass safety mechanisms and resist adaptive alignment. Achieves 80.8% attack success on GPT o4-mini, 27.2 points above prior baselines.",
+  "topics": ["Robustness & Security", "Reasoning"]
+ },
+ {
+  "id": 1443,
+  "summary": "A multi-level graph neural surrogate with image-inspired spatial edge weights predicts high-fidelity sheet-metal forming outcomes in real time. On a real hot-stamping B-pillar case with varied blank shapes, it significantly outperforms three graph-based baselines at industrial-standard accuracy with low training and deployment cost.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 579,
+  "summary": "Trains a 'Taboo' model that hints at a secret word never stated in training data or prompts, then tests elicitation: black-box strategies and largely automated mechanistic methods (logit lens, sparse autoencoders) both recover the secret, suggesting interpretability can surface hidden knowledge relevant to deception.",
+  "topics": ["Interpretability", "Safety"]
+ },
+ {
+  "id": 349,
+  "summary": "Builds LitmusValues, a pipeline measuring AI models' value prioritization from aggregate choices on AIRiskDilemmas, scenarios that pit values against each other in safety-relevant settings like power seeking. Measured value priorities, including innocuous ones like Care, predict risky behaviors both in-distribution and on unseen HarmBench tasks.",
+  "topics": ["Safety", "Evaluations"]
+ },
+ {
+  "id": 1448,
+  "summary": "Chain-of-Modality prompts VLMs to reason sequentially over human demonstration videos paired with muscle-activity and audio signals, extracting task plans and control parameters like force that vision misses. Yields a threefold accuracy gain over baselines and transfers to new objects in real robot manipulation.",
+  "topics": ["Multimodal", "Agents"]
+ },
+ {
+  "id": 1447,
+  "summary": "DemoStart, an auto-curriculum RL method, learns dexterous manipulation on a three-fingered robot hand from sparse rewards and a few simulated demonstrations, transferring zero-shot to the real robot from raw pixels and proprioception via domain randomization. Outperforms behavior cloning while needing 100x fewer demonstrations.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 1446,
+  "summary": "Shows LLMs can act as stochastic numerical optimizers for explainable robot policy search: the SAS (Summarize, Analyze, Synthesize) prompt iteratively retrieves, reasons over, and optimizes past robot traces to synthesize improved behavior, validated in simulation and on real-robot table tennis.",
+  "topics": ["Agents", "Reasoning"]
+ },
+ {
+  "id": 1445,
+  "summary": "STEER trains robot manipulation policies on modular skills densely annotated in natural language, exposing an interface through which humans or VLMs orchestrate low-level control via commonsense reasoning. Learned skills compose into novel behaviors for unseen situations without additional data collection or retraining.",
+  "topics": ["Agents", "Multimodal"]
+ },
+ {
+  "id": 1444,
+  "summary": "RT-Affordance conditions manipulation policies on affordances, robot poses at key task stages, as a lightweight intermediate representation between under-specified language and over-specified trajectories. A hierarchical model proposes an affordance plan from task language, leveraging web data and cheap affordance images to beat existing methods by over 50%.",
+  "topics": ["Multimodal", "Agents"]
+ },
+ {
+  "id": 1188,
+  "summary": "Rottnest builds lightweight full-text and vector nearest-neighbor search indices on top of data lakes, extending columnar storage beyond relational analytics. Shown more cost-efficient than un-indexed lakes or specialized search databases across orders of magnitude of query loads and operating horizons.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 971,
+  "summary": "System-card addendum for Codex, a cloud-based coding agent powered by codex-1, an o3 variant trained with reinforcement learning on real-world software engineering tasks to match human code style, follow instructions precisely, and iterate until tests pass. Documents the accompanying safety evaluations.",
+  "topics": ["Agents", "Safety"]
+ },
+ {
+  "id": 501,
+  "summary": "Argues representation superposition drives neural scaling laws, using Anthropic's toy model with weight decay to control superposition strength. Under strong superposition, loss scales inversely with model dimension regardless of feature-frequency distribution due to geometric overlap of representations, a regime consistent with open LLMs and Chinchilla scaling.",
+  "topics": ["Training & Scaling", "Interpretability"]
+ },
+ {
+  "id": 1449,
+  "summary": "Survey of continual learning for LLMs organized along vertical continuity (general-to-specific adaptation via continual pre-training, domain-adaptive pre-training, and continual fine-tuning) and horizontal continuity (adaptation across time and domains), covering catastrophic forgetting, evaluation protocols, data sources, and open questions.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 1451,
+  "summary": "Improves differentially private heavy-hitter detection in the two-server model via a hash-prune-invert technique, narrowing the error-margin gap to the optimal central-model bound for identifying items above a frequency threshold while ignoring rare ones.",
+  "topics": ["Robustness & Security"]
+ },
+ {
+  "id": 1450,
+  "summary": "Evaluates LLMs for assisting human content moderators on hate speech, harassment, extremism, and election misinformation, reaching 90% agreement with human verdicts on 50,000 comments. Proposes five LLM-rater integration patterns; a real review-queue pilot improved rater-capacity use by 41.5% and precision/recall by 9-11 points.",
+  "topics": ["Safety"]
+ },
+ {
+  "id": 1189,
+  "summary": "Systematization-of-knowledge on watermarking AI-generated content: formalizes definitions, desired properties, objectives, and threat models; surveys representative schemes and evaluation strategies for attack robustness; and discusses open challenges, regulatory context, and watermarking's role against misinformation and deception.",
+  "topics": ["Robustness & Security", "Policy & Society"]
+ },
+ {
+  "id": 972,
+  "summary": "HealthBench evaluates AI models on realistic healthcare scenarios using rubrics built with input from over 250 physicians, aiming to provide a shared standard for measuring model performance and safety in health contexts.",
+  "topics": ["Evaluations", "Science Applications"]
+ },
+ {
+  "id": 2703,
+  "summary": "Formulates marketing budget allocation as an MDP over engagement and channel-performance signals and compares Q-learning, DQN, and PPO on historical campaign data. PPO performs best (7.4% CTR, 32.5% ROI, $9.20 CPA), with RL beating rule-based systems by 71% on conversions.",
+  "topics": ["Reinforcement Learning"]
+ },
+ {
+  "id": 502,
+  "summary": "Benchmarks 27 frontier LLMs (Nov 2022-Apr 2025) on eight biology and biosecurity evaluations: top performance rose over 4x on the Virology Capabilities Test, with o3 doubling expert virologists, and several models matching experts on GPQA and WMDP biology. Chain-of-thought helped little; some benchmarks show saturation and data errors.",
+  "topics": ["Evaluations", "Safety", "Science Applications"]
+ },
+ {
+  "id": 350,
+  "summary": "Establishes log-linear scaling laws for speculative-decoding draft acceptance rate along pretraining tokens, draft model capacity, and batch size. The resulting Scylla system coordinates scaling across these dimensions, beating EAGLE2 by 1.5-2.2x acceptance and doubling decoding throughput in industrial inference deployments.",
+  "topics": ["Training & Scaling"]
+ },
+ {
+  "id": 1452,
+  "summary": "Introduces a hierarchy of quantum optimization algorithms generalizing matrix multiplicative weight updates with an extra-gradient mechanism; the optimistic variant (OMMWU) computes epsilon-Nash equilibria of quantum zero-sum games quadratically faster than the 2008 Jain-Watrous algorithm's O(d/epsilon^2) convergence.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 503,
+  "summary": "Survey of over 100 studies on 'slow thinking' reasoning LLMs like o1, organizing methods into test-time scaling (search, sampling, dynamic verification), reinforced learning (policy networks, reward models, self-evolution), and slow-thinking frameworks such as long chain of thought and hierarchical decomposition, with open challenges.",
+  "topics": ["Reasoning"]
+ },
+ {
+  "id": 1453,
+  "summary": "RLSQM uses reinforcement learning with a lightweight static-analysis reward model to steer LLM unit-test generation away from test smells, which appear in up to 37% of baseline outputs. Improves quality metrics by up to 23% with near-100% syntactic correctness, and a tuned Codex beats GPT-4 on all metrics.",
+  "topics": ["Reasoning", "Alignment"]
+ },
+ {
+  "id": 2705,
+  "summary": "Proves that linearizable asynchronous crash-tolerant read/write registers cannot serve purely local reads, then introduces almost-local reads (ALRs), a lightweight abstraction with near-single-node cost. ALR-enhanced ZAB and Hermes retain linearizability under asynchrony within 2-5% of original throughput.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 2704,
+  "summary": "Extends occupation-level LLM-exposure measures from 'GPTs are GPTs' to firms by combining them with Revelio Labs employee counts by occupation. Firms with more technology and AI-skilled workers show higher exposure, and between-category variation exceeds within-category variation, suggesting sizable productivity gains from LLM integration.",
+  "topics": ["Policy & Society"]
+ }
+]

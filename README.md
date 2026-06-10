@@ -16,7 +16,7 @@ A static webapp that tracks research publications in the **interpretability / AI
 - `docs/` — the webapp (vanilla JS + Chart.js, no build step). Served by GitHub Pages.
 - `data/papers.json` — the merged, deduplicated dataset.
 - `scripts/merge.mjs` — merges `data/raw/*.json` collector output into `data/papers.json`.
-- `scripts/update.mjs` — daily refresher (runs in GitHub Actions, see `.github/workflows/update.yml`): pulls recent works from OpenAlex/arXiv/transformer-circuits/alignment-blog, dedupes, appends new papers with rule-based topics and abstract-derived summaries, and refreshes citation counts.
+- `scripts/update.mjs` — daily refresher (runs in GitHub Actions **every day at 13:00 UTC / 06:00 PT**, see `.github/workflows/update.yml`; also triggerable manually from the Actions tab): pulls recent works from OpenAlex/arXiv/transformer-circuits/alignment-blog, dedupes, appends new papers with rule-based topics and abstract-derived summaries, and refreshes citation counts.
 
 ## Local development
 

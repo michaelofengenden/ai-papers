@@ -1,0 +1,152 @@
+[
+ {
+  "id": 931,
+  "summary": "OpenAI shares its model's proof attempts submitted to the First Proof math challenge, probing research-grade mathematical reasoning on expert-level open problems.",
+  "topics": ["Reasoning", "Science Applications", "Evaluations"]
+ },
+ {
+  "id": 298,
+  "summary": "Derives a link between reward-model accuracy and the flatness of converged optima, then uses gradient regularization to bias RLHF/RLVR updates toward flatter regions; it outperforms KL penalties and curbs reward hacking across diverse tasks.",
+  "topics": ["Alignment", "Training & Scaling"]
+ },
+ {
+  "id": 297,
+  "summary": "Applies information theory to chain-of-thought monitorability, showing nonzero CoT-output mutual information is necessary but not sufficient, and isolating information-gap and elicitation errors. Two training objectives improve monitor accuracy while preventing CoT degeneration under reward hacking.",
+  "topics": ["Reasoning", "Safety"]
+ },
+ {
+  "id": 1283,
+  "summary": "Community roadmap surveying microsecond-latency ML inference needs and the custom hardware platforms and tooling that support them, spanning particle physics at the LHC and other scientific domains.",
+  "topics": ["Science Applications", "Training & Scaling"]
+ },
+ {
+  "id": 932,
+  "summary": "OpenAI commits $7.5M to The Alignment Project, funding independent AI alignment research aimed at AGI safety and security risks.",
+  "topics": ["Alignment", "Policy & Society"]
+ },
+ {
+  "id": 1285,
+  "summary": "Trained dogs distinguished MHV-1 coronavirus-infected cell cultures from controls with 0.95 sensitivity; GC-MS identified elevated and unique VOC markers, and a random-forest classifier on the VOC profiles reached 0.82 cross-validated accuracy, supporting olfactory viral diagnostics.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 1284,
+  "summary": "Argues evaluation should shift from moral performance to moral competence, identifying three obstacles—the facsimile problem, moral multidimensionality, and moral pluralism—and proposing adversarial and confirmatory evaluation suites for more grounded attributions.",
+  "topics": ["Evaluations", "Policy & Society"]
+ },
+ {
+  "id": 933,
+  "summary": "OpenAI and Paradigm introduce EVMbench, a benchmark measuring AI agents' ability to detect, patch, and exploit high-severity smart-contract vulnerabilities.",
+  "topics": ["Evaluations", "Agents", "Robustness & Security"]
+ },
+ {
+  "id": 28,
+  "summary": "Analyzes millions of human-agent interactions to quantify how much autonomy people grant AI agents and how that delegation shifts as users gain experience.",
+  "topics": ["Agents", "Policy & Society"]
+ },
+ {
+  "id": 29,
+  "summary": "Drawing on ~1M Claude.ai conversations, finds India is the second-largest source of usage (5.8%) but ranks 101st per capita; Indian users skew toward professional tasks, grant more autonomy, and tackle more complex, time-consuming work.",
+  "topics": ["Policy & Society"]
+ },
+ {
+  "id": 682,
+  "summary": "Studies links between Kolmogorov complexity and optimization, arguing optima tend toward low complexity, that sampling candidates by algorithmic probability can be an effective optimizer, and that coincident extrema are a priori more likely than under a random null model.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 935,
+  "summary": "A preprint reports GPT-5.2 proposing a new formula for a gluon scattering amplitude, subsequently formally proved and verified by OpenAI and academic collaborators.",
+  "topics": ["Science Applications", "Reasoning"]
+ },
+ {
+  "id": 934,
+  "summary": "Introduces GABRIEL, an open-source toolkit using GPT to convert qualitative text and images into quantitative data, letting social scientists analyze research material at scale.",
+  "topics": ["Science Applications", "Policy & Society"]
+ },
+ {
+  "id": 1179,
+  "summary": "Shows cue-evoked striatal dopamine in mice encodes bidirectional trajectory errors—relating movement speed and direction to optimal goal paths—anatomically and temporally separable from learned cue value, both reproducible by the reward-prediction-error term of an RL model with mixed sensorimotor inputs.",
+  "topics": ["Science Applications", "Reinforcement Learning"]
+ },
+ {
+  "id": 299,
+  "summary": "BNRM embeds non-negative factor analysis into the Bradley-Terry preference model, using sparse latent factors to disentangle and implicitly debias reward representations; amortized variational inference scales it to LLMs, reducing reward over-optimization and improving robustness under distribution shift.",
+  "topics": ["Alignment", "Training & Scaling"]
+ },
+ {
+  "id": 193,
+  "summary": "Argues theoretically and empirically that self-evolving multi-agent LLM societies cannot simultaneously satisfy continuous self-improvement, isolation, and safety invariance; isolated evolution creates statistical blind spots that irreversibly erode safety alignment, motivating external oversight.",
+  "topics": ["Safety", "Agents"]
+ },
+ {
+  "id": 461,
+  "summary": "BAGEL is a lightweight, incrementally updatable ensemble of fine-tuned classifiers with a random-forest router for detecting malicious prompts (harmful requests, jailbreaks, injections), reaching F1 0.92 with five members (430M params) and outperforming the OpenAI Moderation API.",
+  "topics": ["Robustness & Security", "Safety"]
+ },
+ {
+  "id": 2664,
+  "summary": "Gives a faster algorithm for estimating convex-body volume in the membership-oracle model—Õ(n^3.5·ψ² + n³/ε²) queries—via a new Õ(n³ψ²) isotropic-transformation routine, improving on the 2003 Lovász-Vempala bound and yielding faster polytope volume estimation.",
+  "topics": ["Science Applications"]
+ },
+ {
+  "id": 462,
+  "summary": "Introduces AIRS-Bench, 20 research tasks drawn from SOTA ML papers across language, math, bioinformatics, and time-series, assessing agents over the full research lifecycle without baseline code; agents beat human SOTA on four tasks but fall short on sixteen.",
+  "topics": ["Evaluations", "Agents", "Science Applications"]
+ },
+ {
+  "id": 2665,
+  "summary": "An autonomous lab pairing GPT-5 with a fully automated cloud laboratory iteratively optimized cell-free protein synthesis, cutting specific cost 40% and raising titer 27% over prior SOTA, with the LLM handling design, analysis, and hypothesis generation.",
+  "topics": ["Science Applications", "Agents"]
+ },
+ {
+  "id": 937,
+  "summary": "System card for GPT-5.3-Codex, an agentic coding model that combines GPT-5.2-Codex's frontier coding performance with GPT-5.2's reasoning and professional-knowledge capabilities.",
+  "topics": ["Agents", "Safety"]
+ },
+ {
+  "id": 936,
+  "summary": "Blog reporting an autonomous lab that combined GPT-5 with Ginkgo Bioworks' cloud automation to cut cell-free protein synthesis costs by 40% through closed-loop experimentation.",
+  "topics": ["Science Applications", "Agents"]
+ },
+ {
+  "id": 683,
+  "summary": "Integrates neural networks into interpretable cognitive architectures to model human reward learning, finding successful fits require flexible memory variables tracking rich representations of the past—challenging RL models built on incremental scalar reward-prediction updates.",
+  "topics": ["Science Applications", "Reinforcement Learning"]
+ },
+ {
+  "id": 300,
+  "summary": "Split Personality Training fine-tunes an inactive honest persona into LoRA parameters that, once triggered after a response, reviews it using the main model's latent states; on Anthropic's auditing-game model organism it reaches 96% accuracy detecting concealed reward hacking.",
+  "topics": ["Safety", "Interpretability"]
+ },
+ {
+  "id": 1180,
+  "summary": "Empirical study of storing compact probabilistic sketches (HyperLogLog, KLL) once and merging them to answer multidimensional analytics queries without rescanning, achieving 93-96% less data scanned with under 1% error and recommending HLL precision 20 and KLL 10,000.",
+  "topics": ["Other"]
+ },
+ {
+  "id": 1286,
+  "summary": "Estimates scene lighting from a single LDR image by reframing it as chrome-ball inpainting with Stable Diffusion XL; iterative inpainting plus an exposure LoRA yields HDR light probes, while a Turbo LoRA cuts runtime from ~30 minutes to ~30 seconds (60x) with minimal quality loss.",
+  "topics": ["Multimodal", "Training & Scaling"]
+ },
+ {
+  "id": 566,
+  "summary": "Uses Mixture of Factor Analyzers to decompose LM activations into region centroids and local covariance, capturing nonlinear, multidimensional concept structure that single global directions miss; trained on Llama-3.1-8B and Gemma-2-2B, it often beats SAEs on steering.",
+  "topics": ["Interpretability"]
+ },
+ {
+  "id": 301,
+  "summary": "ARA reframes reward hacking as a competitive game: a Hacker discovers reward-model vulnerabilities while an Auditor learns to detect exploitation from latent states, and Auditor-gated RLHF penalizes detected hacking, improving the alignment-utility tradeoff and generalizing across domains.",
+  "topics": ["Alignment", "Safety"]
+ },
+ {
+  "id": 1288,
+  "summary": "Perspective arguing that beneficial AI requires not just task intelligence but wisdom, and that metacognition—modeling the limits of one's own knowledge, managing uncertainty, and balancing perspectives—is central to building more robust and adaptive machines.",
+  "topics": ["Alignment", "Policy & Society"]
+ },
+ {
+  "id": 1287,
+  "summary": "Published correction to a paper introducing a personalized federated learning method based on exact stochastic gradient descent.",
+  "topics": ["Training & Scaling"]
+ }
+]
