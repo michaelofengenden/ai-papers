@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frontier AI Research Tracker — Anthropic · OpenAI · DeepMind</title>
+<meta name="description" content="Tracks research publications in interpretability, AI safety, capabilities and reasoning from Anthropic, OpenAI, and Google DeepMind — with mini summaries, topic filters, and analytics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔭</text></svg>">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">🔭</span>
+      <div>
+        <h1>Frontier AI Research Tracker</h1>
+        <p class="brand-sub">Interpretability · Safety · Capabilities · Reasoning — <span id="stat-count">…</span> papers from Anthropic, OpenAI &amp; Google DeepMind<span id="stat-updated"></span></p>
+      </div>
+    </div>
+    <nav class="view-tabs" role="tablist">
+      <button class="view-tab active" data-view="feed" role="tab">Feed</button>
+      <button class="view-tab" data-view="analytics" role="tab">Analytics</button>
+    </nav>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="controls-inner">
+    <div class="controls-row">
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search" type="search" placeholder="Search titles, authors, summaries…" autocomplete="off">
+      </div>
+      <div class="org-chips" id="org-chips"></div>
+      <select id="sort" title="Sort order">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="cited">Most cited</option>
+        <option value="match">Best match</option>
+      </select>
+    </div>
+    <div class="controls-row">
+      <div class="topic-chips" id="topic-chips"></div>
+    </div>
+    <div class="controls-row">
+      <div class="year-chips" id="year-chips"></div>
+      <button id="clear-filters" class="clear-btn" hidden>✕ Clear filters</button>
+      <span class="result-count" id="result-count"></span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section id="view-feed" class="view active">
+    <div id="feed" class="feed"></div>
+    <div id="sentinel" class="sentinel"><span class="spinner"></span></div>
+    <div id="feed-end" class="feed-end" hidden>— end of results —</div>
+    <div id="feed-empty" class="feed-empty" hidden>No papers match the current filters.</div>
+  </section>
+
+  <section id="view-analytics" class="view">
+    <p class="analytics-note">Charts reflect the current search &amp; filters (<span id="an-count"></span> papers).</p>
+    <div class="chart-grid">
+      <div class="chart-card wide"><h3>Publications over time <span class="chart-sub">by quarter, stacked by lab</span></h3><div class="chart-box tall"><canvas id="ch-time"></canvas></div></div>
+      <div class="chart-card"><h3>Lab share</h3><div class="chart-box"><canvas id="ch-org"></canvas></div></div>
+      <div class="chart-card"><h3>Topics <span class="chart-sub">papers per topic</span></h3><div class="chart-box"><canvas id="ch-topics"></canvas></div></div>
+      <div class="chart-card wide"><h3>Topic trends <span class="chart-sub">top 6 topics per year</span></h3><div class="chart-box tall"><canvas id="ch-trends"></canvas></div></div>
+      <div class="chart-card wide">
+        <h3>Most cited in selection</h3>
+        <ol id="top-cited" class="top-cited"></ol>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>Data: lab publication pages (<a href="https://transformer-circuits.pub" target="_blank" rel="noopener">transformer-circuits.pub</a>, <a href="https://deepmind.google/research/publications/" target="_blank" rel="noopener">deepmind.google</a>, <a href="https://openai.com/research/" target="_blank" rel="noopener">openai.com</a>, <a href="https://alignment.anthropic.com" target="_blank" rel="noopener">alignment.anthropic.com</a>) + <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a> + <a href="https://arxiv.org" target="_blank" rel="noopener">arXiv</a>. Refreshed daily. Summaries are auto-generated — verify against the paper.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
