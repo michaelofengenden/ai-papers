@@ -90,7 +90,11 @@ async function load() {
       const win = raw.slice(Math.max(0, i - 2), i + 2).map((w) => w.n).filter(Boolean);
       return [x.key, win.length ? win.reduce((a, b) => a + b, 0) / win.length : x.n];
     }));
-  } catch (e) { state.baseline = null; }
+    state.baselineYearly = new Map();
+    for (const x of bl.quarters) {
+      state.baselineYearly.set(x.y, (state.baselineYearly.get(x.y) || 0) + (x.n || 0));
+    }
+  } catch (e) { state.baseline = null; state.baselineYearly = null; }
   state.papers = (data.papers || data).map((p, i) => ({
     ...p,
     id: p.id ?? i,
@@ -585,6 +589,26 @@ function loadCustom() {
 function saveCustom() {
   try { localStorage.setItem('frt-custom', JSON.stringify(state.custom)); } catch (e) {}
 }
+/* field-wide curve for a custom phrase: yearly counts across ALL ML papers in
+   OpenAlex (millions), normalized per 10k using the same field baseline */
+async function fetchFieldCurve(phrase) {
+  try {
+    const q = '"' + phrase.replace(/"/g, '') + '"';
+    const url = 'https://api.openalex.org/works?filter=title_and_abstract.search:' + encodeURIComponent(q) +
+      ',concepts.id:C119857082,from_publication_date:2012-01-01&group_by=publication_year&mailto=michaelofengend@gmail.com';
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const j = await res.json();
+    const m = new Map();
+    for (const g of j.group_by || []) {
+      const y = +g.key;
+      const base = state.baselineYearly?.get(y);
+      if (y >= 2012 && base) m.set(y, +((10000 * g.count) / base).toFixed(2));
+    }
+    return m.size ? m : null;
+  } catch (e) { return null; }
+}
+
 function customSets() {
   // membership cache: one Set of paper ids per custom phrase
   if (!state._customSets) state._customSets = new Map();
@@ -813,6 +837,27 @@ function renderThemes(papers) {
       borderColor: color, backgroundColor: color,
       tension: 0.3, pointRadius: 0, pointHitRadius: 6, borderWidth: 2.2, spanGaps: false,
     });
+    if (s.custom && state.themeMode !== 'abs') {
+      const cache = (state._fieldCurves ||= new Map());
+      if (!cache.has(s.name)) {
+        cache.set(s.name, 'loading');
+        fetchFieldCurve(s.name).then((m) => {
+          cache.set(s.name, m);
+          if (m && state.view === 'analytics') renderAnalytics();
+        });
+      } else {
+        const fc = cache.get(s.name);
+        if (fc && fc !== 'loading') {
+          datasets.push({
+            label: s.name + ' — field-wide (OpenAlex)',
+            data: ext.map((qq) => (qq.q === 1 && fc.has(qq.y) ? fc.get(qq.y) : null)),
+            borderColor: color, backgroundColor: color,
+            borderDash: [2, 3], pointRadius: 3, pointStyle: 'rectRot', borderWidth: 1.8,
+            spanGaps: true,
+          });
+        }
+      }
+    }
     const fitFn = s.waves?.revivalFit || s.fit;
     const fitStart = s.waves ? s.waves.trough : -Infinity;
     if (state.showFit !== false && fitFn) {
@@ -825,7 +870,14 @@ function renderThemes(papers) {
     }
   });
   destroyChart('themes');
-  const maxActual = Math.max(1, ...sel.flatMap((s) => s.counts));
+  let maxActual = Math.max(1, ...sel.flatMap((s) => s.counts));
+  if (state._fieldCurves) {
+    for (const s of sel) {
+      if (!s.custom) continue;
+      const fc = state._fieldCurves.get(s.name);
+      if (fc && fc !== 'loading') maxActual = Math.max(maxActual, ...fc.values());
+    }
+  }
   state.charts.themes = new Chart($('#ch-themes'), {
     type: 'line',
     data: { labels: ext.map((qq) => qq.label), datasets },

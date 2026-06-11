@@ -42,6 +42,18 @@ export function tagTopics(text) {
   return tags.length ? tags : ['Other'];
 }
 
+/* Strip HTML tags and decode entities (handles double-encoding and JATS <scp> etc.)
+   plus soft hyphens — OpenAlex and mirrored blogs both leak markup into titles. */
+export function cleanText(t) {
+  let s = String(t || '');
+  for (let i = 0; i < 2; i++) {
+    s = s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')
+      .replace(/&#0?39;/g, "'").replace(/&apos;/g, "'").replace(/&nbsp;/g, ' ')
+      .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n)).replace(/&amp;/g, '&');
+  }
+  return s.replace(/<[^>]+>/g, ' ').replace(/[\u00AD\u200B]/g, '').replace(/\s+/g, ' ').trim();
+}
+
 export function normTitle(t) {
   return String(t || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
@@ -55,7 +67,7 @@ const PAPER_VENUE = /arxiv|neurips|icml|iclr|aaai|acl\b|emnlp|cvpr|nature|scienc
 export function classifyKind(p) {
   if (p.arxiv_id) return 'paper';
   const src = Array.isArray(p.sources) ? p.sources.join(',') : (p.source || '');
-  if (/openalex|arxiv|deepmind-site|transformer-circuits|alignment-blog/.test(src)) return 'paper';
+  if (/openalex|arxiv|deepmind-site|transformer-circuits|alignment-blog|openai-alignment|alignmentforum/.test(src)) return 'paper';
   if (p.venue && PAPER_VENUE.test(p.venue)) return 'paper';
   if (POST_TITLE.test(p.title)) return 'post';
   if (POST_HINT.test(p.title)) return 'post';

@@ -129,7 +129,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('frt-theme')
             </span>
           </div>
           <div class="chart-box tall"><canvas id="ch-themes"></canvas></div>
-          <p class="chart-note">Default view is each theme's <b>share of the field</b> — papers per 10,000 ML papers published that quarter (OpenAlex baseline, smoothed) — raw counts rise almost everywhere because the field itself grows, so share is what reveals true rise-and-fall of interest (and partial quarters cancel out). Fit: least-squares Gaussian; a high "bell fit" means the curve genuinely follows a bell — those are the ones you can extrapolate.</p>
+          <p class="chart-note">Default view is each theme's <b>share of the field</b> — papers per 10,000 ML papers published that quarter (OpenAlex baseline, smoothed) — raw counts rise almost everywhere because the field itself grows, so share is what reveals true rise-and-fall of interest (and partial quarters cancel out). Fit: least-squares Gaussian; a high "bell fit" means the curve genuinely follows a bell — those are the ones you can extrapolate. Custom curves also get a <b>field-wide overlay</b> (dash-dot, yearly): the phrase counted across all of OpenAlex's ML literature — millions of papers, not just this corpus.</p>
         </div>
         <div class="chart-card wide">
           <h3>Theme status board <span class="chart-sub">click a row to add it to the chart above</span></h3>

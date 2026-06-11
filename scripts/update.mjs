@@ -5,7 +5,8 @@
 import { readFileSync, writeFileSync, copyFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { normTitle, extractArxivId, tagTopics, autoSummary, isSpam, classifyKind, computeImportance, serializeDb } from './lib.mjs';
+import { normTitle, extractArxivId, tagTopics, autoSummary, isSpam, classifyKind, computeImportance, serializeDb, cleanText } from './lib.mjs';
+import { themeMask } from './themes.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA = join(ROOT, 'data', 'papers.json');
@@ -278,6 +279,99 @@ async function deepmindRecent(knownUrls) {
   return out;
 }
 
+/* ---------- OpenAI Alignment Science blog ---------- */
+const MONTHS3 = { Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06', Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12' };
+async function openaiAlignmentRecent() {
+  const html = await fetchText('https://alignment.openai.com/');
+  if (!html) return [];
+  const out = [];
+  for (const m of html.matchAll(/<a class="post-link"[^>]*data-year="(\d+)"[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)) {
+    const inner = m[3];
+    const title = cleanText((inner.match(/<div class="post-title">([\s\S]*?)<\/div>/) || [])[1] || '');
+    const sub = cleanText((inner.match(/<div class="post-subtitle">([\s\S]*?)<\/div>/) || [])[1] || '');
+    const dm = (inner.match(/<div class="date">\s*(\w{3})\w*\s+(\d+)/) || []);
+    if (!title) continue;
+    const date = dm.length ? `${m[1]}-${MONTHS3[dm[1]] || '01'}-${String(dm[2]).padStart(2, '0')}` : `${m[1]}-01-01`;
+    out.push({
+      title, authors: [], org: 'openai', date,
+      url: 'https://alignment.openai.com/' + m[2].replace(/^\//, ''),
+      pdf_url: null, arxiv_id: null,
+      abstract: sub || null,
+      source: 'openai-alignment-blog',
+      venue: 'OpenAI Alignment Blog',
+      cited_by: null,
+    });
+  }
+  return out;
+}
+
+/* ---------- Alignment Forum (via GreaterWrong static mirror) ---------- */
+async function alignmentForumRecent() {
+  const out = [];
+  for (const offset of [0, 20, 40]) {
+    const html = await fetchText(`https://www.greaterwrong.com/index?view=alignment-forum&offset=${offset}`);
+    await sleep(1200);
+    if (!html) break;
+    const items = html.split('<h1 class="listing"').slice(1);
+    for (const it of items) {
+      const tm = it.match(/<a class="post-title-link" href="(\/posts\/[^"]+)">([\s\S]*?)<\/a>/);
+      if (!tm) continue;
+      const title = cleanText(tm[2]);
+      const authors = [...it.matchAll(/<a class="author"[^>]*>([^<]+)<\/a>/g)].map((x) => cleanText(x[1])).slice(0, 8);
+      const dm = it.match(/data-js-date=(\d+)/);
+      const date = dm ? new Date(+dm[1]).toISOString().slice(0, 10) : null;
+      if (!title || !date) continue;
+      out.push({
+        title, authors, org: 'other', date,
+        url: 'https://www.alignmentforum.org' + tm[1].split('?')[0],
+        pdf_url: null, arxiv_id: null, abstract: null,
+        source: 'alignmentforum',
+        venue: 'Alignment Forum',
+        cited_by: null,
+      });
+    }
+  }
+  return out;
+}
+
+/* ---------- arXiv firehose: latest submissions in core AI categories,
+   theme-gated so only tracker-relevant papers enter ---------- */
+async function arxivFirehose() {
+  const out = [];
+  for (const cat of ['cs.LG', 'cs.CL', 'cs.AI', 'stat.ML']) {
+    const url = `http://export.arxiv.org/api/query?search_query=cat:${cat}&sortBy=submittedDate&sortOrder=descending&max_results=200`;
+    const xml = await fetchText(url);
+    await sleep(3500);
+    if (!xml) continue;
+    for (const entry of xml.split('<entry>').slice(1)) {
+      const get = (tag) => (entry.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`)) || [])[1]?.replace(/\s+/g, ' ').trim();
+      const id = (get('id') || '').match(/abs\/(\d{4}\.\d{4,5})/)?.[1];
+      const date = (get('published') || '').slice(0, 10);
+      if (!id || !date || date < sinceDate) continue;
+      const title = cleanText(get('title') || '');
+      const abstract = cleanText(get('summary') || '');
+      const hay = (title + ' ' + abstract).toLowerCase();
+      const [lo, hi] = themeMask(hay);
+      if (!lo && !hi) continue; // only theme-relevant papers from the firehose
+      const orgMatch = (abstract + ' ' + (get('arxiv:comment') || '')).match(ORG_RE);
+      out.push({
+        title,
+        authors: [...entry.matchAll(/<name>([\s\S]*?)<\/name>/g)].map((m) => cleanText(m[1])).slice(0, 12),
+        org: orgMatch ? (orgMatch[1].toLowerCase().includes('deepmind') ? 'deepmind' : orgMatch[1].toLowerCase().includes('anthropic') ? 'anthropic' : 'openai') : 'other',
+        date,
+        url: `https://arxiv.org/abs/${id}`,
+        pdf_url: `https://arxiv.org/pdf/${id}`,
+        arxiv_id: id,
+        abstract: abstract.slice(0, 1500),
+        source: 'arxiv-firehose',
+        venue: 'arXiv',
+        cited_by: null,
+      });
+    }
+  }
+  return out;
+}
+
 /* ---------- main ---------- */
 const db = JSON.parse(readFileSync(DATA, 'utf8'));
 const seen = new Set();
@@ -289,7 +383,8 @@ for (const p of db.papers) {
   knownUrls.add(p.url.replace(/\/$/, ''));
 }
 
-const fetched = (await Promise.all([openalexRecent(), arxivRecent(), circuitsRecent(), alignmentBlogRecent(), openaiRecent(), deepmindRecent(knownUrls)])).flat();
+const fetched = (await Promise.all([openalexRecent(), arxivRecent(), circuitsRecent(), alignmentBlogRecent(), openaiRecent(), deepmindRecent(knownUrls), openaiAlignmentRecent(), alignmentForumRecent(), arxivFirehose()])).flat();
+for (const p of fetched) { p.title = cleanText(p.title); if (p.abstract) p.abstract = cleanText(p.abstract); }
 const found = fetched.filter((p) => !isSpam(p));
 console.log(`spam filtered: ${fetched.length - found.length}`);
 let nextId = Math.max(0, ...db.papers.map((p) => p.id)) + 1;
@@ -329,8 +424,9 @@ if (db.papers.length < prevCount) {
   console.error(`ABORT: dataset would shrink ${prevCount} -> ${db.papers.length}`);
   process.exit(1);
 }
-if (added > 250) {
-  console.error(`ABORT: ${added} new records in one run looks like pollution (cap 250). Inspect sources before raising the cap.`);
+const MAXADD = Number(process.argv[process.argv.indexOf('--max-add') + 1]) || 250;
+if (added > MAXADD) {
+  console.error(`ABORT: ${added} new records in one run looks like pollution (cap ${MAXADD}; pass --max-add N for backfills).`);
   process.exit(1);
 }
 
