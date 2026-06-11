@@ -3,7 +3,7 @@
 import { readdirSync, readFileSync, writeFileSync, copyFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { TOPICS } from './lib.mjs';
+import { TOPICS, serializeDb } from './lib.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ENRICHED = join(ROOT, 'data', 'enriched');
@@ -33,9 +33,6 @@ for (const f of readdirSync(ENRICHED).filter((f) => f.endsWith('.json')).sort())
 }
 
 db.updated = new Date().toISOString().slice(0, 10);
-writeFileSync(DATA, JSON.stringify(db, null, 1));
-const siteData = join(ROOT, 'docs', 'data');
-if (!existsSync(siteData)) mkdirSync(siteData, { recursive: true });
-copyFileSync(DATA, join(siteData, 'papers.json'));
+writeFileSync(DATA, serializeDb(db));
 console.log(`applied ${applied} enrichments (${badTopic} invalid-topic sets dropped, ${missing} unknown ids)`);
 console.log(`still missing summary: ${db.papers.filter((p) => !p.summary).length}`);

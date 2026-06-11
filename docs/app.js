@@ -20,10 +20,11 @@ const state = {
   years: new Set(),     // empty = all
   query: '',
   _terms: [],
-  sort: 'newest',
+  sort: 'featured',
   page: 1,
   view: 'papers',
   charts: {},
+  themeMode: 'share', // share-of-corpus interest curves by default
   timeline: null, // lazy-loaded entries
 };
 
@@ -35,7 +36,7 @@ const orgColor = (org) => getComputedStyle(document.documentElement).getProperty
 function readHash() {
   const h = new URLSearchParams(location.hash.replace(/^#/, ''));
   state.query = h.get('q') || '';
-  state.sort = ['newest', 'oldest', 'cited', 'match'].includes(h.get('sort')) ? h.get('sort') : 'newest';
+  state.sort = ['featured', 'newest', 'oldest', 'cited', 'match'].includes(h.get('sort')) ? h.get('sort') : 'featured';
   state.page = Math.max(1, parseInt(h.get('page'), 10) || 1);
   state.view = ['analytics', 'timeline'].includes(h.get('view')) ? h.get('view') : 'papers';
   const show = h.get('show');
@@ -49,7 +50,7 @@ let suppressHash = false;
 function writeHash() {
   const h = new URLSearchParams();
   if (state.query) h.set('q', state.query);
-  if (state.sort !== 'newest') h.set('sort', state.sort);
+  if (state.sort !== 'featured') h.set('sort', state.sort);
   if (state.page > 1) h.set('page', String(state.page));
   if (state.view !== 'papers') h.set('view', state.view);
   if (!(state.kinds.size === 1 && state.kinds.has('paper'))) {
@@ -66,8 +67,20 @@ function writeHash() {
 
 /* ---------------- data load ---------------- */
 async function load() {
-  const res = await fetch('data/papers.json');
+  const [res, themesRes, blRes] = await Promise.all([
+    fetch('data/papers.json'), fetch('data/themes.json'), fetch('data/field-baseline.json')]);
   const data = await res.json();
+  try { THEME_NAMES = (await themesRes.json()).names || []; } catch (e) { THEME_NAMES = []; }
+  try {
+    const bl = await blRes.json();
+    // smooth with a centered 4-quarter window: OpenAlex year-only dates pile
+    // onto Jan 1 and inflate every Q1
+    const raw = bl.quarters.map((x) => ({ key: x.y * 4 + x.q, n: x.n || 0 }));
+    state.baseline = new Map(raw.map((x, i) => {
+      const win = raw.slice(Math.max(0, i - 2), i + 2).map((w) => w.n).filter(Boolean);
+      return [x.key, win.length ? win.reduce((a, b) => a + b, 0) / win.length : x.n];
+    }));
+  } catch (e) { state.baseline = null; }
   state.papers = (data.papers || data).map((p, i) => ({
     ...p,
     id: p.id ?? i,
@@ -75,6 +88,7 @@ async function load() {
     topics: p.topics || [],
     authors: p.authors || [],
     _ts: Date.parse(p.date || '1970-01-01') || 0,
+    url: p.url || (p.arxiv_id ? 'https://arxiv.org/abs/' + p.arxiv_id : '#'),
     kind: p.kind === 'post' ? 'post' : 'paper',
     _hay: [p.title, (p.authors || []).join(' '), p.summary, p.abstract, (p.topics || []).join(' '), p.venue]
       .join(' ').toLowerCase(),
@@ -206,8 +220,9 @@ function applyFilters(resetPage = true) {
     }
   }
 
-  const sort = state.sort === 'match' && !state._terms.length ? 'newest' : state.sort;
+  const sort = state.sort === 'match' && !state._terms.length ? 'featured' : state.sort;
   const cmp = {
+    featured: (a, b) => (b.importance || 0) - (a.importance || 0) || b._ts - a._ts,
     newest: (a, b) => b._ts - a._ts,
     oldest: (a, b) => a._ts - b._ts,
     cited:  (a, b) => (b.cited_by || 0) - (a.cited_by || 0) || b._ts - a._ts,
@@ -428,6 +443,43 @@ function renderAnalytics() {
     },
   });
 
+  /* what each lab works on: normalized topic mix per lab */
+  const TOPIC_PALETTE = ['#2563eb', '#c15f3c', '#0d8a6f', '#b58a2c', '#7c5cc4', '#2b8fa8', '#c2417a', '#5b8a3c', '#8a5a44', '#4a6fa5', '#a8642b', '#5e548e', '#9aa0a6'];
+  const labKeys = orgKeys.filter((o) => papers.some((p) => (p.org in ORG_META ? p.org : 'other') === o));
+  const allTopics = Object.entries(topicCounts).sort((a, b) => b[1] - a[1]).map(([t]) => t);
+  const labTotals = {}, labTopic = {};
+  for (const o of labKeys) { labTotals[o] = 0; labTopic[o] = {}; }
+  for (const p of papers) {
+    const o = p.org in ORG_META ? p.org : 'other';
+    labTotals[o]++;
+    const t = p.topics[0] || 'Other'; // primary topic only: each bar sums to 100%
+    labTopic[o][t] = (labTopic[o][t] || 0) + 1;
+  }
+  destroyChart('labtopics');
+  state.charts.labtopics = new Chart($('#ch-labtopics'), {
+    type: 'bar',
+    data: {
+      labels: labKeys.map((o) => ORG_META[o].label),
+      datasets: allTopics.map((t, i) => ({
+        label: t,
+        data: labKeys.map((o) => labTotals[o] ? +((100 * (labTopic[o][t] || 0)) / labTotals[o]).toFixed(1) : 0),
+        backgroundColor: TOPIC_PALETTE[i % TOPIC_PALETTE.length],
+        stack: 's',
+      })),
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { stacked: true, beginAtZero: true, ticks: { callback: (v) => v + '%' } },
+        y: { stacked: true, grid: { display: false } },
+      },
+      plugins: {
+        legend: { position: 'top', labels: { boxWidth: 12, font: { size: 10.5 } } },
+        tooltip: { callbacks: { label: (item) => `${item.dataset.label}: ${item.raw}% (${labTopic[labKeys[item.dataIndex]][item.dataset.label] || 0} papers)` } },
+      },
+    },
+  });
+
   /* topic trends per year (top 6) */
   const years = [...new Set(papers.map((p) => p.date.slice(0, 4)))].sort();
   const top6 = topTopics.slice(0, 6).map(([t]) => t);
@@ -462,54 +514,15 @@ function renderAnalytics() {
 }
 
 /* ---------------- research interest curves ---------------- */
-const THEMES = [
-  ['Reward hacking', /reward.?(hack|tamper|gam(e|ing))|specification gaming|reward overoptimi/],
-  ['Sparse autoencoders', /sparse autoencoder|\bsaes?\b|dictionary learning|crosscoder|transcoder/],
-  ['Superposition', /superposition|polysemantic|monosemantic/],
-  ['Circuits & features', /induction head|attribution graph|circuit (analysis|tracing|discovery)|transformer circuit|feature circuit/],
-  ['CoT faithfulness & monitoring', /(chain.of.thought|\bcot\b|reasoning trace)[^.]{0,80}(faithful|monitor|legib)|(faithful|monitor)[^.]{0,80}(chain.of.thought|\bcot\b|reasoning trace)/],
-  ['Alignment faking & deception', /alignment faking|deceptive alignment|scheming|sandbagging|sleeper agent|strategic deception/],
-  ['Jailbreaks & prompt injection', /jailbreak|prompt injection|universal (adversarial|attack)/],
-  ['RLHF & preference learning', /\brlhf\b|human feedback|preference (model|learning|optimi)|\bdpo\b/],
-  ['Constitutional AI & RLAIF', /constitutional ai|\brlaif\b|ai feedback/],
-  ['Scaling laws', /scaling law|compute.optimal|chinchilla/],
-  ['Emergent abilities', /emergent (abilit|behavi|capabilit)|emergence of/],
-  ['In-context learning', /in.context learning|few.shot learn/],
-  ['Test-time compute', /test.time (compute|scaling|search)|inference.time (compute|scaling)|reasoning model|thinking (budget|tokens)/],
-  ['Process supervision', /process (supervision|reward)|\bprm\b|step.level (reward|verif)/],
-  ['Scalable oversight & debate', /weak.to.strong|scalable oversight|recursive reward|ai safety via debate|\bdebate\b/],
-  ['Sycophancy', /sycophan/],
-  ['Introspection & self-awareness', /situational awareness|introspect|self.aware|self.knowledge/],
-  ['AI control', /ai control|control protocol|untrusted (model|monitor)|trusted monitoring/],
-  ['Model welfare', /model welfare|ai welfare|moral (status|patienthood)|digital minds/],
-  ['Dangerous-capability evals', /dangerous capabilit|biorisk|biosecurity|\bcbrn\b|uplift (stud|trial|evaluation)|frontier safety/],
-  ['Steering & activation editing', /steering vector|activation (steering|engineering|patch|addition)|representation engineering/],
-  ['Probing & linear representations', /linear (probe|representation|direction)|probing classifier/],
-  ['Influence & data attribution', /influence function|(training )?data attribution/],
-  ['Hallucination & calibration', /hallucinat|confabul|calibrat/],
-  ['Unlearning', /unlearn/],
-  ['Watermarking', /watermark/],
-  ['Backdoors & poisoning', /backdoor|data poison|poisoning attack/],
-  ['Mixture of experts', /mixture.of.experts|\bmoe\b|sparse expert/],
-  ['Automated auditing', /automated audit|auditing agent|alignment audit|audit(ing)? game|blind audit/],
-  ['Mid-training', /mid.?train/],
-  ['Emergent misalignment', /emergent misalignment|broad(ly)? misalign|misalignment generali|narrow(ly trained)? task.{0,40}misalign/],
-  ['Subliminal learning', /subliminal|hidden signals in data|trait transmission|behaviou?ral traits (via|through)/],
-  ['Reversal curse & negation', /reversal curse|negation/],
-  ['Evaluation awareness', /evaluation awareness|eval.?aware|test.?aware|recogni[sz]e[^.]{0,40}(being )?(test|evaluat)|knows? (it is|they are) being (test|evaluat)/],
-  ['Model organisms', /model organism/],
-  ['Persona & character', /persona vector|character train|assistant persona|model persona/],
-];
+let THEME_NAMES = [];
 const THEME_PALETTE = ['#2563eb', '#c15f3c', '#0d8a6f', '#b58a2c', '#7c5cc4', '#2b8fa8', '#c2417a', '#5b8a3c', '#8a5a44', '#4a6fa5', '#a8642b', '#5e548e'];
 const THEME_DEFAULT = ['Reward hacking', 'Automated auditing', 'Mid-training', 'Subliminal learning', 'Emergent misalignment', 'Evaluation awareness'];
 
 function computeThemeMasks() {
+  // masks are precomputed server-side (build-site-data.mjs) as p.th = [lo, hi]
   for (const p of state.papers) {
-    let lo = 0, hi = 0; // two 28-bit halves to stay in safe int ops
-    for (let i = 0; i < THEMES.length; i++) {
-      if (THEMES[i][1].test(p._hay)) { if (i < 28) lo |= (1 << i); else hi |= (1 << (i - 28)); }
-    }
-    p._thLo = lo; p._thHi = hi;
+    p._thLo = (p.th && p.th[0]) || 0;
+    p._thHi = (p.th && p.th[1]) || 0;
   }
 }
 const hasTheme = (p, i) => i < 28 ? (p._thLo & (1 << i)) !== 0 : (p._thHi & (1 << (i - 28))) !== 0;
@@ -521,7 +534,7 @@ const hasTheme = (p, i) => i < 28 ? (p._thLo & (1 << i)) !== 0 : (p._thHi & (1 <
    scaled to a full-quarter rate; ts = fractional-year midpoints. */
 function fitBell(w, ts) {
   const N = w.reduce((a, b) => a + b, 0);
-  if (N < 8) return null;
+  if (N <= 0) return null;
   const nonzeroIdx = w.map((x, i) => (x > 0 ? i : -1)).filter((i) => i >= 0);
   // a 3-parameter bell needs real support: >=4 nonzero quarters spanning >=1.25y
   if (nonzeroIdx.length < 4) return null;
@@ -580,20 +593,40 @@ function themeStats(papers) {
     return y >= 2016 && idx < quarters.length ? idx : -1;
   };
 
-  return THEMES.map(([name], i) => {
-    const counts = new Array(quarters.length).fill(0);
+  // per-quarter corpus totals (for share-of-corpus normalization)
+  const totals = new Array(quarters.length).fill(0);
+  for (const p of papers) { const idx = idxOf(p); if (idx >= 0) totals[idx]++; }
+  const share = state.themeMode !== 'abs';
+
+  return THEME_NAMES.map((name, i) => {
+    const raw = new Array(quarters.length).fill(0);
     for (const p of papers) {
       if (!hasTheme(p, i)) continue;
       const idx = idxOf(p);
-      if (idx >= 0) counts[idx]++;
+      if (idx >= 0) raw[idx]++;
     }
-    const total = counts.reduce((a, b) => a + b, 0);
-    const w = counts.slice();
-    w[w.length - 1] = w[w.length - 1] / qFrac; // partial current quarter -> rate
+    const total = raw.reduce((a, b) => a + b, 0);
+    // displayed/fitted series: % of corpus (ratios cancel the partial quarter)
+    // or absolute counts (current quarter scaled to a full-quarter rate)
+    let counts, w;
+    if (share) {
+      counts = raw.map((c, idx) => {
+        const qq = quarters[idx];
+        const base = state.baseline?.get(qq.y * 4 + qq.q) || totals[idx];
+        return base ? +((10000 * c) / base).toFixed(3) : 0;
+      });
+      w = counts;
+    } else {
+      counts = raw;
+      w = raw.slice();
+      w[w.length - 1] = w[w.length - 1] / qFrac;
+    }
     const ts = quarters.map((q) => q.t);
-    const fit = fitBell(w, ts);
+    const fit = total >= 8 ? fitBell(w, ts) : null;
     let status = '—';
-    if (fit) {
+    if (fit && fit.r2 < 0.25) {
+      status = 'unclear';
+    } else if (fit) {
       const d = nowT - fit.mu;
       status = fit.openEnded || d < -0.5 ? 'rising' : d > 0.75 ? 'declining' : 'peaking';
     } else if (total >= 2) {
@@ -606,11 +639,11 @@ function themeStats(papers) {
   });
 }
 
-const STATUS_ORDER = { rising: 0, emerging: 1, peaking: 2, declining: 3, '—': 4 };
+const STATUS_ORDER = { rising: 0, emerging: 1, peaking: 2, declining: 3, unclear: 4, '—': 5 };
 
 function renderThemes(papers) {
   if (!state.themeSel) {
-    state.themeSel = new Set(THEMES.map(([n], i) => THEME_DEFAULT.includes(n) ? i : -1).filter((i) => i >= 0));
+    state.themeSel = new Set(THEME_NAMES.map((n, i) => THEME_DEFAULT.includes(n) ? i : -1).filter((i) => i >= 0));
   }
   const stats = themeStats(papers);
   const quarters = stats[0].quarters;
@@ -664,7 +697,11 @@ function renderThemes(papers) {
     options: {
       responsive: true, maintainAspectRatio: false,
       scales: {
-        y: { beginAtZero: true, max: Math.ceil(maxActual * 1.6) },
+        y: {
+          beginAtZero: true,
+          max: state.themeMode !== 'abs' ? +(maxActual * 1.6).toFixed(2) : Math.ceil(maxActual * 1.6),
+          ticks: state.themeMode !== 'abs' ? { callback: (v) => v + '/10k' } : {},
+        },
         x: {
           grid: { display: false },
           ticks: {
@@ -681,13 +718,13 @@ function renderThemes(papers) {
   });
 
   /* status board: rising & emerging first, declining at the end */
-  const arrow = { rising: '<span class="st st-up">▲ rising</span>', emerging: '<span class="st st-new">✦ emerging</span>', peaking: '<span class="st st-peak">● near peak</span>', declining: '<span class="st st-down">▼ declining</span>', '—': '<span class="st">too sparse</span>' };
+  const arrow = { rising: '<span class="st st-up">▲ rising</span>', emerging: '<span class="st st-new">✦ emerging</span>', peaking: '<span class="st st-peak">● near peak</span>', declining: '<span class="st st-down">▼ declining</span>', unclear: '<span class="st">~ no clear bell</span>', '—': '<span class="st">too sparse</span>' };
   $('#theme-board tbody').innerHTML = stats
     .slice().sort((a, b) => STATUS_ORDER[a.status] - STATUS_ORDER[b.status] || b.total - a.total)
     .map((s) => `<tr data-ti="${s.i}" class="${state.themeSel.has(s.i) ? 'sel' : ''}">
       <td>${esc(s.name)}</td>
       <td>${s.total}</td>
-      <td>${s.fit ? (s.fit.openEnded ? 'not yet in sight' : '~' + quarterLabelOf(s.fit.mu) + (s.fit.mu > s.nowT ? ' (projected)' : '')) : '—'}</td>
+      <td>${s.fit && s.status !== 'unclear' ? (s.fit.openEnded ? 'not yet in sight' : '~' + quarterLabelOf(s.fit.mu) + (s.fit.mu > s.nowT ? ' (projected)' : '')) : '—'}</td>
       <td>${arrow[s.status]}</td>
       <td>${s.fit && s.fit.nonzero >= 6 ? Math.round(s.fit.r2 * 100) + '%' : '—'}</td>
     </tr>`)
@@ -797,8 +834,8 @@ function init() {
     clearTimeout(debounce);
     debounce = setTimeout(() => {
       state.query = e.target.value;
-      if (state.query && state.sort === 'newest') { state.sort = 'match'; $('#sort').value = 'match'; }
-      if (!state.query && state.sort === 'match') { state.sort = 'newest'; $('#sort').value = 'newest'; }
+      if (state.query && (state.sort === 'newest' || state.sort === 'featured')) { state.sort = 'match'; $('#sort').value = 'match'; }
+      if (!state.query && state.sort === 'match') { state.sort = 'featured'; $('#sort').value = 'featured'; }
       applyFilters();
     }, 180);
   });
@@ -810,11 +847,18 @@ function init() {
     if (state.view === 'analytics') renderAnalytics();
   });
 
+  document.querySelectorAll('.mode-btn').forEach((b) =>
+    b.addEventListener('click', () => {
+      state.themeMode = b.dataset.mode;
+      document.querySelectorAll('.mode-btn').forEach((x) => x.classList.toggle('active', x === b));
+      if (state.view === 'analytics') renderAnalytics();
+    }));
+
   $('#clear-filters').addEventListener('click', () => {
     state.kinds = new Set(['paper']);
     state.orgs.clear(); state.topics.clear(); state.years.clear();
     state.query = ''; $('#search').value = '';
-    state.sort = 'newest'; $('#sort').value = 'newest';
+    state.sort = 'featured'; $('#sort').value = 'featured';
     applyFilters();
   });
 

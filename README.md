@@ -10,6 +10,8 @@ A static webapp (formerly "Frontier AI Research Tracker") that tracks research p
 - [deepmind.google/research/publications](https://deepmind.google/research/publications/)
 - [OpenAlex](https://openalex.org) (affiliation-indexed works for all three labs — catches arXiv papers never posted on lab sites)
 - arXiv API topic sweeps (mech interp, alignment, reasoning, evals, agents)
+- **Bulk topic corpus** (`scripts/collect-topics.mjs`): ~35k topic-relevant papers from all orgs, 2012-present, via ~85 OpenAlex phrase queries derived from the interest themes — gives the analytics full historical bell curves instead of a lab-recent sample. Records carry an `importance` score (0-100: lab affiliation, citations, timeline membership) and the feed defaults to Featured ordering so frontier-lab work stays on top.
+- **Field baseline** (`scripts/fetch-baseline.mjs`): quarterly counts of all ML papers (OpenAlex) — the denominator for share-of-field interest curves.
 
 ## How it works
 

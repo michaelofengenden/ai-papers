@@ -97,6 +97,22 @@ export function autoSummary(abstract) {
   return out.length > 420 ? out.slice(0, 417).trimEnd() + '…' : out;
 }
 
+/* Priority/importance score 0-100: keeps frontier-lab work on top of the feed
+   while the bulk topic corpus powers analytics and search. */
+export function computeImportance(p, timelineIds = new Set()) {
+  let s = 0;
+  if (['anthropic', 'openai', 'deepmind'].includes(p.org)) s += 45;
+  const src = (p.sources || []).join(',');
+  if (/transformer-circuits|alignment-blog|anthropic-site|openai-site|deepmind-site/.test(src)) s += 12;
+  if (/manual/.test(src)) s += 20;
+  if (timelineIds.has(p.id)) s += 20;
+  s += Math.min(25, 6 * Math.log1p(p.cited_by || 0));
+  const ageDays = (Date.now() - Date.parse(p.date)) / 864e5;
+  if (ageDays < 180) s += 8;
+  if (p.kind === 'post') s -= 10;
+  return Math.max(0, Math.min(100, Math.round(s)));
+}
+
 const SOURCE_PRIORITY = ['transformer-circuits', 'alignment-blog', 'anthropic-site', 'openai-site', 'deepmind-site', 'arxiv-sweep', 'arxiv', 'openalex'];
 
 export function sourceRank(s) {
@@ -125,4 +141,10 @@ export function mergeRecords(a, b) {
 
 function longest(a, b) {
   return (a || '').length >= (b || '').length ? a || null : b || null;
+}
+
+/* Master-file serializer: compact but line-per-paper so git diffs stay small. */
+export function serializeDb(db) {
+  return '{"updated":' + JSON.stringify(db.updated) + ',"count":' + db.papers.length + ',"papers":[\n'
+    + db.papers.map((p) => JSON.stringify(p)).join(',\n') + '\n]}';
 }

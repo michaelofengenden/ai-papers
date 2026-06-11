@@ -85,6 +85,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('frt-theme')
         <span class="result-count" id="result-count">…</span>
         <label class="sort-wrap">Sort
           <select id="sort" aria-label="Sort order">
+            <option value="featured">Featured</option>
             <option value="newest">Newest</option>
             <option value="oldest">Oldest</option>
             <option value="cited">Most cited</option>
@@ -115,9 +116,15 @@ try { document.documentElement.dataset.theme = localStorage.getItem('frt-theme')
         <div class="chart-card wide">
           <h3>Research interest curves <span class="chart-sub">hyper-specific themes, papers per quarter — solid = actual, dashed = fitted bell curve projected 2 years ahead</span></h3>
           <div class="theme-chips" id="theme-chips"></div>
-          <label class="fit-toggle"><input type="checkbox" id="fit-toggle" checked> show fitted bell curves</label>
+          <div class="curve-controls">
+            <label class="fit-toggle"><input type="checkbox" id="fit-toggle" checked> show fitted bell curves</label>
+            <span class="mode-toggle" id="mode-toggle">
+              <button class="mode-btn active" data-mode="share" title="theme papers per 10,000 ML papers published that quarter (OpenAlex baseline) — corrects for overall field growth">share of field</button>
+              <button class="mode-btn" data-mode="abs" title="raw papers per quarter">absolute</button>
+            </span>
+          </div>
           <div class="chart-box tall"><canvas id="ch-themes"></canvas></div>
-          <p class="chart-note">Fit: Gaussian matched to each theme's quarterly counts (the in-progress quarter is scaled to a full-quarter rate before fitting). A high "bell fit" means the theme's rise-and-fall really does follow a bell shape — those are the ones you can extrapolate; low fit = still growing, flat, or multi-wave.</p>
+          <p class="chart-note">Default view is each theme's <b>share of the field</b> — papers per 10,000 ML papers published that quarter (OpenAlex baseline, smoothed) — raw counts rise almost everywhere because the field itself grows, so share is what reveals true rise-and-fall of interest (and partial quarters cancel out). Fit: least-squares Gaussian; a high "bell fit" means the curve genuinely follows a bell — those are the ones you can extrapolate.</p>
         </div>
         <div class="chart-card wide">
           <h3>Theme status board <span class="chart-sub">click a row to add it to the chart above</span></h3>
@@ -126,6 +133,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('frt-theme')
             <tbody></tbody>
           </table></div>
         </div>
+        <div class="chart-card wide"><h3>What each lab works on <span class="chart-sub">topic mix per lab, % of the lab's research papers</span></h3><div class="chart-box tall"><canvas id="ch-labtopics"></canvas></div></div>
         <div class="chart-card wide"><h3>Topic trends <span class="chart-sub">top 6 topics per year</span></h3><div class="chart-box tall"><canvas id="ch-trends"></canvas></div></div>
         <div class="chart-card wide">
           <h3>Most cited in selection</h3>

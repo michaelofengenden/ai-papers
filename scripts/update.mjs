@@ -5,7 +5,7 @@
 import { readFileSync, writeFileSync, copyFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { normTitle, extractArxivId, tagTopics, autoSummary, isSpam, classifyKind } from './lib.mjs';
+import { normTitle, extractArxivId, tagTopics, autoSummary, isSpam, classifyKind, computeImportance, serializeDb } from './lib.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA = join(ROOT, 'data', 'papers.json');
@@ -309,14 +309,16 @@ for (const p of found) {
   }
   keys.forEach((k) => seen.add(k));
   const text = `${p.title} ${p.abstract || ''}`;
-  db.papers.push({
+  const rec = {
     id: nextId++,
     ...p,
     topics: tagTopics(text),
     summary: autoSummary(p.abstract) || null,
     sources: [p.source],
     kind: classifyKind({ ...p, sources: [p.source] }) || 'post',
-  });
+  };
+  rec.importance = computeImportance(rec);
+  db.papers.push(rec);
   added++;
 }
 
@@ -335,9 +337,6 @@ if (added > 250) {
 db.papers.sort((a, b) => (a.date < b.date ? 1 : -1));
 db.updated = today;
 db.count = db.papers.length;
-writeFileSync(DATA, JSON.stringify(db, null, 1));
+writeFileSync(DATA, serializeDb(db));
 
-const siteData = join(ROOT, 'docs', 'data');
-if (!existsSync(siteData)) mkdirSync(siteData, { recursive: true });
-copyFileSync(DATA, join(siteData, 'papers.json'));
 console.log(`update: ${found.length} fetched, ${added} new, total ${db.count}`);
