@@ -320,6 +320,18 @@ for (const p of found) {
   added++;
 }
 
+/* sanity guards: never shrink the dataset, never mass-ingest in one run
+   (protects against API regressions / new spam patterns slipping the filter) */
+const prevCount = JSON.parse(readFileSync(DATA, 'utf8')).papers.length;
+if (db.papers.length < prevCount) {
+  console.error(`ABORT: dataset would shrink ${prevCount} -> ${db.papers.length}`);
+  process.exit(1);
+}
+if (added > 250) {
+  console.error(`ABORT: ${added} new records in one run looks like pollution (cap 250). Inspect sources before raising the cap.`);
+  process.exit(1);
+}
+
 db.papers.sort((a, b) => (a.date < b.date ? 1 : -1));
 db.updated = today;
 db.count = db.papers.length;

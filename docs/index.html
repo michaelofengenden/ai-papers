@@ -8,7 +8,7 @@
 <meta property="og:title" content="AI Papers">
 <meta property="og:description" content="Every interpretability, safety, capabilities &amp; reasoning paper from Anthropic, OpenAI and Google DeepMind — mini summaries, filters, analytics. Updated daily.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://michaelofengend.github.io/frontier-research-tracker/">
+<meta property="og:url" content="https://michaelofengend.github.io/ai-papers/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
@@ -112,6 +112,20 @@ try { document.documentElement.dataset.theme = localStorage.getItem('frt-theme')
         <div class="chart-card wide"><h3>Publications over time <span class="chart-sub">by quarter, stacked by lab</span></h3><div class="chart-box tall"><canvas id="ch-time"></canvas></div></div>
         <div class="chart-card"><h3>Lab share</h3><div class="chart-box"><canvas id="ch-org"></canvas></div></div>
         <div class="chart-card"><h3>Topics <span class="chart-sub">papers per topic</span></h3><div class="chart-box"><canvas id="ch-topics"></canvas></div></div>
+        <div class="chart-card wide">
+          <h3>Research interest curves <span class="chart-sub">hyper-specific themes, papers per year — solid = actual, dashed = fitted bell curve projected 2 years ahead</span></h3>
+          <div class="theme-chips" id="theme-chips"></div>
+          <label class="fit-toggle"><input type="checkbox" id="fit-toggle" checked> show fitted bell curves</label>
+          <div class="chart-box tall"><canvas id="ch-themes"></canvas></div>
+          <p class="chart-note">Fit: Gaussian matched to each theme's yearly counts (current year annualized). A high "bell fit" means the theme's rise-and-fall really does follow a bell shape — those are the ones you can extrapolate; low fit = still growing, flat, or multi-wave.</p>
+        </div>
+        <div class="chart-card wide">
+          <h3>Theme status board <span class="chart-sub">click a row to add it to the chart above</span></h3>
+          <div class="theme-board-wrap"><table class="theme-board" id="theme-board">
+            <thead><tr><th>Theme</th><th>Papers</th><th>Fitted peak</th><th>Status</th><th>Bell fit</th></tr></thead>
+            <tbody></tbody>
+          </table></div>
+        </div>
         <div class="chart-card wide"><h3>Topic trends <span class="chart-sub">top 6 topics per year</span></h3><div class="chart-box tall"><canvas id="ch-trends"></canvas></div></div>
         <div class="chart-card wide">
           <h3>Most cited in selection</h3>
@@ -122,7 +136,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('frt-theme')
 
     <footer class="footer">
       <p>Sources: <a href="https://transformer-circuits.pub" target="_blank" rel="noopener">transformer-circuits.pub</a> · <a href="https://www.anthropic.com/research" target="_blank" rel="noopener">anthropic.com/research</a> · <a href="https://alignment.anthropic.com" target="_blank" rel="noopener">alignment blog</a> · <a href="https://openai.com/research/" target="_blank" rel="noopener">openai.com</a> · <a href="https://deepmind.google/research/publications/" target="_blank" rel="noopener">deepmind.google</a> · <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a> · <a href="https://arxiv.org" target="_blank" rel="noopener">arXiv</a>.
-      Auto-refreshes daily at 06:00 PT. Summaries are AI-generated — verify against the paper. <a href="https://github.com/michaelofengend/frontier-research-tracker" target="_blank" rel="noopener">Source</a>.</p>
+      Auto-refreshes daily at 06:00 PT. Summaries are AI-generated — verify against the paper. <a href="https://github.com/michaelofengend/ai-papers" target="_blank" rel="noopener">Source</a>.</p>
     </footer>
   </main>
 
