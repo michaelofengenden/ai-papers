@@ -79,12 +79,23 @@ export function classifyKind(p) {
 const SPAM_URL = /zenodo\.org|figshare|myweirdprompts\.com|osf\.io/i;
 const SPAM_VENUE = /^(open mind|zenodo|figshare)/i;
 const SPAM_AUTHOR = /chatterbox|^(claude|gemini|chatgpt|gpt)[ ,-]|\((flash|pro|mini)\)|^rosehill, daniel/i;
-const SPAM_TITLE = /^[\w.-]+\/[\w.-]+:/; // "owner/repo: v1.2.3" release records
+/* Junk-title signatures. The "Title" mojibake tests stay case-SENSITIVE (literal
+   [A-Z]) on purpose: a real title may begin with "Title-level", "Titled" or
+   "Title:" (a 2012 RePEc paper does), and only a leading "Title" glued/spaced to
+   an uppercase letter marks the prepended-"Title" garbage. The F1000 "volume N"
+   audit mass-dump (all dated 2026-01-29) is matched by its phrase regardless of
+   whether the bogus "Title" prefix survived ingestion. */
+const SPAM_TITLE = [
+  /^[\w.-]+\/[\w.-]+:/,                                      // "owner/repo: v1.2.3" release records
+  /^Title(?=[A-Z])/,                                         // "TitleStrategic…" — "Title" glued to a capital
+  /^Title\s+[A-Z]/,                                          // "Title Strategic…", "Title Pending 47" — "Title" + space + capital
+  /strategic evaluation of advanced engineering systems/i,  // F1000 "professional audit volume N" dump
+];
 
 export function isSpam(p) {
   if (SPAM_URL.test(p.url || '') || SPAM_URL.test(p.pdf_url || '')) return true;
   if (SPAM_VENUE.test(p.venue || '')) return true;
-  if (SPAM_TITLE.test(p.title || '')) return true;
+  if (SPAM_TITLE.some((re) => re.test(p.title || ''))) return true;
   const authors = Array.isArray(p.authors) ? p.authors : [];
   if (authors.some((a) => SPAM_AUTHOR.test(String(a)))) return true;
   return false;
@@ -93,6 +104,43 @@ export function isSpam(p) {
 export function extractArxivId(url) {
   const m = String(url || '').match(/arxiv\.org\/(?:abs|pdf|html)\/(\d{4}\.\d{4,5})/i);
   return m ? m[1] : null;
+}
+
+/* Frontier-lab attribution. Each entry is an ordered [orgKey, regex] pair used
+   to map an affiliation/abstract/comment haystack to a canonical org key.
+   Regexes require word boundaries / multi-word context to avoid false
+   positives (e.g. plain "meta", or "xai" embedded in another word). Order
+   matters: the most specific / least-ambiguous patterns come first so a paper
+   naming several labs is attributed to the most distinctive one. */
+export const LAB_ORG_PATTERNS = [
+  ['deepmind', /\b(?:google )?deepmind\b/i],
+  ['anthropic', /\banthropic\b/i],
+  ['deepseek', /\bdeep-?seek\b/i],
+  ['mistral', /\bmistral\s*(?:ai)?\b/i],
+  ['ai2', /\ballen institute for (?:artificial intelligence|ai)\b|\bai2\b|\ballenai\b/i],
+  ['microsoft', /\bmicrosoft research\b|\bmsr\b/i],
+  ['qwen', /\bqwen\b|\balibaba\b/i],
+  // xAI is hard to disambiguate from "explainable AI (XAI)". Accept the
+  // unambiguous dotted domain (x.ai), or the "xAI" token only when it sits next
+  // to a corporate/lab marker (Grok, Corp, Inc, team, lab) — rejecting
+  // "explainable AI (XAI) survey/methods/framework".
+  ['xai', /\bx\.ai\b|\bxai\b(?=\s*(?:corp|inc|\bllc\b|team|lab|labs|grok))|(?:grok|elon musk)[^.]{0,40}\bxai\b/i],
+  ['meta', /\b(?:meta ai|fair|facebook ai(?: research)?)\b/i],
+  ['openai', /\bopenai\b/i],
+];
+
+/* Combined regex of all lab patterns, for a single relevance test ("does this
+   text mention any tracked lab?"). Built from the alternations above so the two
+   stay in sync. */
+export const LAB_ORG_RE = new RegExp(
+  LAB_ORG_PATTERNS.map(([, re]) => `(?:${re.source})`).join('|'), 'i');
+
+/* Return the canonical org key for the first lab pattern that matches `text`,
+   or 'other' when none do (or `text` is empty). */
+export function orgFromText(text) {
+  const t = String(text || '');
+  for (const [org, re] of LAB_ORG_PATTERNS) if (re.test(t)) return org;
+  return 'other';
 }
 
 /* First ~2 sentences of an abstract, for fallback summaries. */
@@ -113,7 +161,11 @@ export function autoSummary(abstract) {
    while the bulk topic corpus powers analytics and search. */
 export function computeImportance(p, timelineIds = new Set()) {
   let s = 0;
+  // The "big three" labs that anchor the feed keep the full boost; the newly
+  // tracked competitor frontier labs get a slightly lower boost so the big-3
+  // stay on top while still ranking well above the bulk topic corpus.
   if (['anthropic', 'openai', 'deepmind'].includes(p.org)) s += 45;
+  else if (['meta', 'microsoft', 'deepseek', 'mistral', 'xai', 'qwen', 'ai2'].includes(p.org)) s += 35;
   const src = (p.sources || []).join(',');
   if (/transformer-circuits|alignment-blog|anthropic-site|openai-site|deepmind-site/.test(src)) s += 12;
   if (/manual/.test(src)) s += 20;

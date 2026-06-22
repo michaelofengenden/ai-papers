@@ -2,7 +2,8 @@ name: Daily data refresh
 
 on:
   schedule:
-    - cron: '0 13 * * *'   # 13:00 UTC daily = 06:00 PT
+    - cron: '0 13 * * *'   # 13:00 UTC = 06:00 PT (PDT)
+    - cron: '0 18 * * *'   # 18:00 UTC = 11:00 PT (PDT)
   workflow_dispatch:
 
 permissions:

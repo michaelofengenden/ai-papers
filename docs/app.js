@@ -5,6 +5,13 @@ const ORG_META = {
   anthropic: { label: 'Anthropic' },
   openai:    { label: 'OpenAI' },
   deepmind:  { label: 'DeepMind' },
+  meta:      { label: 'Meta AI' },
+  microsoft: { label: 'Microsoft' },
+  deepseek:  { label: 'DeepSeek' },
+  qwen:      { label: 'Qwen / Alibaba' },
+  mistral:   { label: 'Mistral' },
+  xai:       { label: 'xAI' },
+  ai2:       { label: 'AI2' },
   other:     { label: 'Other' },
 };
 const PAGE_SIZE = 50;
@@ -20,7 +27,7 @@ const state = {
   years: new Set(),     // empty = all
   query: '',
   _terms: [],
-  sort: 'featured',
+  sort: 'newest',
   page: 1,
   view: 'papers',
   charts: {},
@@ -38,7 +45,7 @@ const orgColor = (org) => getComputedStyle(document.documentElement).getProperty
 function readHash() {
   const h = new URLSearchParams(location.hash.replace(/^#/, ''));
   state.query = h.get('q') || '';
-  state.sort = ['featured', 'newest', 'oldest', 'cited', 'match'].includes(h.get('sort')) ? h.get('sort') : 'featured';
+  state.sort = ['featured', 'newest', 'oldest', 'cited', 'match', 'novel'].includes(h.get('sort')) ? h.get('sort') : 'newest';
   state.page = Math.max(1, parseInt(h.get('page'), 10) || 1);
   state.view = ['analytics', 'timeline'].includes(h.get('view')) ? h.get('view') : 'papers';
   const show = h.get('show');
@@ -57,7 +64,7 @@ let suppressHash = false;
 function writeHash() {
   const h = new URLSearchParams();
   if (state.query) h.set('q', state.query);
-  if (state.sort !== 'featured') h.set('sort', state.sort);
+  if (state.sort !== 'newest') h.set('sort', state.sort);
   if (state.page > 1) h.set('page', String(state.page));
   if (state.view !== 'papers') h.set('view', state.view);
   if (!(state.kinds.size === 1 && state.kinds.has('paper'))) {
@@ -78,9 +85,11 @@ async function load() {
   const res = await fetch('data/papers.json');
   const data = await res.json();
   state._v = encodeURIComponent(data.updated || '0'); // cache-bust satellites with the data version
-  const [themesRes, blRes] = await Promise.all([
-    fetch('data/themes.json?v=' + state._v), fetch('data/field-baseline.json?v=' + state._v)]);
+  const [themesRes, blRes, emRes] = await Promise.all([
+    fetch('data/themes.json?v=' + state._v), fetch('data/field-baseline.json?v=' + state._v),
+    fetch('data/emerging.json?v=' + state._v)]);
   try { const tj = await themesRes.json(); THEME_NAMES = tj.names || []; TOPIC_LIST = tj.topics || []; } catch (e) { THEME_NAMES = []; TOPIC_LIST = []; }
+  try { state.emerging = await emRes.json(); } catch (e) { state.emerging = null; }
   try {
     const bl = await blRes.json();
     // smooth with a centered 4-quarter window: OpenAlex year-only dates pile
@@ -234,13 +243,14 @@ function applyFilters(resetPage = true) {
     }
   }
 
-  const sort = state.sort === 'match' && !state._terms.length ? 'featured' : state.sort;
+  const sort = state.sort === 'match' && !state._terms.length ? 'newest' : state.sort;
   const cmp = {
     featured: (a, b) => (b.importance || 0) - (a.importance || 0) || b._ts - a._ts,
     newest: (a, b) => b._ts - a._ts,
     oldest: (a, b) => a._ts - b._ts,
     cited:  (a, b) => (b.cited_by || 0) - (a.cited_by || 0) || b._ts - a._ts,
     match:  (a, b) => (b._score || 0) - (a._score || 0) || b._ts - a._ts,
+    novel:  (a, b) => (b.nov || 0) - (a.nov || 0) || b._ts - a._ts,
   }[sort];
   state.filtered.sort(cmp);
 
@@ -399,6 +409,7 @@ function card(p) {
     <div class="card-meta">
       <span class="org-badge" style="--org-color:var(--${p.org in ORG_META ? p.org : 'other'})">${(ORG_META[p.org] || ORG_META.other).label}</span>
       ${p.kind === 'post' ? '<span class="kind-pill">post</span>' : ''}
+      ${p.nov ? `<span class="novel-pill" title="title introduces ${p.nov} recently-coined term${p.nov > 1 ? 's' : ''}">🌱 novel</span>` : ''}
       ${authors ? `<span class="authors">${authors}</span>` : ''}
       ${venue}${cites}
     </div>
@@ -571,7 +582,58 @@ function renderAnalytics() {
       <span class="tc-meta"> — ${(ORG_META[p.org] || ORG_META.other).label}, ${p.date.slice(0, 4)}, ${p.cited_by.toLocaleString()} citations</span></li>`
   ).join('') || '<li class="tc-meta">No citation data in this selection.</li>';
 
+  renderEmerging();
   renderThemes(papers);
+}
+
+/* ---------------- emerging now: bottom-up term discovery ---------------- */
+/* Precomputed in scripts/emerging.mjs (titles-only) -> docs/data/emerging.json.
+   Complements the curated themes: surfaces terminology nobody's named yet. */
+function emergingSparkline(traj) {
+  const W = 106, H = 24, P = 3, n = traj.length, max = Math.max(1, ...traj);
+  const x = (i) => P + (n > 1 ? (i * (W - 2 * P)) / (n - 1) : 0);
+  const y = (v) => H - P - (v / max) * (H - 2 * P);
+  const pts = traj.map((v, i) => x(i).toFixed(1) + ',' + y(v).toFixed(1)).join(' ');
+  return `<svg class="em-spark" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true">
+    <polyline points="${pts}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${x(n - 1).toFixed(1)}" cy="${y(traj[n - 1]).toFixed(1)}" r="2.3" fill="currentColor"/>
+  </svg>`;
+}
+
+function renderEmerging() {
+  const card = $('#emerging-card');
+  if (!card) return;
+  const data = state.emerging;
+  if (!data || !Array.isArray(data.terms) || !data.terms.length) { card.hidden = true; return; }
+  card.hidden = false;
+  $('#emerging-list').innerHTML = data.terms.map((t, i) => {
+    const tracked = state.custom.includes(t.term);
+    const badge = t.newcomer
+      ? '<span class="em-badge new">✦ new</span>'
+      : (t.ratioShare ? `<span class="em-badge accel">▲ ${t.ratioShare}×</span>` : '');
+    const themeTag = t.inTheme ? '<span class="em-intheme" title="already covered by a curated theme">named</span>' : '';
+    return `<div class="em-row${t.newcomer ? ' is-new' : ''}">
+      <span class="em-rank">${i + 1}</span>
+      <span class="em-term"><span class="em-name">${esc(t.term)}</span>${themeTag}${badge}</span>
+      ${emergingSparkline(t.traj)}
+      <span class="em-recent" title="papers in the last 2 quarters">${t.recent}<span class="em-unit">/6mo</span></span>
+      <button class="em-track${tracked ? ' tracked' : ''}" data-term="${esc(t.term)}" title="track this phrase as a fitted interest curve below">${tracked ? '✓ tracking' : '+ track'}</button>
+    </div>`;
+  }).join('');
+  $('#emerging-list').querySelectorAll('.em-track').forEach((b) =>
+    b.addEventListener('click', () => trackEmerging(b.dataset.term)));
+}
+
+function trackEmerging(term) {
+  if (!state.custom.includes(term)) {
+    if (state.custom.length >= 12) state.custom.shift();
+    state.custom.push(term);
+  }
+  state.customSel.add(term);
+  saveCustom(); writeHash();
+  renderAnalytics();
+  const chart = $('#ch-themes');
+  if (chart) chart.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 /* ---------------- research interest curves ---------------- */
@@ -1081,7 +1143,7 @@ function init() {
     debounce = setTimeout(() => {
       state.query = e.target.value;
       if (state.query && (state.sort === 'newest' || state.sort === 'featured')) { state.sort = 'match'; $('#sort').value = 'match'; }
-      if (!state.query && state.sort === 'match') { state.sort = 'featured'; $('#sort').value = 'featured'; }
+      if (!state.query && state.sort === 'match') { state.sort = 'newest'; $('#sort').value = 'newest'; }
       applyFilters();
     }, 180);
   });
@@ -1104,7 +1166,7 @@ function init() {
     state.kinds = new Set(['paper']);
     state.orgs.clear(); state.topics.clear(); state.years.clear();
     state.query = ''; $('#search').value = '';
-    state.sort = 'featured'; $('#sort').value = 'featured';
+    state.sort = 'newest'; $('#sort').value = 'newest';
     applyFilters();
   });
 

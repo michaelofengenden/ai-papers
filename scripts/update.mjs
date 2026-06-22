@@ -5,7 +5,7 @@
 import { readFileSync, writeFileSync, copyFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { normTitle, extractArxivId, tagTopics, autoSummary, isSpam, classifyKind, computeImportance, serializeDb, cleanText } from './lib.mjs';
+import { normTitle, extractArxivId, tagTopics, autoSummary, isSpam, classifyKind, computeImportance, serializeDb, cleanText, orgFromText } from './lib.mjs';
 import { themeMask } from './themes.mjs';
 import { scrapeListing } from './generic-source.mjs';
 
@@ -43,17 +43,40 @@ function deinvert(idx) {
 /* ---------- OpenAlex: recent works for the three institutions ---------- */
 async function openalexRecent() {
   const out = [];
+  // Each lab: `org` is the canonical key the frontend maps; `search` is the
+  // OpenAlex institution search term; `match` (optional) is a stricter
+  // display_name predicate when the search term differs from the institution's
+  // actual name (e.g. "Microsoft Research" -> "Microsoft", "Alibaba" -> the
+  // various Alibaba entities) so we still pick the right AI-research entity.
   const orgs = [
     { org: 'anthropic', search: 'Anthropic' },
     { org: 'openai', search: 'OpenAI' },
     { org: 'deepmind', search: 'DeepMind' },
+    { org: 'meta', search: 'Meta', match: (n) => /\b(meta|facebook)\b/.test(n) },
+    { org: 'microsoft', search: 'Microsoft Research', match: (n) => /\bmicrosoft\b/.test(n) },
+    { org: 'deepseek', search: 'DeepSeek' },
+    { org: 'mistral', search: 'Mistral AI', match: (n) => /\bmistral\b/.test(n) },
+    { org: 'xai', search: 'xAI', match: (n) => /\bx\s*ai\b|\bx\.ai\b/.test(n) },
+    { org: 'qwen', search: 'Alibaba', match: (n) => /\balibaba\b/.test(n) },
+    { org: 'ai2', search: 'Allen Institute for Artificial Intelligence', match: (n) => /\ballen institute\b/.test(n) },
   ];
-  for (const { org, search } of orgs) {
-    const instText = await fetchText(`https://api.openalex.org/institutions?search=${search}&mailto=${MAILTO}`);
+  for (const { org, search, match } of orgs) {
+    const instText = await fetchText(`https://api.openalex.org/institutions?search=${encodeURIComponent(search)}&mailto=${MAILTO}`);
     if (!instText) continue;
-    const inst = JSON.parse(instText).results.filter((r) =>
-      r.display_name.toLowerCase().includes(search.toLowerCase()) &&
-      (r.type === 'company' || r.works_count > 100));
+    // Accept type 'company' OR any reasonably-productive entity (works_count>100)
+    // so AI2 (nonprofit/facility), MSR (education), etc. still match. The
+    // display_name test defaults to "includes the search term", but multi-word
+    // search terms ("Microsoft Research", "Allen Institute for Artificial
+    // Intelligence") rarely appear verbatim in the institution name, so a
+    // per-lab `match` predicate handles those.
+    const nameOk = match || ((n) => n.includes(search.toLowerCase()));
+    let inst;
+    try {
+      inst = (JSON.parse(instText).results || []).filter((r) =>
+        r.display_name && nameOk(r.display_name.toLowerCase()) &&
+        (r.type === 'company' || r.works_count > 100));
+    } catch (e) { continue; }
+    if (!inst.length) continue; // no institution matched — skip this lab, don't throw
     const ids = inst.slice(0, 2).map((r) => r.id.split('/').pop());
     for (const id of ids) {
       let cursor = '*';
@@ -99,7 +122,9 @@ const ARXIV_QUERIES = [
   'all:"language model" AND all:interpretability',
   'all:"test-time compute" OR all:"reasoning model"',
 ];
-const ORG_RE = /\b(anthropic|openai|google deepmind|deepmind)\b/i;
+// All frontier-lab attribution now flows through the shared orgFromText helper
+// in lib.mjs (which org?) so the arXiv sweep, the firehose, and collect-topics
+// recognise the same labs with the same false-positive-safe patterns.
 
 async function arxivRecent() {
   const out = [];
@@ -116,13 +141,13 @@ async function arxivRecent() {
       const abstract = decode(get('summary') || '');
       const comment = decode(get('arxiv:comment') || '');
       const affText = entry.match(/<arxiv:affiliation[^>]*>([\s\S]*?)<\/arxiv:affiliation>/g)?.join(' ') || '';
-      const orgMatch = (abstract + ' ' + comment + ' ' + affText).match(ORG_RE);
-      if (!orgMatch) continue; // only org-affiliated finds in CI mode
-      const orgRaw = orgMatch[1].toLowerCase();
+      const haystack = abstract + ' ' + comment + ' ' + affText;
+      const org = orgFromText(haystack);
+      if (org === 'other') continue; // only org-affiliated finds in CI mode
       out.push({
         title: decode(get('title') || ''),
         authors: [...entry.matchAll(/<name>([\s\S]*?)<\/name>/g)].map((m) => decode(m[1].trim())),
-        org: orgRaw.includes('deepmind') ? 'deepmind' : orgRaw.includes('anthropic') ? 'anthropic' : 'openai',
+        org,
         date,
         url: `https://arxiv.org/abs/${id}`,
         pdf_url: `https://arxiv.org/pdf/${id}`,
@@ -339,7 +364,7 @@ async function alignmentForumRecent() {
    theme-gated so only tracker-relevant papers enter ---------- */
 async function arxivFirehose() {
   const out = [];
-  for (const cat of ['cs.LG', 'cs.CL', 'cs.AI', 'stat.ML']) {
+  for (const cat of ['cs.LG', 'cs.CL', 'cs.AI', 'stat.ML', 'cs.CV', 'cs.MA', 'cs.RO']) {
     const url = `http://export.arxiv.org/api/query?search_query=cat:${cat}&sortBy=submittedDate&sortOrder=descending&max_results=200`;
     const xml = await fetchText(url);
     await sleep(3500);
@@ -354,11 +379,11 @@ async function arxivFirehose() {
       const hay = (title + ' ' + abstract).toLowerCase();
       const [lo, hi] = themeMask(hay);
       if (!lo && !hi) continue; // only theme-relevant papers from the firehose
-      const orgMatch = (abstract + ' ' + (get('arxiv:comment') || '')).match(ORG_RE);
+      const org = orgFromText(abstract + ' ' + (get('arxiv:comment') || ''));
       out.push({
         title,
         authors: [...entry.matchAll(/<name>([\s\S]*?)<\/name>/g)].map((m) => cleanText(m[1])).slice(0, 12),
-        org: orgMatch ? (orgMatch[1].toLowerCase().includes('deepmind') ? 'deepmind' : orgMatch[1].toLowerCase().includes('anthropic') ? 'anthropic' : 'openai') : 'other',
+        org,
         date,
         url: `https://arxiv.org/abs/${id}`,
         pdf_url: `https://arxiv.org/pdf/${id}`,

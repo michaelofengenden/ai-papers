@@ -12,6 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { computeImportance } from './lib.mjs';
 import { THEMES, themeMask } from './themes.mjs';
 import { TOPICS } from './lib.mjs';
+import { computeEmerging, computeNovelty } from './emerging.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const db = JSON.parse(readFileSync(join(ROOT, 'data', 'papers.json'), 'utf8'));
@@ -24,6 +25,8 @@ if (existsSync(tlPath)) {
 
 const LAB = new Set(['anthropic', 'openai', 'deepmind']);
 const SURVEY = /\b(survey|systematic review|literature review|comprehensive review|a review of|primer|tutorial|taxonomy|an overview of|introduction to)\b/i;
+// novelty radar: per-paper count of recently-coined title terms (recent papers only)
+const noveltyById = computeNovelty(db.papers).byId;
 const slim = db.papers.map((p) => {
   const hay = `${p.title} ${(p.authors || []).join(' ')} ${p.summary || ''} ${p.abstract || ''} ${(p.topics || []).join(' ')} ${p.venue || ''}`.toLowerCase();
   const th = themeMask(hay);
@@ -52,6 +55,7 @@ const slim = db.papers.map((p) => {
   if (p.cited_by) rec.cited_by = p.cited_by;
   if (th[0] || th[1]) rec.th = th;
   if (SURVEY.test(p.title)) rec.sv = 1;
+  if (noveltyById.has(p.id)) rec.nov = noveltyById.get(p.id);
   return rec;
 });
 
@@ -60,6 +64,11 @@ if (!existsSync(out)) mkdirSync(out, { recursive: true });
 const json = JSON.stringify({ updated: db.updated, count: slim.length, papers: slim });
 writeFileSync(join(out, 'papers.json'), json);
 writeFileSync(join(out, 'themes.json'), JSON.stringify({ names: THEMES.map((t) => t[0]), topics: TOPICS }));
+// bottom-up "emerging now" terms (titles-only — matches the shipped signal)
+const emerging = computeEmerging(db.papers, { top: 30 });
+emerging.updated = db.updated; // align with the data version for cache-busting
+writeFileSync(join(out, 'emerging.json'), JSON.stringify(emerging));
+console.log(`docs/data/emerging.json: ${emerging.terms.length} terms`);
 if (existsSync(tlPath)) writeFileSync(join(out, 'timeline.json'), readFileSync(tlPath, 'utf8'));
 const rdPath = join(ROOT, 'data', 'reading.json');
 if (existsSync(rdPath)) writeFileSync(join(out, 'reading.json'), readFileSync(rdPath, 'utf8'));

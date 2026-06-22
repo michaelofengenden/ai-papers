@@ -5,7 +5,7 @@
 import { readFileSync, writeFileSync, appendFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { normTitle, extractArxivId, tagTopics, autoSummary, isSpam, classifyKind, computeImportance, serializeDb } from './lib.mjs';
+import { normTitle, extractArxivId, tagTopics, autoSummary, isSpam, classifyKind, computeImportance, serializeDb, orgFromText } from './lib.mjs';
 import { THEMES, UMBRELLA_QUERIES, themeMask } from './themes.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -36,19 +36,34 @@ function deinvert(idx) {
   return words.join(' ');
 }
 
-const ORG_RE = { anthropic: /\banthropic\b/i, openai: /\bopenai\b/i, deepmind: /deepmind/i };
+/* Frontier-lab attribution shares lib.mjs's orgFromText so every collection
+   path (update.mjs arXiv sweep/firehose + this bulk topic pull) recognises the
+   same labs with the same false-positive-safe patterns. */
 function orgOf(w) {
   const affs = (w.authorships || []).flatMap((a) => (a.raw_affiliation_strings || []).concat((a.institutions || []).map((x) => x.display_name || '')));
-  const t = affs.join(' | ');
-  for (const [org, re] of Object.entries(ORG_RE)) if (re.test(t)) return org;
-  return 'other';
+  return orgFromText(affs.join(' | '));
 }
+
+/* AI/ML relevance signal for the bulk gate (step 4). Generic phrase queries
+   ("calibration", "negation", "world models") pull in preprint-mill /
+   general-science noise that has nothing to do with AI; we require a positive
+   AI/ML signal in the title/abstract to keep such a record. */
+const AI_SIGNAL_RE = /\b(language model|\bllms?\b|\bnlp\b|neural network|neural net|deep learning|machine learning|reinforcement learning|transformer|attention mechanism|fine.?tun|pretrain|pre.?train|embedding|generative (model|ai)|diffusion model|foundation model|large language|gpt|bert|few.?shot|zero.?shot|in.context learning|gradient descent|backpropagation|self.supervised|representation learning|prompt(ing)?|chatbot|artificial intelligence|computer vision|image (classification|generation|recognition)|object detection|semantic segmentation|speech recognition|text (generation|classification)|question answering|knowledge graph|graph neural)\b/i;
+
+/* AI-related OpenAlex concept names (level 0/1) we treat as a positive signal.
+   Matched case-insensitively against each concept's display_name substring. */
+const AI_CONCEPT_RE = /artificial intelligence|machine learning|deep learning|natural language processing|computer vision|reinforcement learning|artificial neural network|pattern recognition|speech recognition|language model/i;
+
+/* Preprint-mill / general-science / bio-medical venues that flood generic
+   queries. A record from one of these is dropped unless it carries an explicit
+   AI signal (handled in the gate below). */
+const NOISE_VENUE_RE = /\bssrn\b|research square|researchsquare|preprints?\.org|biorxiv|medrxiv|chemrxiv|\bscientific reports\b|\bieee access\b|\bplos one\b|\bheliyon\b|\bcureus\b|\bf1000\b/i;
 
 async function collectQuery(q, seenIds) {
   const out = [];
   let cursor = '*';
   while (out.length < CAP && cursor) {
-    const url = `https://api.openalex.org/works?filter=title_and_abstract.search:${encodeURIComponent(q)},from_publication_date:${FROM},type:types/article|types/preprint&per-page=200&cursor=${encodeURIComponent(cursor)}&select=id,title,authorships,publication_date,primary_location,locations,cited_by_count,type,abstract_inverted_index&mailto=${MAILTO}`;
+    const url = `https://api.openalex.org/works?filter=title_and_abstract.search:${encodeURIComponent(q)},from_publication_date:${FROM},type:types/article|types/preprint&per-page=200&cursor=${encodeURIComponent(cursor)}&select=id,title,authorships,publication_date,primary_location,locations,cited_by_count,type,abstract_inverted_index,concepts&mailto=${MAILTO}`;
     const json = await fetchJson(url);
     if (!json) break;
     for (const w of json.results || []) {
@@ -69,6 +84,10 @@ async function collectQuery(q, seenIds) {
         source: 'openalex-topic',
         venue: loc.source?.display_name || null,
         cited_by: w.cited_by_count ?? null,
+        // carried only for the relevance gate (step 4): top concept names and
+        // whether this record has an arXiv landing/pdf (treated as cs-trusted).
+        concepts: (w.concepts || []).map((c) => c.display_name).filter(Boolean),
+        is_arxiv: !!arxiv_id,
       });
     }
     cursor = json.meta?.next_cursor || null;
@@ -116,7 +135,7 @@ console.log(`raw rows: ${collected.length}`);
 
 /* append: dedupe, spam filter, relevance gate, enrich-lite */
 let nextId = Math.max(0, ...db.papers.map((p) => p.id)) + 1;
-let added = 0, dup = 0, spam = 0, irrelevant = 0, badDate = 0;
+let added = 0, dup = 0, spam = 0, irrelevant = 0, badDate = 0, noise = 0;
 for (const p of collected) {
   if (!p.title || !p.date || !/^\d{4}-\d{2}-\d{2}$/.test(p.date) || p.date > today) { badDate++; continue; }
   if (isSpam(p)) { spam++; continue; }
@@ -126,8 +145,32 @@ for (const p of collected) {
   const hay = `${p.title} ${p.abstract || ''} ${p.venue || ''}`.toLowerCase();
   const [lo, hi] = themeMask(hay);
   const topics = tagTopics(`${p.title} ${p.abstract || ''} ${p.venue || ''}`);
-  // relevance gate: must hit a theme or land a non-Other topic
+  // relevance gate (broad): must hit a theme or land a non-Other topic.
   if (!lo && !hi && topics.length === 1 && topics[0] === 'Other') { irrelevant++; continue; }
+  /* AI/ML signal gate (step 4): generic phrase queries ("calibration",
+     "negation", "world models") drag in preprint-mill / general-science /
+     bio-medical records that pass the broad topic gate by coincidence. The
+     rule, kept deliberately conservative so legitimate arXiv cs papers are
+     never dropped:
+       - arXiv-hosted records that are NOT from a known noise venue are trusted
+         as cs and kept without an AI test;
+       - every other record (no arXiv id, OR hosted at a preprint-mill /
+         general-science venue: SSRN, Research Square, Preprints.org,
+         bioRxiv/medRxiv, Scientific Reports, IEEE Access, PLOS ONE, ...) must
+         show a positive AI signal to survive — either an AI-related OpenAlex
+         concept (AI_CONCEPT_RE) OR an AI/ML keyword in its title/abstract
+         (AI_SIGNAL_RE). A bio paper that merely matched a phrase query and
+         lives on bioRxiv thus gets dropped, while a genuine AI paper on the
+         same venue (its own concepts/title carry the signal) survives.
+     Net effect: records with no AI concept and no AI keyword are dropped
+     whenever they aren't a plain arXiv cs preprint; clearly-AI work is
+     unaffected. */
+  const noisyVenue = NOISE_VENUE_RE.test(p.venue || '');
+  if (!p.is_arxiv || noisyVenue) {
+    const concepts = Array.isArray(p.concepts) ? p.concepts.join(' ') : '';
+    const aiSignal = AI_CONCEPT_RE.test(concepts) || AI_SIGNAL_RE.test(hay);
+    if (!aiSignal) { noise++; continue; }
+  }
   keys.forEach((k) => seen.add(k));
   const rec = {
     id: nextId++,
@@ -155,4 +198,4 @@ db.papers.sort((a, b) => (a.date < b.date ? 1 : -1));
 db.updated = today;
 db.count = db.papers.length;
 writeFileSync(DATA, serializeDb(db));
-console.log(`append: +${added} (dup ${dup}, spam ${spam}, irrelevant ${irrelevant}, badDate ${badDate}) -> total ${db.count}`);
+console.log(`append: +${added} (dup ${dup}, spam ${spam}, irrelevant ${irrelevant}, noise ${noise}, badDate ${badDate}) -> total ${db.count}`);

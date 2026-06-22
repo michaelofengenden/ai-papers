@@ -92,8 +92,9 @@ try { document.documentElement.dataset.theme = localStorage.getItem('frt-theme')
         <span class="result-count" id="result-count">…</span>
         <label class="sort-wrap">Sort
           <select id="sort" aria-label="Sort order">
+            <option value="newest" selected>Newest</option>
+            <option value="novel">Novel ideas</option>
             <option value="featured">Featured</option>
-            <option value="newest">Newest</option>
             <option value="oldest">Oldest</option>
             <option value="cited">Most cited</option>
             <option value="match">Best match</option>
@@ -118,6 +119,11 @@ try { document.documentElement.dataset.theme = localStorage.getItem('frt-theme')
     <section id="view-analytics" class="view">
       <p class="analytics-note">Charts reflect the current search &amp; filters (<span id="an-count"></span> research papers — blog posts &amp; announcements excluded).</p>
       <div class="chart-grid">
+        <div class="chart-card wide emerging-card" id="emerging-card" hidden>
+          <h3>Emerging now <span class="chart-sub">brand-new terminology surfacing in paper titles — found bottom-up, not from the curated theme list</span></h3>
+          <div id="emerging-list" class="emerging-list"></div>
+          <p class="chart-note">Mined from ~55k paper <b>titles</b>: uni/bi/tri-grams scored by how new they are (near-zero before ~18 months ago = <b>✦ new</b>) and how fast they're accelerating against their own trailing baseline (share-of-corpus, so field growth doesn't inflate them), with a persistence gate that rejects one-off spikes. <b>named</b> = already covered by a curated theme. Hit <b>+ track</b> to drop any phrase into the interest-curve chart below — it gets a fitted bell and the live OpenAlex field-wide overlay. Corpus-wide: ignores the lab/topic/year filters. The last quarter is partial.</p>
+        </div>
         <div class="chart-card wide"><h3>Publications over time <span class="chart-sub">by quarter, stacked by lab</span></h3><div class="chart-box tall"><canvas id="ch-time"></canvas></div></div>
         <div class="chart-card"><h3>Lab share</h3><div class="chart-box"><canvas id="ch-org"></canvas></div></div>
         <div class="chart-card"><h3>Topics <span class="chart-sub">papers per topic</span></h3><div class="chart-box"><canvas id="ch-topics"></canvas></div></div>
