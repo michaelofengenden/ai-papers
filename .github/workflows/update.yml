@@ -29,8 +29,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/ingest-requests.mjs
       - name: Fetch new papers
+        # --max-add raised above the default 250: the wider collection clears a
+        # one-time backlog (~500) on its first runs; the cap still guards against
+        # a source dumping thousands of polluted records.
         run: |
-          node scripts/update.mjs --days 90
+          node scripts/update.mjs --days 90 --max-add 1000
           node scripts/build-site-data.mjs
       - name: Commit changes
         run: |
