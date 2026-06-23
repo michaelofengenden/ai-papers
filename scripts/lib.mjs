@@ -125,7 +125,10 @@ export const LAB_ORG_PATTERNS = [
   // to a corporate/lab marker (Grok, Corp, Inc, team, lab) — rejecting
   // "explainable AI (XAI) survey/methods/framework".
   ['xai', /\bx\.ai\b|\bxai\b(?=\s*(?:corp|inc|\bllc\b|team|lab|labs|grok))|(?:grok|elon musk)[^.]{0,40}\bxai\b/i],
-  ['meta', /\b(?:meta ai|fair|facebook ai(?: research)?)\b/i],
+  // NOTE: never match the bare English word "fair" — it false-positived
+  // academic papers (e.g. "undermines fair comparison") onto Meta/FAIR.
+  // Meta/FAIR first pages always carry an unambiguous marker.
+  ['meta', /\b(?:meta ai|meta platforms|facebook ai(?: research)?|fundamental ai research)\b/i],
   ['openai', /\bopenai\b/i],
 ];
 
@@ -141,6 +144,276 @@ export function orgFromText(text) {
   const t = String(text || '');
   for (const [org, re] of LAB_ORG_PATTERNS) if (re.test(t)) return org;
   return 'other';
+}
+
+/* ============================================================================
+   Institution attribution — "where is this paper actually from?"
+
+   Order of trust (most reliable first), implemented in classifyAffiliation():
+     1. author email domain (snowflake.com, cam.ac.uk) — unambiguous & clean
+     2. a curated known-institution name found in the affiliation text
+     3. a generic .edu/.ac.* domain  -> academia (name lifted from the text)
+     4. a generic "<X> University / Institute / Inc / Labs" phrase in the text
+     5. any non-freemail corporate domain -> company (name from the domain)
+   Returns null when nothing is found so the caller can fall back to authors.
+
+   Crucially this only ever runs over AFFILIATION text (the paper's first page),
+   never the abstract — abstracts name other labs' *models* ("DeepSeek-R1",
+   "Llama") and common words ("fair comparison"), which is what mislabeled the
+   corpus in the first place.
+
+   Each entry: [canonicalName, group, orgColorKey]. `group` is one of
+   lab | startup | academia | company and drives the sidebar grouping + the
+   academia-vs-lab distinction. `orgColorKey` reuses an existing --<key> colour
+   for the frontier labs; everyone else inherits a group colour on the client. */
+
+export const INST_FREEMAIL = /^(?:gmail|googlemail|outlook|hotmail|live|yahoo|ymail|qq|163|126|foxmail|sina|protonmail|proton|icloud|me|aol|mail)\.[a-z.]+$/i;
+
+/* domain (or any sub-domain of it) -> [canonicalName, group, orgColorKey] */
+export const INSTITUTION_DOMAINS = [
+  // ---- frontier AI labs ----
+  ['anthropic.com', 'Anthropic', 'lab', 'anthropic'],
+  ['openai.com', 'OpenAI', 'lab', 'openai'],
+  ['deepmind.com', 'Google DeepMind', 'lab', 'deepmind'],
+  ['research.google', 'Google Research', 'lab', 'deepmind'],
+  ['google.com', 'Google Research', 'lab', 'deepmind'],
+  ['meta.com', 'Meta AI', 'lab', 'meta'],
+  ['fb.com', 'Meta AI', 'lab', 'meta'],
+  ['microsoft.com', 'Microsoft Research', 'lab', 'microsoft'],
+  ['deepseek.com', 'DeepSeek', 'lab', 'deepseek'],
+  ['alibaba-inc.com', 'Qwen / Alibaba', 'lab', 'qwen'],
+  ['alibaba.com', 'Qwen / Alibaba', 'lab', 'qwen'],
+  ['mistral.ai', 'Mistral AI', 'lab', 'mistral'],
+  ['x.ai', 'xAI', 'lab', 'xai'],
+  ['allenai.org', 'Allen Institute for AI', 'lab', 'ai2'],
+  // ---- big industry (not frontier-lab keys, but notable) ----
+  ['nvidia.com', 'NVIDIA', 'company', 'other'],
+  ['apple.com', 'Apple', 'company', 'other'],
+  ['amazon.com', 'Amazon', 'company', 'other'],
+  ['ibm.com', 'IBM Research', 'company', 'other'],
+  ['salesforce.com', 'Salesforce Research', 'company', 'other'],
+  ['bytedance.com', 'ByteDance', 'company', 'other'],
+  ['tencent.com', 'Tencent', 'company', 'other'],
+  ['baidu.com', 'Baidu', 'company', 'other'],
+  ['huawei.com', 'Huawei', 'company', 'other'],
+  ['samsung.com', 'Samsung Research', 'company', 'other'],
+  ['navercorp.com', 'NAVER', 'company', 'other'],
+  ['sony.com', 'Sony AI', 'company', 'other'],
+  ['bloomberg.net', 'Bloomberg', 'company', 'other'],
+  // ---- AI & safety startups ----
+  ['snowflake.com', 'Snowflake AI Research', 'startup', 'other'],
+  ['cohere.com', 'Cohere', 'startup', 'other'],
+  ['cohere.ai', 'Cohere', 'startup', 'other'],
+  ['huggingface.co', 'Hugging Face', 'startup', 'other'],
+  ['eleuther.ai', 'EleutherAI', 'startup', 'other'],
+  ['stability.ai', 'Stability AI', 'startup', 'other'],
+  ['scale.com', 'Scale AI', 'startup', 'other'],
+  ['perplexity.ai', 'Perplexity AI', 'startup', 'other'],
+  ['ssi.inc', 'Safe Superintelligence', 'startup', 'other'],
+  ['thinkingmachines.ai', 'Thinking Machines Lab', 'startup', 'other'],
+  ['conjecture.dev', 'Conjecture', 'startup', 'other'],
+  ['apolloresearch.ai', 'Apollo Research', 'startup', 'other'],
+  ['metr.org', 'METR', 'startup', 'other'],
+  ['redwoodresearch.org', 'Redwood Research', 'startup', 'other'],
+  ['far.ai', 'FAR AI', 'startup', 'other'],
+  ['together.ai', 'Together AI', 'startup', 'other'],
+  ['together.xyz', 'Together AI', 'startup', 'other'],
+  ['contextual.ai', 'Contextual AI', 'startup', 'other'],
+  ['ai21.com', 'AI21 Labs', 'startup', 'other'],
+  ['reka.ai', 'Reka AI', 'startup', 'other'],
+  ['goodfire.ai', 'Goodfire', 'startup', 'other'],
+  ['transluce.org', 'Transluce', 'startup', 'other'],
+  ['safe.ai', 'Center for AI Safety', 'startup', 'other'],
+  ['midjourney.com', 'Midjourney', 'startup', 'other'],
+  ['runwayml.com', 'Runway', 'startup', 'other'],
+  ['character.ai', 'Character.AI', 'startup', 'other'],
+  ['inflection.ai', 'Inflection AI', 'startup', 'other'],
+  ['liquid.ai', 'Liquid AI', 'startup', 'other'],
+  ['writer.com', 'Writer', 'startup', 'other'],
+  // ---- top academia (domain -> clean canonical name) ----
+  ['mit.edu', 'MIT', 'academia', 'other'],
+  ['stanford.edu', 'Stanford University', 'academia', 'other'],
+  ['berkeley.edu', 'UC Berkeley', 'academia', 'other'],
+  ['cmu.edu', 'Carnegie Mellon University', 'academia', 'other'],
+  ['washington.edu', 'University of Washington', 'academia', 'other'],
+  ['princeton.edu', 'Princeton University', 'academia', 'other'],
+  ['harvard.edu', 'Harvard University', 'academia', 'other'],
+  ['nyu.edu', 'New York University', 'academia', 'other'],
+  ['cornell.edu', 'Cornell University', 'academia', 'other'],
+  ['columbia.edu', 'Columbia University', 'academia', 'other'],
+  ['ucla.edu', 'UCLA', 'academia', 'other'],
+  ['ucsd.edu', 'UC San Diego', 'academia', 'other'],
+  ['illinois.edu', 'UIUC', 'academia', 'other'],
+  ['gatech.edu', 'Georgia Tech', 'academia', 'other'],
+  ['utexas.edu', 'UT Austin', 'academia', 'other'],
+  ['umich.edu', 'University of Michigan', 'academia', 'other'],
+  ['caltech.edu', 'Caltech', 'academia', 'other'],
+  ['yale.edu', 'Yale University', 'academia', 'other'],
+  ['upenn.edu', 'University of Pennsylvania', 'academia', 'other'],
+  ['wisc.edu', 'UW–Madison', 'academia', 'other'],
+  ['umd.edu', 'University of Maryland', 'academia', 'other'],
+  ['usc.edu', 'USC', 'academia', 'other'],
+  ['cam.ac.uk', 'University of Cambridge', 'academia', 'other'],
+  ['ox.ac.uk', 'University of Oxford', 'academia', 'other'],
+  ['ed.ac.uk', 'University of Edinburgh', 'academia', 'other'],
+  ['ucl.ac.uk', 'UCL', 'academia', 'other'],
+  ['imperial.ac.uk', 'Imperial College London', 'academia', 'other'],
+  ['ethz.ch', 'ETH Zurich', 'academia', 'other'],
+  ['epfl.ch', 'EPFL', 'academia', 'other'],
+  ['tsinghua.edu.cn', 'Tsinghua University', 'academia', 'other'],
+  ['pku.edu.cn', 'Peking University', 'academia', 'other'],
+  ['sjtu.edu.cn', 'Shanghai Jiao Tong University', 'academia', 'other'],
+  ['fudan.edu.cn', 'Fudan University', 'academia', 'other'],
+  ['zju.edu.cn', 'Zhejiang University', 'academia', 'other'],
+  ['ruc.edu.cn', 'Renmin University of China', 'academia', 'other'],
+  ['ustc.edu.cn', 'USTC', 'academia', 'other'],
+  ['nus.edu.sg', 'National University of Singapore', 'academia', 'other'],
+  ['ntu.edu.sg', 'Nanyang Technological University', 'academia', 'other'],
+  ['u-tokyo.ac.jp', 'University of Tokyo', 'academia', 'other'],
+  ['kaist.ac.kr', 'KAIST', 'academia', 'other'],
+  ['snu.ac.kr', 'Seoul National University', 'academia', 'other'],
+  ['utoronto.ca', 'University of Toronto', 'academia', 'other'],
+  ['mila.quebec', 'Mila', 'academia', 'other'],
+  ['tum.de', 'TU Munich', 'academia', 'other'],
+  ['mpg.de', 'Max Planck Institute', 'academia', 'other'],
+  ['inria.fr', 'Inria', 'academia', 'other'],
+  ['technion.ac.il', 'Technion', 'academia', 'other'],
+  ['huji.ac.il', 'Hebrew University of Jerusalem', 'academia', 'other'],
+  ['tau.ac.il', 'Tel Aviv University', 'academia', 'other'],
+];
+
+/* curated institution NAMES found directly in affiliation text (case-insensitive
+   unless an acronym demands case). Mirrors the canonical names above so the
+   domain path and the text path agree. Order: specific before generic. */
+export const KNOWN_INSTITUTIONS = [
+  ['Anthropic', 'lab', 'anthropic', /\banthropic\b/i],
+  ['OpenAI', 'lab', 'openai', /\bopen\s?ai\b/i],
+  ['Google DeepMind', 'lab', 'deepmind', /\b(?:google )?deepmind\b/i],
+  ['Google Research', 'lab', 'deepmind', /\bgoogle (?:research|brain)\b/i],
+  ['Meta AI', 'lab', 'meta', /\bmeta ai\b|\bfacebook ai\b|\bfundamental ai research\b|\bFAIR,? (?:meta|menlo)|\bmeta,? (?:fair|menlo park|platforms)\b/],
+  ['Microsoft Research', 'lab', 'microsoft', /\bmicrosoft\b/i],
+  ['DeepSeek', 'lab', 'deepseek', /\bdeepseek(?:[ -]ai)?\b/i],
+  ['Qwen / Alibaba', 'lab', 'qwen', /\bqwen\b|\balibaba\b|\btongyi\b|\bdamo academy\b/i],
+  ['Mistral AI', 'lab', 'mistral', /\bmistral\s?ai\b/i],
+  ['xAI', 'lab', 'xai', /\bx\.ai\b|\bxai\b(?=.{0,30}(?:grok|corp|inc))/i],
+  ['Allen Institute for AI', 'lab', 'ai2', /\ballen institute for (?:artificial intelligence|ai)\b|\ballenai\b/i],
+  ['NVIDIA', 'company', 'other', /\bnvidia\b/i],
+  ['IBM Research', 'company', 'other', /\bibm\b/i],
+  ['Salesforce Research', 'company', 'other', /\bsalesforce\b/i],
+  ['ByteDance', 'company', 'other', /\bbytedance\b|\bseed team\b/i],
+  ['Tencent', 'company', 'other', /\btencent\b/i],
+  ['Apple', 'company', 'other', /\bapple inc\b|\bapple machine learning\b/i],
+  ['Snowflake AI Research', 'startup', 'other', /\bsnowflake\b/i],
+  ['Cohere', 'startup', 'other', /\bcohere\b/i],
+  ['Hugging Face', 'startup', 'other', /\bhugging\s?face\b/i],
+  ['EleutherAI', 'startup', 'other', /\beleuther\s?ai\b/i],
+  ['Stability AI', 'startup', 'other', /\bstability ai\b/i],
+  ['Scale AI', 'startup', 'other', /\bscale ai\b/i],
+  ['Perplexity AI', 'startup', 'other', /\bperplexity\b/i],
+  ['Safe Superintelligence', 'startup', 'other', /\bsafe superintelligence\b|\bSSI inc\b/i],
+  ['Thinking Machines Lab', 'startup', 'other', /\bthinking machines\b/i],
+  ['Apollo Research', 'startup', 'other', /\bapollo research\b/i],
+  ['METR', 'startup', 'other', /\bMETR\b/],
+  ['Redwood Research', 'startup', 'other', /\bredwood research\b/i],
+  ['FAR AI', 'startup', 'other', /\bFAR\b ?AI|\bFAR AI\b/i],
+  ['Together AI', 'startup', 'other', /\btogether ai\b/i],
+  ['AI21 Labs', 'startup', 'other', /\bai21\b/i],
+  ['Center for AI Safety', 'startup', 'other', /\bcenter for ai safety\b/i],
+];
+
+/* Canonical institution name for each frontier-lab colour key — so lab blog
+   posts and other non-arXiv lab records (which never hit the PDF backfill) still
+   carry a consistent `inst` and group under the same sidebar chip as their
+   arXiv papers. */
+export const ORG_TO_INST = {
+  anthropic: 'Anthropic',
+  openai: 'OpenAI',
+  deepmind: 'Google DeepMind',
+  meta: 'Meta AI',
+  microsoft: 'Microsoft Research',
+  deepseek: 'DeepSeek',
+  qwen: 'Qwen / Alibaba',
+  mistral: 'Mistral AI',
+  xai: 'xAI',
+  ai2: 'Allen Institute for AI',
+};
+
+function instEmailDomains(text) {
+  const out = [];
+  const re = /[A-Za-z0-9._%+-]+@([A-Za-z0-9.-]+\.[A-Za-z]{2,})/g;
+  let m;
+  while ((m = re.exec(String(text || '')))) out.push(m[1].toLowerCase().replace(/\.$/, ''));
+  return out;
+}
+
+function matchInstDomain(d) {
+  for (const ent of INSTITUTION_DOMAINS) if (d === ent[0] || d.endsWith('.' + ent[0])) return ent;
+  return null;
+}
+
+/* Generic academic domain: *.edu, *.edu.cn, *.ac.uk, *.ac.jp, etc. */
+function isAcademicDomain(d) {
+  return /(?:^|\.)edu$|\.edu\.[a-z]{2,3}$|\.ac\.[a-z]{2,3}$|(?:^|\.)edu\.[a-z]{2}$/.test(d);
+}
+
+/* Pull a plausible institution name out of free affiliation text.
+   Returns {name, kind} or null. Academia markers win over company markers. */
+export function guessInstitutionFromText(text) {
+  const t = String(text || '').replace(/\s+/g, ' ').trim();
+  const ACAD = [
+    /\bUniversity of [A-Z][\w'’.-]+(?:[, ]+[A-Z][\w'’.-]+){0,2}/,
+    /\b[A-Z][\w'’.&-]+(?:\s+[A-Z][\w'’.&-]+){0,3}\s+University\b/,
+    /\b[A-Z][\w'’.&-]+(?:\s+[A-Z][\w'’.&-]+){0,3}\s+Institute of Technology\b/,
+    /\b(?:[A-Z][\w'’.&-]+\s+){0,3}Institute\b(?!\s+of\s+[A-Z])/,
+    /\b[A-Z][\w'’.&-]+(?:\s+[A-Z][\w'’.&-]+){0,2}\s+College\b/,
+    /\b(?:Universit[éè]|Universidad|Università|Universität|Universiteit)\s+[A-Z][\w'’.-]+(?:\s+[\w'’.-]+){0,2}/,
+  ];
+  for (const re of ACAD) { const m = t.match(re); if (m) return { name: tidyInst(m[0]), kind: 'academia' }; }
+  const CORP = [
+    /\b[A-Z][\w'’.&-]+(?:\s+[A-Z][\w'’.&-]+){0,3}\s+(?:Research|Labs|Laboratories|AI Lab)\b/,
+    /\b[A-Z][\w'’.&-]+(?:\s+[A-Z][\w'’.&-]+){0,2}\s+(?:Inc\.?|Corporation|Corp\.?|Technologies|GmbH|Ltd\.?)\b/,
+    /\b[A-Z][\w'’.&-]+\s+AI\b/,
+  ];
+  for (const re of CORP) { const m = t.match(re); if (m) return { name: tidyInst(m[0]), kind: 'company' }; }
+  return null;
+}
+
+function tidyInst(s) {
+  return String(s).replace(/\s+/g, ' ').replace(/^[,\s]+|[,\s]+$/g, '')
+    .replace(/^(?:the|and|of|at)\s+/i, '').trim().slice(0, 60);
+}
+
+function prettyDomain(d) {
+  const label = d.replace(/\.(com|org|net|ai|io|co|inc|dev|edu|gov)(\.[a-z]{2})?$/i, '').split('.').pop() || d;
+  return label.charAt(0).toUpperCase() + label.slice(1);
+}
+
+/* MAIN: map first-page affiliation text to {inst, instKind, org}, or null. */
+export function classifyAffiliation(affilText, emailText) {
+  const text = String(affilText || '');
+  const domains = instEmailDomains(emailText != null ? emailText : text);
+  // 1. known email domain — cleanest, unambiguous
+  for (const d of domains) {
+    const hit = matchInstDomain(d);
+    if (hit) return { inst: hit[1], instKind: hit[2], org: hit[3] };
+  }
+  // 2. curated institution name in the affiliation text
+  for (const [name, group, org, re] of KNOWN_INSTITUTIONS) if (re.test(text)) return { inst: name, instKind: group, org };
+  // 3. generic academic domain -> academia, name lifted from the text
+  for (const d of domains) {
+    if (isAcademicDomain(d)) {
+      const g = guessInstitutionFromText(text);
+      return { inst: g && g.kind === 'academia' ? g.name : prettyDomain(d), instKind: 'academia', org: 'other' };
+    }
+  }
+  // 4. generic "<X> University / Institute / Inc / Labs" phrase in the text
+  const g = guessInstitutionFromText(text);
+  if (g) return { inst: g.name, instKind: g.kind, org: 'other' };
+  // 5. any remaining non-freemail corporate domain -> company
+  for (const d of domains) {
+    if (!INST_FREEMAIL.test(d) && !isAcademicDomain(d)) return { inst: prettyDomain(d), instKind: 'company', org: 'other' };
+  }
+  return null; // nothing usable -> caller falls back to first authors
 }
 
 /* First ~2 sentences of an abstract, for fallback summaries. */

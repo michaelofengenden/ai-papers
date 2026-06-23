@@ -141,9 +141,12 @@ async function arxivRecent() {
       const abstract = decode(get('summary') || '');
       const comment = decode(get('arxiv:comment') || '');
       const affText = entry.match(/<arxiv:affiliation[^>]*>([\s\S]*?)<\/arxiv:affiliation>/g)?.join(' ') || '';
-      const haystack = abstract + ' ' + comment + ' ' + affText;
-      const org = orgFromText(haystack);
-      if (org === 'other') continue; // only org-affiliated finds in CI mode
+      // Attribute from the arXiv affiliation tag ONLY — never the abstract, which
+      // names other labs' models ("DeepSeek-R1") and common words ("fair"). Papers
+      // without an affiliation tag fall through to the firehose and get their real
+      // institution from the daily PDF-first-page backfill (scripts/attribute.mjs).
+      const org = orgFromText(affText);
+      if (org === 'other') continue; // sweep keeps only clearly lab-affiliated finds
       out.push({
         title: decode(get('title') || ''),
         authors: [...entry.matchAll(/<name>([\s\S]*?)<\/name>/g)].map((m) => decode(m[1].trim())),
@@ -379,7 +382,11 @@ async function arxivFirehose() {
       const hay = (title + ' ' + abstract).toLowerCase();
       const [lo, hi] = themeMask(hay);
       if (!lo && !hi) continue; // only theme-relevant papers from the firehose
-      const org = orgFromText(abstract + ' ' + (get('arxiv:comment') || ''));
+      // org from the arXiv affiliation tag only (not the abstract); the daily
+      // PDF-first-page backfill (scripts/attribute.mjs) fills in inst/instKind
+      // and corrects org once the paper's first page is available.
+      const affText = entry.match(/<arxiv:affiliation[^>]*>([\s\S]*?)<\/arxiv:affiliation>/g)?.join(' ') || '';
+      const org = orgFromText(affText);
       out.push({
         title,
         authors: [...entry.matchAll(/<name>([\s\S]*?)<\/name>/g)].map((m) => cleanText(m[1])).slice(0, 12),

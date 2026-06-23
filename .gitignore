@@ -1,3 +1,6 @@
 .claude/
 data/raw/
 .DS_Store
+
+# institution attribution: cached PDF first-page text (re-derivable)
+data/affil-cache/

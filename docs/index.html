@@ -59,8 +59,9 @@ try { document.documentElement.dataset.theme = localStorage.getItem('frt-theme')
         </section>
 
         <section class="facet">
-          <h3>Labs</h3>
-          <div class="facet-list" id="org-chips"></div>
+          <h3>Institutions</h3>
+          <input id="inst-search" class="inst-search" type="search" placeholder="Filter institutions…" autocomplete="off" aria-label="Filter institutions">
+          <div id="inst-groups" class="inst-groups"></div>
         </section>
 
         <section class="facet">

@@ -22,7 +22,8 @@ const state = {
   papers: [],
   filtered: [],
   kinds: new Set(['paper']), // default: research papers only
-  orgs: new Set(),      // empty = all
+  insts: new Set(),     // institution filter (empty = all)
+  instList: [],         // taxonomy from institutions.json: [{name,kind,org,n}]
   topics: new Set(),    // empty = all
   years: new Set(),     // empty = all
   query: '',
@@ -50,7 +51,7 @@ function readHash() {
   state.view = ['analytics', 'timeline'].includes(h.get('view')) ? h.get('view') : 'papers';
   const show = h.get('show');
   state.kinds = show === 'posts' ? new Set(['post']) : show === 'all' ? new Set() : new Set(['paper']);
-  state.orgs = new Set((h.get('labs') || '').split(',').filter(Boolean));
+  state.insts = new Set((h.get('inst') || '').split('|').filter(Boolean));
   state.topics = new Set((h.get('topics') || '').split('|').filter(Boolean));
   state.years = new Set((h.get('years') || '').split(',').filter(Boolean));
   const curves = (h.get('curves') || '').split('|').map((c) => c.trim()).filter(Boolean);
@@ -70,7 +71,7 @@ function writeHash() {
   if (!(state.kinds.size === 1 && state.kinds.has('paper'))) {
     h.set('show', state.kinds.size === 1 && state.kinds.has('post') ? 'posts' : 'all');
   }
-  if (state.orgs.size) h.set('labs', [...state.orgs].join(','));
+  if (state.insts.size) h.set('inst', [...state.insts].join('|'));
   if (state.topics.size) h.set('topics', [...state.topics].join('|'));
   if (state.years.size) h.set('years', [...state.years].join(','));
   if (state.custom.length) h.set('curves', state.custom.join('|'));
@@ -85,10 +86,11 @@ async function load() {
   const res = await fetch('data/papers.json');
   const data = await res.json();
   state._v = encodeURIComponent(data.updated || '0'); // cache-bust satellites with the data version
-  const [themesRes, blRes, emRes] = await Promise.all([
+  const [themesRes, blRes, emRes, instRes] = await Promise.all([
     fetch('data/themes.json?v=' + state._v), fetch('data/field-baseline.json?v=' + state._v),
-    fetch('data/emerging.json?v=' + state._v)]);
+    fetch('data/emerging.json?v=' + state._v), fetch('data/institutions.json?v=' + state._v)]);
   try { const tj = await themesRes.json(); THEME_NAMES = tj.names || []; TOPIC_LIST = tj.topics || []; } catch (e) { THEME_NAMES = []; TOPIC_LIST = []; }
+  try { state.instList = (await instRes.json()).list || []; } catch (e) { state.instList = []; }
   try { state.emerging = await emRes.json(); } catch (e) { state.emerging = null; }
   try {
     const bl = await blRes.json();
@@ -104,18 +106,24 @@ async function load() {
       state.baselineYearly.set(x.y, (state.baselineYearly.get(x.y) || 0) + (x.n || 0));
     }
   } catch (e) { state.baseline = null; state.baselineYearly = null; }
-  state.papers = (data.papers || data).map((p, i) => ({
-    ...p,
-    id: p.id ?? i,
-    date: p.date || '1970-01-01',
-    topics: Array.isArray(p.x) ? p.x.map((i) => TOPIC_LIST[i]).filter(Boolean) : (p.topics || []),
-    authors: p.authors || [],
-    _ts: Date.parse(p.date || '1970-01-01') || 0,
-    url: p.url || (p.arxiv_id ? 'https://arxiv.org/abs/' + p.arxiv_id : '#'),
-    kind: p.kind === 'post' ? 'post' : 'paper',
-    _hay: [p.title, (p.authors || []).join(' '), p.summary, p.abstract, (p.topics || []).join(' '), p.venue]
-      .join(' ').toLowerCase(),
-  }));
+  state.papers = (data.papers || data).map((p, i) => {
+    const inst = p.in != null ? state.instList[p.in] : null; // resolve interned institution
+    return {
+      ...p,
+      id: p.id ?? i,
+      date: p.date || '1970-01-01',
+      topics: Array.isArray(p.x) ? p.x.map((i) => TOPIC_LIST[i]).filter(Boolean) : (p.topics || []),
+      authors: p.authors || [],
+      inst: inst ? inst.name : null,
+      instKind: inst ? inst.kind : null,
+      instOrg: inst ? inst.org : null, // frontier-lab colour key, else 'other'
+      _ts: Date.parse(p.date || '1970-01-01') || 0,
+      url: p.url || (p.arxiv_id ? 'https://arxiv.org/abs/' + p.arxiv_id : '#'),
+      kind: p.kind === 'post' ? 'post' : 'paper',
+      _hay: [p.title, (p.authors || []).join(' '), p.summary, p.abstract, (p.topics || []).join(' '), p.venue, inst ? inst.name : '']
+        .join(' ').toLowerCase(),
+    };
+  });
   state.papers.sort((a, b) => b._ts - a._ts);
   computeThemeMasks();
 
@@ -131,13 +139,74 @@ async function load() {
 }
 
 /* ---------------- facets ---------------- */
-function matches(p, { skipOrg = false, skipTopic = false, skipYear = false, skipKind = false } = {}) {
+function matches(p, { skipInst = false, skipTopic = false, skipYear = false, skipKind = false } = {}) {
   if (!skipKind && state.kinds.size && !state.kinds.has(p.kind)) return false;
-  if (!skipOrg && state.orgs.size && !state.orgs.has(p.org)) return false;
+  if (!skipInst && state.insts.size && !state.insts.has(p.inst)) return false;
   if (!skipYear && state.years.size && !state.years.has(p.date.slice(0, 4))) return false;
   if (!skipTopic && state.topics.size && !p.topics.some((t) => state.topics.has(t))) return false;
   if (state._terms.length && !state._terms.every((t) => p._hay.includes(t))) return false;
   return true;
+}
+
+/* ---------------- institution facet (grouped + searchable) ---------------- */
+const INST_GROUPS = [
+  ['lab', 'AI labs'],
+  ['startup', 'Startups & safety'],
+  ['company', 'Companies'],
+  ['academia', 'Academia'],
+];
+const FRONTIER_KEYS = new Set(['anthropic', 'openai', 'deepmind', 'meta', 'microsoft', 'deepseek', 'qwen', 'mistral', 'xai', 'ai2']);
+const INST_TOP = 12; // institutions shown per group before "+N more"
+
+const instColorVar = (e) => (e.org && FRONTIER_KEYS.has(e.org) ? e.org : 'inst-' + (e.kind || 'other'));
+const instChip = (e) =>
+  `<button class="facet-btn inst-facet" data-inst="${esc(e.name)}" style="--dot:var(--${instColorVar(e)})">
+    <span class="dot"></span><span class="lbl" title="${esc(e.name)}">${esc(e.name)}</span><span class="n" data-n></span></button>`;
+
+function renderInstFacet() {
+  const wrap = $('#inst-groups');
+  if (!wrap) return;
+  const q = (state._instQuery || '').trim().toLowerCase();
+  const expand = state._instExpand || new Set();
+  let html = '';
+  if (q) {
+    const hits = state.instList.filter((e) => e.name.toLowerCase().includes(q)).slice(0, 60);
+    html = hits.length ? hits.map(instChip).join('') : '<p class="inst-empty">No institutions match.</p>';
+  } else {
+    for (const [kind, label] of INST_GROUPS) {
+      const group = state.instList.filter((e) => (e.kind || 'other') === kind);
+      if (!group.length) continue;
+      const top = expand.has(kind) ? group : group.slice(0, INST_TOP);
+      // keep selected-but-hidden chips visible so they can be toggled off
+      const extra = expand.has(kind) ? [] : group.slice(INST_TOP).filter((e) => state.insts.has(e.name));
+      const shown = [...top, ...extra];
+      const moreN = group.length - shown.length;
+      html += `<div class="inst-group"><h4>${label}<span class="inst-group-n">${group.length}</span></h4>`
+        + shown.map(instChip).join('')
+        + (moreN > 0 ? `<button class="inst-more" data-group="${kind}">+${moreN} more</button>` : '')
+        + '</div>';
+    }
+  }
+  wrap.innerHTML = html || '<p class="inst-empty">No institutions yet — attribution is still backfilling.</p>';
+  paintInstCounts(computeInstCounts());
+}
+
+function computeInstCounts() {
+  const counts = {};
+  for (const p of state.papers) {
+    if (p.inst && matches(p, { skipInst: true })) counts[p.inst] = (counts[p.inst] || 0) + 1;
+  }
+  return counts;
+}
+
+function paintInstCounts(counts) {
+  document.querySelectorAll('#inst-groups .inst-facet').forEach((b) => {
+    const n = counts[b.dataset.inst] || 0;
+    const cell = b.querySelector('[data-n]');
+    if (cell) cell.textContent = n.toLocaleString();
+    b.classList.toggle('zero', !n && !state.insts.has(b.dataset.inst));
+    b.classList.toggle('active', state.insts.has(b.dataset.inst));
+  });
 }
 
 function buildFacets() {
@@ -155,11 +224,7 @@ function buildFacets() {
       `<button class="facet-btn kind-facet" data-kind="${k}"><span class="lbl">${label}</span><span class="n" data-n></span></button>`)
     .join('');
 
-  $('#org-chips').innerHTML = Object.entries(ORG_META)
-    .map(([k, m]) =>
-      `<button class="facet-btn org-facet" data-org="${k}" style="--dot:var(--${k})">
-        <span class="dot"></span><span class="lbl">${m.label}</span><span class="n" data-n></span></button>`)
-    .join('');
+  renderInstFacet();
 
   $('#topic-chips').innerHTML = state._allTopics
     .map((t) => `<button class="facet-btn topic-facet" data-topic="${esc(t)}"><span class="lbl">${esc(t)}</span><span class="n" data-n></span></button>`)
@@ -171,8 +236,13 @@ function buildFacets() {
 
   document.querySelectorAll('.kind-facet').forEach((b) =>
     b.addEventListener('click', () => { toggle(state.kinds, b.dataset.kind); applyFilters(); }));
-  document.querySelectorAll('.org-facet').forEach((b) =>
-    b.addEventListener('click', () => { toggle(state.orgs, b.dataset.org); applyFilters(); }));
+  $('#inst-search').addEventListener('input', (e) => { state._instQuery = e.target.value; renderInstFacet(); });
+  $('#inst-groups').addEventListener('click', (e) => {
+    const chip = e.target.closest('.inst-facet');
+    if (chip) { toggle(state.insts, chip.dataset.inst); applyFilters(); return; }
+    const more = e.target.closest('.inst-more');
+    if (more) { (state._instExpand || (state._instExpand = new Set())).add(more.dataset.group); renderInstFacet(); }
+  });
   document.querySelectorAll('.topic-facet').forEach((b) =>
     b.addEventListener('click', () => { toggle(state.topics, b.dataset.topic); applyFilters(); }));
   document.querySelectorAll('.year-btn').forEach((b) =>
@@ -182,10 +252,10 @@ function buildFacets() {
 function toggle(set, v) { set.has(v) ? set.delete(v) : set.add(v); }
 
 function updateFacetCounts() {
-  const orgCounts = {}, topicCounts = {}, yearCounts = {}, kindCounts = {};
+  const instCounts = {}, topicCounts = {}, yearCounts = {}, kindCounts = {};
   for (const p of state.papers) {
     if (matches(p, { skipKind: true })) kindCounts[p.kind] = (kindCounts[p.kind] || 0) + 1;
-    if (matches(p, { skipOrg: true })) orgCounts[p.org] = (orgCounts[p.org] || 0) + 1;
+    if (p.inst && matches(p, { skipInst: true })) instCounts[p.inst] = (instCounts[p.inst] || 0) + 1;
     if (matches(p, { skipTopic: true })) for (const t of p.topics) topicCounts[t] = (topicCounts[t] || 0) + 1;
     if (matches(p, { skipYear: true })) { const y = p.date.slice(0, 4); yearCounts[y] = (yearCounts[y] || 0) + 1; }
   }
@@ -195,12 +265,7 @@ function updateFacetCounts() {
     b.classList.toggle('zero', !n && !state.kinds.has(b.dataset.kind));
     b.classList.toggle('active', state.kinds.has(b.dataset.kind));
   });
-  document.querySelectorAll('.org-facet').forEach((b) => {
-    const n = orgCounts[b.dataset.org] || 0;
-    b.querySelector('[data-n]').textContent = n.toLocaleString();
-    b.classList.toggle('zero', !n && !state.orgs.has(b.dataset.org));
-    b.classList.toggle('active', state.orgs.has(b.dataset.org));
-  });
+  paintInstCounts(instCounts);
   // sort topics by count desc, "Other" pinned last
   const topicBtns = [...document.querySelectorAll('.topic-facet')];
   topicBtns.sort((a, b) =>
@@ -255,7 +320,7 @@ function applyFilters(resetPage = true) {
   state.filtered.sort(cmp);
 
   const kindNonDefault = !(state.kinds.size === 1 && state.kinds.has('paper')) ? 1 : 0;
-  const nFilters = state.orgs.size + state.topics.size + state.years.size + (q ? 1 : 0) + kindNonDefault;
+  const nFilters = state.insts.size + state.topics.size + state.years.size + (q ? 1 : 0) + kindNonDefault;
   $('#clear-filters').hidden = !nFilters;
   const badge = $('#filter-badge');
   badge.hidden = !nFilters;
@@ -386,10 +451,26 @@ async function renderReadingGuide() {
 }
 
 /* ---------------- card ---------------- */
+// Colour key for a paper: frontier-lab colour when it's a tracked lab, else a
+// per-kind institution colour, else neutral.
+function paperColorKey(p) {
+  if (p.instOrg && FRONTIER_KEYS.has(p.instOrg)) return p.instOrg;
+  if (p.instKind) return 'inst-' + p.instKind;
+  if (p.org && p.org !== 'other' && p.org in ORG_META) return p.org;
+  return 'other';
+}
+// The "where it's from" tag: the detected institution. When none was found the
+// badge is omitted and the card's author byline carries the attribution instead.
+function instBadge(p) {
+  const label = p.inst || (p.org && p.org !== 'other' && p.org in ORG_META ? ORG_META[p.org].label : '');
+  if (!label) return '';
+  return `<span class="org-badge${p.instKind ? ' inst-' + p.instKind : ''}" style="--org-color:var(--${paperColorKey(p)})">${esc(label)}</span>`;
+}
+
 function card(p) {
   const el = document.createElement('article');
   el.className = 'card';
-  el.style.setProperty('--org-color', `var(--${p.org in ORG_META ? p.org : 'other'})`);
+  el.style.setProperty('--org-color', `var(--${paperColorKey(p)})`);
 
   const authors = p.authors.length
     ? esc(p.authors.slice(0, 6).join(', ')) + (p.authors.length > 6 ? ' et al.' : '')
@@ -407,7 +488,7 @@ function card(p) {
       ${date ? `<span class="card-date">${date}</span>` : ''}
     </div>
     <div class="card-meta">
-      <span class="org-badge" style="--org-color:var(--${p.org in ORG_META ? p.org : 'other'})">${(ORG_META[p.org] || ORG_META.other).label}</span>
+      ${instBadge(p)}
       ${p.kind === 'post' ? '<span class="kind-pill">post</span>' : ''}
       ${p.nov ? `<span class="novel-pill" title="title introduces ${p.nov} recently-coined term${p.nov > 1 ? 's' : ''}">🌱 novel</span>` : ''}
       ${authors ? `<span class="authors">${authors}</span>` : ''}
@@ -1041,7 +1122,7 @@ async function renderTimeline() {
   // timeline respects lab/topic/year filters (not search/type/page)
   const visible = entries.filter((e) => {
     const p = e.paper;
-    if (state.orgs.size && !state.orgs.has(p.org)) return false;
+    if (state.insts.size && !state.insts.has(p.inst)) return false;
     if (state.years.size && !state.years.has(p.date.slice(0, 4))) return false;
     if (state.topics.size && !state.topics.has(e.topic)) return false;
     return true;
@@ -1164,9 +1245,12 @@ function init() {
 
   $('#clear-filters').addEventListener('click', () => {
     state.kinds = new Set(['paper']);
-    state.orgs.clear(); state.topics.clear(); state.years.clear();
+    state.insts.clear(); state.topics.clear(); state.years.clear();
+    state._instQuery = ''; state._instExpand = new Set();
+    const instSearch = $('#inst-search'); if (instSearch) instSearch.value = '';
     state.query = ''; $('#search').value = '';
     state.sort = 'newest'; $('#sort').value = 'newest';
+    renderInstFacet();
     applyFilters();
   });
 

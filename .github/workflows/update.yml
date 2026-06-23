@@ -34,6 +34,10 @@ jobs:
         # a source dumping thousands of polluted records.
         run: |
           node scripts/update.mjs --days 90 --max-add 1000
+          # Institution attribution from PDF first pages. Capped per run so it
+          # stays well within the job timeout while the whole corpus converges
+          # over successive runs (newest + still-labeled papers prioritised).
+          node scripts/attribute.mjs --limit 1000 --conc 5
           node scripts/build-site-data.mjs
       - name: Commit changes
         run: |
