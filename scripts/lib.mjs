@@ -372,7 +372,7 @@ export function guessInstitutionFromText(text) {
   const CORP = [
     /\b[A-Z][\w'’.&-]+(?:\s+[A-Z][\w'’.&-]+){0,3}\s+(?:Research|Labs|Laboratories|AI Lab)\b/,
     /\b[A-Z][\w'’.&-]+(?:\s+[A-Z][\w'’.&-]+){0,2}\s+(?:Inc\.?|Corporation|Corp\.?|Technologies|GmbH|Ltd\.?)\b/,
-    /\b[A-Z][\w'’.&-]+\s+AI\b/,
+    // (no bare "<Word> AI" rule — it coined junk like "Generative AI"/"Explainable AI")
   ];
   for (const re of CORP) { const m = t.match(re); if (m) return { name: tidyInst(m[0]), kind: 'company' }; }
   return null;
@@ -384,8 +384,56 @@ function tidyInst(s) {
 }
 
 function prettyDomain(d) {
-  const label = d.replace(/\.(com|org|net|ai|io|co|inc|dev|edu|gov)(\.[a-z]{2})?$/i, '').split('.').pop() || d;
-  return label.charAt(0).toUpperCase() + label.slice(1);
+  const parts = String(d || '').split('.').filter(Boolean);
+  if (parts.length < 2) return d;
+  // registrable label = the part before the (possibly compound) public suffix,
+  // e.g. snowflake.com -> snowflake, tsinghua.edu.cn -> tsinghua, fzi.de -> fzi
+  const second = parts[parts.length - 2];
+  const label = /^(ac|edu|co|com|org|gov|net|gouv|or)$/i.test(second) ? (parts[parts.length - 3] || second) : second;
+  return label ? label.charAt(0).toUpperCase() + label.slice(1) : d;
+}
+
+/* OpenAlex names a big-tech entity plainly (e.g. "Google", "Meta") — and often
+   suffixes a country, "Google (United States)". Map those bare names to the
+   canonical research org so they group with their lab, not a generic company. */
+export const BIG_TECH_ENTITY = {
+  google: ['Google Research', 'lab', 'deepmind'],
+  'google llc': ['Google Research', 'lab', 'deepmind'],
+  meta: ['Meta AI', 'lab', 'meta'],
+  'meta platforms': ['Meta AI', 'lab', 'meta'],
+  amazon: ['Amazon', 'company', 'other'],
+  apple: ['Apple', 'company', 'other'],
+  'huawei technologies': ['Huawei', 'company', 'other'],
+};
+
+const COUNTRY_SUFFIX = /\s*\((?:United States|United Kingdom|U\.?S\.?A?\.?|UK|China|Israel|Germany|France|Canada|Japan|South Korea|Korea|India|Singapore|Switzerland|Netherlands|Sweden|Spain|Italy|Brazil|Australia|Hong Kong|Taiwan|Russia|Poland|Belgium|Austria|Denmark|Finland|Norway|Portugal|Greece|Ireland|Czechia|Czech Republic|United Arab Emirates|Saudi Arabia|Turkey|Mexico|New Zealand)\)\s*$/i;
+
+/* Normalise a stored institution name. Returns {inst,instKind?,org?} or null.
+   - strips an OpenAlex " (Country)" suffix
+   - maps known/big-tech names to their canonical lab/company (instKind+org set)
+   - returns null for uninformative names (bare 2-letter country codes) so the
+     caller demotes the paper to its authors
+   When only `inst` is returned, the name was just cleaned (keep existing kind). */
+const ACADEMIA_NAME = /\b(?:Universit(?:y|ies|é|è|à|ät|eit)|College|Institute|Polytechnic|Hospital|Laboratory|Medical Cent(?:er|re)|Cancer Cent(?:er|re)|National Laborator(?:y|ies)|Academy of Sciences|School of|Cent(?:er|re) for|Faculty of|Universidad|Università|Universität)\b/i;
+const COMPANY_NAME = /\b(?:Inc\.?|Corp\.?|Corporation|Technologies|GmbH|Ltd\.?|LLC|Labs)\b/;
+// Generic field/affiliation noise that is not an institution at all.
+const NAME_BLOCKLIST = /^(?:Generative AI|Agentic AI|Artificial Intelligence|Machine Learning|Deep Learning|Computer Science|Data Science|Computer Vision|Natural Language Processing|NLP|AI|Cloud|Engineering|Mathematics|Statistics|IEEE|ACM|(?:Senior |Student )?Member|Independent(?: Researcher)?|Freelance|Unaffiliated|None|N\/?A)$/i;
+/* Infer academia vs company from a clean institution NAME (no truncation). */
+function instKindFromName(n) {
+  if (ACADEMIA_NAME.test(n)) return 'academia';
+  if (COMPANY_NAME.test(n)) return 'company';
+  return null;
+}
+
+export function canonicalInstName(name) {
+  const n = String(name || '').replace(COUNTRY_SUFFIX, '').replace(/\s+/g, ' ').trim();
+  if (!n || /^[A-Za-z]{2}$/.test(n) || NAME_BLOCKLIST.test(n)) return null; // garbage -> fall back to authors
+  const known = classifyAffiliation(n, '');
+  if (known && known.org !== 'other') return known; // frontier lab / NVIDIA / Cohere / …
+  const big = BIG_TECH_ENTITY[n.toLowerCase()];
+  if (big) return { inst: big[0], instKind: big[1], org: big[2] };
+  const kind = instKindFromName(n); // keep the FULL name, just classify its kind
+  return kind ? { inst: n, instKind: kind, org: 'other' } : { inst: n };
 }
 
 /* MAIN: map first-page affiliation text to {inst, instKind, org}, or null. */
@@ -409,11 +457,10 @@ export function classifyAffiliation(affilText, emailText) {
   // 4. generic "<X> University / Institute / Inc / Labs" phrase in the text
   const g = guessInstitutionFromText(text);
   if (g) return { inst: g.name, instKind: g.kind, org: 'other' };
-  // 5. any remaining non-freemail corporate domain -> company
-  for (const d of domains) {
-    if (!INST_FREEMAIL.test(d) && !isAcademicDomain(d)) return { inst: prettyDomain(d), instKind: 'company', org: 'other' };
-  }
-  return null; // nothing usable -> caller falls back to first authors
+  // Unknown corporate/other domains are intentionally NOT turned into a name —
+  // a bare domain label ("fzi.de" -> "Fzi") is noise, not an institution. Return
+  // null so the UI lists the first authors instead.
+  return null;
 }
 
 /* First ~2 sentences of an abstract, for fallback summaries. */
